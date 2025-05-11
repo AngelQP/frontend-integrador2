@@ -1,0 +1,75 @@
+<div id="LOGIN" class="">
+    <form [formGroup]="loginForm" (ngSubmit)="send(loginForm.value)">
+        <!-- ==============================
+        ========== START LOGIN ==========
+        ============================== -->
+        <div class="login" style="background-size: cover;">
+            <div class="container-rb py-5">
+                <div class="grid mx-0">
+                    <div class="col-10 col-offset-1 md:col-8 md:col-offset-2 p-0 br-12-rb surface-0 my-5 shadow-5"
+                        style="height: 500px;">
+                        <div class="grid m-0 min-h-full">
+                            <div class="col-12 md:col-6 bg-login min-h-full hidden md:block"
+                                style="border-radius: 12px 0 0 12px; background-image: url(../assets/images/logo-login-ferreteria.png); background-repeat: no-repeat; background-size: cover; background-position: center;">
+                                &nbsp;
+                            </div>
+                            <div class="col-12 md:col-6 br-12-rb p-4 md:p-6">
+                                <div class="grid m-0">
+                                    <div class="col-12">
+                                      <div class="mt-7 mb-5 text-center">
+                                          <div class="text-xl font-medium">Iniciar Sesión</div>
+                                      </div>
+                                        <div class="p-fluid p-formgrid p-grid formgrid grid mb-1">
+                                            <div class="field col-12">
+                                                <span class="p-input-icon-left">
+                                                    <i class="pi pi-user p-text-secondary font-medium"></i>
+                                                    <input type="text" pInputText placeholder="Usuario" formControlName="txtUsername">
+                                                </span>
+                                            </div>
+                                            <div class="field col-12">
+                                                <span class="p-input-icon-left">
+                                                    <i class="pi pi-lock p-text-secondary font-medium"></i>
+                                                    <!-- <input type="password" pPassword [feedback]="false" placeholder="Contraseña"  formControlName="txtPassword"> -->
+                                                    <span class="p-input-icon-left">
+                                                      <i class="pi pi-lock p-text-secondary font-medium"></i>
+                                                      <input [type]="showPassword ? 'text' : 'password'"
+                                                      pPassword [feedback]="false"
+                                                             placeholder="Contraseña"
+                                                             formControlName="txtPassword"
+                                                             class="pr-5" />
+                                                    </span>
+
+                                                    <i class="pi"
+                                                      [ngClass]="showPassword ? 'pi-eye-slash' : 'pi-eye'"
+                                                      (click)="showPassword = !showPassword"
+                                                      style="position: absolute; right: 15px; top: 0; bottom: 0; display: flex; align-items: center; cursor: pointer; color: #6b7280;"></i>
+                                                </span>
+                                                <div class="text-right mt-2">
+                                                  <a (click)="changePageForgotPassword()" class="text-sm text-blue-500 hover:underline">¿Olvidaste tu contraseña?</a>
+                                                </div>
+                                                <div *ngIf="displayMessage['txtUsername'] || displayMessage['txtUsername']" class="p-error mt-2 text-sm">
+                                                    <i class="pi pi-info-circle text-1xl mb-3"></i> El usuario o contraseña no es valido.
+                                                </div>
+                                                <div *ngIf="messageServer" class="p-error p-error mt-2 text-sm">
+                                                    <i class="pi pi-times-circle text-1xl mb-3"></i> {{ messageServer }}
+                                                </div>
+                                            </div>
+                                            <div class="field col-12 md:col-7 md:col-offset-5 mt-2">
+                                                <button pButton pRipple type="button" label="Ingresar"
+                                                    class="p-button-rounded p-button-secondary"
+                                                    style="padding-top: 10px; padding-bottom: 10px;" type="submit"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ==============================
+        ========== END LOGIN ==========
+        ============================== -->
+    </form>
+</div>

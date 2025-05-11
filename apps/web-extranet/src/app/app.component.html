@@ -1,0 +1,12 @@
+<router-outlet></router-outlet>
+
+
+<div *ngIf="_showSpinner" class="loading-indicator" [ngStyle]="{'z-index': _zindex>900? _zindex+1: 1102 }">
+    <p-progressSpinner></p-progressSpinner>
+</div>
+<tramarsa-error-handler *ngIf="_errorData" 
+(onClose)="close()"
+[zindex]="_zindex"
+[message]="_errorData?.handlerMessage?.message"
+[icon]="_errorData?.handlerMessage?.icon"
+></tramarsa-error-handler>

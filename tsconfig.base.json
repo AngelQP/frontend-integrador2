@@ -1,0 +1,29 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@tramarsa/xplat/core": ["libs/xplat/core/src/index.ts"],
+      "@tramarsa/xplat/environments": [
+        "libs/xplat/core/src/lib/environments/base/index.ts"
+      ],
+      "@tramarsa/xplat/features": ["libs/xplat/features/src/index.ts"],
+      "@tramarsa/xplat/utils": ["libs/xplat/utils/src/index.ts"],
+      "@tramarsa/xplat/web/core": ["libs/xplat/web/core/src/index.ts"],
+      "@tramarsa/xplat/web/features": ["libs/xplat/web/features/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

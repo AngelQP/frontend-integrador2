@@ -1,0 +1,155 @@
+
+.loading-indicator {
+    position: fixed;
+    z-index: 999;
+    height: 100px;
+    width: 100px;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    }
+    
+    /* Transparent Overlay */
+    .loading-indicator:before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.53);
+    }
+    
+.body-login{
+    background-color: #125386;
+}
+.body-layout{
+    background-color: #006DB3;
+}
+.c-deep-blue{
+    color: #0E3192;
+}
+.item-grid-rb{
+    border-top: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+.item-grid-rb:last-child{
+    margin-bottom: 0;
+}
+.item-grid-money-rb {
+    border-bottom: none;
+    border-right: none;
+    border-left: none;
+    margin-bottom: 0;
+    border-radius: 0;
+}
+.item-grid-rb:hover{
+    background-color: #F6F7F8;
+    cursor: pointer;
+}
+.item-grid-selected-rb{
+    background-color: #0288D112 !important;
+    border-color: #0288D1;
+}
+.w-status-rb{
+    width: 121px;
+}
+.w-status-chcbx-rb{
+    width: 162px;
+}
+.w-icon-3-rb{
+    width: 128px;
+}
+.w-icon-2-rb{
+    width: 87px;
+}
+.w-icon-1-rb{
+    width: 47px;
+}
+.w-switch-rb{
+    width: 64px;
+}
+.br-12-rb{
+    border-radius: 12px;
+}
+.status-rb{
+    border-radius: 4px;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+    width: 100px;
+    font-size: .85rem;
+    line-height: 14px;
+    padding: 6px;
+    max-height: 26px;
+}
+.status-pending-rb{
+    background-color: #B7DDFB;
+    color: #2196F3;
+}
+.status-in-process-rb{
+    background-color: #FFE7AD;
+    color: #FFB300;
+}
+.status-processed-rb{
+    background-color: #C5E5C6;
+    color: #4CAF50;
+}
+.status-rejected-rb{
+    background-color: #FCC2BE;
+    color: #F44336;
+}
+.status-canceled-rb{
+    background-color: #D9E0E3;
+    color: #607D8B;
+}
+.status-emited-rb{
+    background-color: #f1fbb7;
+    color: #776f02;
+}
+.status-payment-rb{
+    background-color: #b7fbba;
+    color: #21f321;
+}
+.status-expired-rb{
+  background-color: #e8f0f7;
+  color: #a0a4a7;
+}
+.c-danger-rb{
+    color: #F44336;
+}
+.c-warning-rb{
+    color: #FF8000;
+}
+.ml-40{
+    margin-left: 0;
+}
+.p-button.flex-1 .p-button-label{
+    flex: initial;
+}
+@media (min-width: 533px) {
+    .ml-40{
+        margin-left: 40px;
+    }
+    .item-grid-rb{
+        border-bottom: none;
+        border-right: none;
+        border-left: none;
+        margin-bottom: 0;
+        border-radius: 0;
+    }
+    .item-grid-rb:last-child{
+        margin-bottom: 0;
+    }
+    .item-grid-selected-rb{
+        border-color: #ddd;
+    }
+}

@@ -1,0 +1,23 @@
+<div class="flex wrap-user-rb cursor-pointer" (click)="op.toggle($event)">
+    <div class="flex-1 text-right ml-2 mr-2 hidden md:block">
+        <div class="text-sm font-medium">{{fullname}}</div>
+        <div class="text-xs">{{roleName}}</div>
+    </div>
+    <p-avatar icon="pi pi-user" styleClass="p-ml-2 flex" size=""
+        [style]="{'background-color':'#0288D1', 'color': '#ffffff'}" shape="circle"></p-avatar>
+</div>
+<p-overlayPanel #op [showCloseIcon]="false" styleClass="br-12-rb">
+    <ng-template pTemplate>
+        <div class="grid m-0" style="width: 160px;">
+            <div class="col-12">
+                <div class="mb-3 md:hidden text-right">
+                    <div class="text-base font-medium">{{fullname}}</div>
+                    <div class="text-base">{{ roleName }}</div>
+                </div>
+                <button pButton pRipple type="button" icon="pi pi-sign-out" label="Cerrar sesión"
+                    class="w-full p-button-rounded p-button-danger p-button-text"
+                    (click)="logout()"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-overlayPanel>

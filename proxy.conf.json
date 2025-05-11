@@ -1,0 +1,159 @@
+{
+  "/dev/api/direccionamiento/*": {
+    "target": "",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/dev/api/direccionamiento/": "/api/"
+    }
+  },
+  "/dev/api/desglose/*": {
+    "target": "",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/dev/api/desglose/": "/api/"
+    }
+  },
+  "/dev/api/client/*": {
+    "target": "",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/dev/api/client/": "/api/"
+    }
+  },
+  "/dev/api/tramarsa/*": {
+    "target": "",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/dev/api/tramarsa/": "/api/"
+    }
+  },
+  "/dev/api/maestro/*": {
+    "target": "",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/dev/api/maestro/": "/api/"
+    }
+  },
+  "/dev/api/security/*": {
+    "target": "",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/dev/api/security/": "/v1/"
+    }
+  },
+  "/dev/api/fileblob/*": {
+    "target": "",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/dev/api/fileblob/": "/api/"
+    }
+  },
+  "/dev/api/sobreestadia/operaciones/*": {
+    "target": "",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/dev/api/sobreestadia/operaciones/": "/api/"
+    }
+  },
+  "/dev/api/sobreestadia/calc/*": {
+
+    "target": "",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/dev/api/sobreestadia/calc/": "/api/"
+    }
+  },
+  "/dev/api/bancos/*": {
+    "target": "",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/dev/api/bancos/": "/api/"
+    }
+  },
+  "/dev/api/servicioskn/*": {
+    "target": "",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/dev/api/servicioskn/": "/api/"
+    }
+  },
+  "/dev/api/emisionbl/*": {
+
+    "target": "",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/dev/api/emisionbl/": "/api/"
+    }
+  },
+  "/dev/api/liquidacion/*": {
+    "target": "",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/dev/api/liquidacion/": "/api/"
+    }
+  },
+  "/dev/api/concesiones/*": {
+    "target": "",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/dev/api/concesiones/": "/api/"
+    }
+  },
+  "/dev/api/solicitudservicio/*": {
+    "target": "",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/dev/api/solicitudservicio/": "/api/"
+    }
+  },
+  "/dev/api/cobroslocales/*": {
+    "target": "",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/dev/api/cobroslocales/": "/api/"
+    }
+  },
+  "/dev/api/recuperablesok/*":{
+    "target": "",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/dev/api/recuperablesok/": "/api/"
+    }
+  }
+
+
+}

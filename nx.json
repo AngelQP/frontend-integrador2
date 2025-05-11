@@ -1,0 +1,59 @@
+{
+  "npmScope": "tramarsa",
+  "affected": {
+    "defaultBase": "master"
+  },
+  "implicitDependencies": {
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    ".eslintrc.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
+    }
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
+  },
+  "projects": {
+    "web-extranet": {
+      "tags": []
+    },
+    "web-extranet-e2e": {
+      "tags": [],
+      "implicitDependencies": ["web-extranet"]
+    },
+    "xplat-core": {
+      "tags": []
+    },
+    "xplat-features": {
+      "tags": []
+    },
+    "xplat-scss": {
+      "tags": []
+    },
+    "xplat-utils": {
+      "tags": []
+    },
+    "xplat-web-core": {
+      "tags": []
+    },
+    "xplat-web-features": {
+      "tags": []
+    },
+    "xplat-web-scss": {
+      "tags": []
+    }
+  }
+}

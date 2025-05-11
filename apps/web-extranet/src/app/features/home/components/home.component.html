@@ -1,0 +1,134 @@
+
+
+<!-- STYLES PARA WHATSAPP-->
+
+<style>
+    .chat-bubble {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      width: 60px;
+      height: 60px;
+      background-color: #25d366;
+      border-radius: 50%;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .chat-bubble:hover {
+      transform: scale(1.1);
+    }
+
+    .chat-bubble img {
+      width: 35px;
+      height: 35px;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-10px);
+      }
+      60% {
+        transform: translateY(-5px);
+      }
+    }
+
+    .chat-bubble {
+      animation: bounce 2s infinite;
+    }
+  </style>
+
+<!-- STYLES PARA WHATSAPP-->
+
+<div class="bg-bluegray-50">
+  <div class="surface-0 shadow-1 mb-1">
+    <div class="container-rb">
+      <p-menubar id="menuHome"  styleClass="py-2 px-0 md:p-0 surface-0 border-none" >
+        <ng-template pTemplate="start">
+            <div class="align-items-center pr-3 ng-star-inserted">
+                <a href="/home" style="display: block; margin: 7px 0px;">
+                    <img  style="height: 32px; margin-top: 3px;">
+                    FERRETERIA
+                </a>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="end">
+            <tramarsa-user-login></tramarsa-user-login>
+        </ng-template>
+      </p-menubar>
+
+        <div class="grid m-0 pt-2 pb-2 flex align-content-center flex-wrap justify-content-end">
+            <div class="col-12 md:col-6 flex align-items-center flex-wrap px-0 mb-1 md:mb-0">
+                <div class="text-2xl">Hola! <span class="font-bold">{{name}}</span></div>
+            </div>
+            <div class="col-12 flex align-content-center flex-wrap justify-content-end px-0 md:col-6 mb-0">
+
+            </div>
+        </div>
+    </div>
+  </div>
+  <div id="LANDING" class="">
+    <!-- ==============================
+    ========== START CONTAINER ==========
+    ============================== -->
+    <div class="bg-bluegray-50">
+        <div class="container-rb py-5">
+            <div class="grid mx-0">
+                <div class="col-12 md:col-8 md:col-offset-2 p-0 br-12-rb surface-0 my-2 md:my-5">
+                    <div class="grid m-0 min-h-full">
+                        <div class="col-12 md:col-6 br-12-rb py-4 px-4 md:py-5 md:px-6">
+                            <div class="grid mt-0">
+                                <div class="col-9 md:col-8 flex align-content-center flex-wrap">
+                                    <div class="text-xl font-medium">¿A donde deseas ir?</div>
+                                </div>
+                                <div class="col-12 md:col-12 mt-2 md:mt-3">
+                                    <p-panelMenu [model]="items"></p-panelMenu>
+                                    <!--<div class="card">
+                                        <div class="p-grid p-formgrid">
+                                            <div class="p-field p-col-12 p-md-6">
+                                                <p-skeleton width="15rem" styleClass="p-mb-2"></p-skeleton>
+                                                <p-skeleton width="15rem" styleClass="p-mb-2"></p-skeleton>
+                                                <p-skeleton width="15rem" styleClass="p-mb-2"></p-skeleton>
+                                                <p-skeleton width="15rem" styleClass="p-mb-2"></p-skeleton>
+                                            </div>
+                                        </div>
+                                    </div>-->
+                                </div>
+                                <div class="col-12 md:col-12 mt-3">
+                                    <button pButton pRipple type="button" icon="" label="Cerrar sesión"
+                                    class="p-button-rounded p-button-text p-button-danger" (click)="logout()"></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6 hidden br-12-rb md:block text-center"
+                            style="background-color: #d6edfd;">
+
+                              <img src="../assets/images/illus-landing.jfif" class="my-7" style="width: 80%;">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+              <!-- <div class="chat-bubble">
+                  <a href="https://wa.me/message/FYLXC7STOOJ4O1" target="_blank" aria-label="Chat de WhatsApp">
+                    <img src="../assets/images/logo_whatsapp.png" alt="WhatsApp" />
+                  </a>
+              </div>     -->
+
+        </div>
+
+    </div>
+    <!-- ==============================
+    ========== END CONTAINER ==========
+    ============================== -->
+  </div>
+</div>
+<tramarsa-footer></tramarsa-footer>

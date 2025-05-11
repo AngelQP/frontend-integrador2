@@ -1,0 +1,346 @@
+{
+  "version": 1,
+  "projects": {
+    "web-extranet": {
+      "projectType": "application",
+      "root": "apps/web-extranet",
+      "sourceRoot": "apps/web-extranet/src",
+      "prefix": "tramarsa",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/apps/web-extranet",
+            "index": "apps/web-extranet/src/index.html",
+            "main": "apps/web-extranet/src/main.ts",
+            "polyfills": "apps/web-extranet/src/polyfills.ts",
+            "tsConfig": "apps/web-extranet/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/web-extranet/src/favicon.ico",
+              "apps/web-extranet/src/assets"
+            ],
+            "styles": [
+              "libs/xplat/web/scss/src/_index.scss",
+              "apps/web-extranet/src/styles.scss",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeflex/primeflex.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/web-extranet/src/environments/environment.ts",
+                  "with": "apps/web-extranet/src/environments/environment.prod.ts"
+                },
+                {
+                  "replace": "libs/xplat/core/src/lib/environments/environment.ts",
+                  "with": "libs/xplat/core/src/lib/environments/base/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "web-extranet:build:production"
+            },
+            "development": {
+              "browserTarget": "web-extranet:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "web-extranet:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/web-extranet/src/**/*.ts",
+              "apps/web-extranet/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/web-extranet"
+          ],
+          "options": {
+            "jestConfig": "apps/web-extranet/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "web-extranet-e2e": {
+      "root": "apps/web-extranet-e2e",
+      "sourceRoot": "apps/web-extranet-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/web-extranet-e2e/cypress.json",
+            "tsConfig": "apps/web-extranet-e2e/tsconfig.e2e.json",
+            "devServerTarget": "web-extranet:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "web-extranet:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/web-extranet-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
+    },
+    "xplat-core": {
+      "root": "libs/xplat/core",
+      "sourceRoot": "libs/xplat/core/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/xplat/core/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/xplat/core"
+          ],
+          "options": {
+            "jestConfig": "libs/xplat/core/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "xplat-features": {
+      "root": "libs/xplat/features",
+      "sourceRoot": "libs/xplat/features/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/xplat/features/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/xplat/features"
+          ],
+          "options": {
+            "jestConfig": "libs/xplat/features/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "xplat-scss": {
+      "root": "libs/xplat/scss",
+      "sourceRoot": "libs/xplat/scss/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/xplat/scss/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/xplat/scss"
+          ],
+          "options": {
+            "jestConfig": "libs/xplat/scss/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "xplat-utils": {
+      "root": "libs/xplat/utils",
+      "sourceRoot": "libs/xplat/utils/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/xplat/utils/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/xplat/utils"
+          ],
+          "options": {
+            "jestConfig": "libs/xplat/utils/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "xplat-web-core": {
+      "root": "libs/xplat/web/core",
+      "sourceRoot": "libs/xplat/web/core/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/xplat/web/core/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/xplat/web/core"
+          ],
+          "options": {
+            "jestConfig": "libs/xplat/web/core/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "xplat-web-features": {
+      "root": "libs/xplat/web/features",
+      "sourceRoot": "libs/xplat/web/features/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/xplat/web/features/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/xplat/web/features"
+          ],
+          "options": {
+            "jestConfig": "libs/xplat/web/features/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "xplat-web-scss": {
+      "root": "libs/xplat/web/scss",
+      "sourceRoot": "libs/xplat/web/scss/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/xplat/web/scss/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/xplat/web/scss"
+          ],
+          "options": {
+            "jestConfig": "libs/xplat/web/scss/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": "57239496-cd51-4e59-a834-1da33709efa5",
+    "defaultCollection": "@nstudio/xplat"
+  },
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  }
+}
