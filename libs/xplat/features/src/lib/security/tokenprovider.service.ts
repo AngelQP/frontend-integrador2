@@ -11,12 +11,12 @@ export class TokenProviderService {
     KEYEXPIRES_IN:string = "auth.expires_in";
     KEYDATE:string = "auth.date";
     storage: StorageService  = new StorageService();
-    
+
     constructor() {
 
     }
     public isToken():boolean{
-        return !!this.getToken()
+        return !!this.getToken();
     }
 
     public getToken():string{
@@ -44,7 +44,7 @@ export class TokenProviderService {
         var value = this.storage.getItem(this.KEYEXPIRES_IN);
         if (value)
             return value;
-        else 
+        else
             return "0";
     }
 
@@ -77,5 +77,5 @@ export class TokenProviderService {
     public clearDate(){
         this.storage.deleteItem(this.KEYDATE);
     }
-    
+
 }

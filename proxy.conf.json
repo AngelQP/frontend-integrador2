@@ -45,12 +45,12 @@
     }
   },
   "/dev/api/security/*": {
-    "target": "",
+    "target": "http://localhost:60400",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,
     "pathRewrite": {
-      "^/dev/api/security/": "/v1/"
+      "^/dev/api/security/": "/api/"
     }
   },
   "/dev/api/fileblob/*": {

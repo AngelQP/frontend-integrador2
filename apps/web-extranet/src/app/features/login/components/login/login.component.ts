@@ -60,8 +60,27 @@ export class LoginComponent implements OnInit, OnDestroy {
 
       this.showErrors(false);
       this.messageServer="";
-      this.router.navigate(['/home']);
-      // this.loadingService.show();
+      // this.router.navigate(['/home']);
+      this.loadingService.show();
+      this.authService.doLogin(value.txtUsername, value.txtPassword, false)
+        .pipe(
+          finalize(() => this.loadingService.hide()),
+          catchError(err => {
+            this.messageServer = "Ha ocurrido un error, intentelo mas tarde.";
+            return err;
+          }),
+          map(res => {
+            if (res.isSuccess) {
+              this.router.navigate(['/']);
+            } else if (res.brokenRules && res.brokenRules.length > 0) {
+              this.messageServer =res.brokenRules[0].description;
+            } else {
+              this.messageServer = "Ha ocurrido un error al iniciar sesión."
+            }
+            return res;
+          })
+        )
+        .subscribe();
       // this.authService
       // .doLogin(value.txtUsername, value.txtPassword)
       // .pipe(

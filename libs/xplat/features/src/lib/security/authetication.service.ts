@@ -20,19 +20,19 @@ export class AuthenticationService {
     public firstName():string{
         const data = this.tokenProvider.getData();
         if (data)
-            return `${data.firstName}`
+            return `${data.nombre}`
         return "";
     }
     public lastName():string{
         const data = this.tokenProvider.getData();
         if (data)
-            return `${data.lastName??""} ${data.secondLastName??""}`;
+            return `${data.apellidoPaterno??""} ${data.apellidoMaterno??""}`;
         return "";
     }
     public fullName(): string{
         const data = this.tokenProvider.getData();
         if (data)
-            return `${data.firstName??""} ${data.lastName??""} ${data.secondLastName??""}`
+            return `${data.nombre??""} ${data.apellidoPaterno??""} ${data.apellidoMaterno??""}`
         return "";
     }
     public userId(): string{
@@ -101,31 +101,37 @@ export class AuthenticationService {
     get authorizationHeaderValue() {
         return "bearer "+ this.tokenProvider.getToken();
     }
-    public doLogin(username:string, password: string):Observable<any>{
+    public doLogin(username:string, password: string, recordarme: boolean):Observable<any>{
         return this.userService
-                   .login(username, password,this.authConfig.clientId)
+                   .login(username, password, recordarme)
                    .pipe(mergeMap((loginRequest:any)=>{
-
                         this.success(loginRequest);
-                        if (loginRequest.isValid){
-                            if (this.inRole(this.ROLECODECLIENT)){
-                                const data = this.tokenProvider.getData();
+                        if (loginRequest.isSuccess) {
 
 
-                                return data;
-                            }
+                            // if (this.inRole(this.ROLECODECLIENT)){
+                            //     const data = this.tokenProvider.getData();
+
+
+                            //     return data;
+                            // }
                         }
+                        // else {
+                        //   this.clear();
+                        //   loginRequest.isSuccess = false;
+                        //   loginRequest.messages=[{message:"No s"}]
+                        // }
                         return of(loginRequest);
                    }))
                    //.pipe(map(res=> this.success(res) ));
     }
 
     private success(response:any){
-        if(response.isValid){
+        if(response.isSuccess){
             this.clear();
-            this.tokenProvider.setExpiresIn(response.data?.token?.expires_in);
-            this.tokenProvider.setToken(response.data?.token?.access_token);
-            this.tokenProvider.setData(response.data?.user);
+            this.tokenProvider.setExpiresIn(response.data?.token?.expiresIn);
+            this.tokenProvider.setToken(response.data?.token?.accessToken);
+            this.tokenProvider.setData(response.data?.usuario);
             this.tokenProvider.setDate();
 
         }

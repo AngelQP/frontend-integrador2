@@ -6,20 +6,29 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class UserService extends ApiBaseService {
-    constructor(private httpClientService: HttpClientService) 
-    { 
+    constructor(private httpClientService: HttpClientService)
+    {
         super();
         this.endpoint = environment.endpoint.security;
-        
+
     }
 
-    public login (username:string, password:string, clientid:string): Observable<any>{
+    // public login (username:string, password:string, clientid:string): Observable<any>{
+    //     return this.httpClientService
+    //             .post(this.buildUrl('user/login'), {
+    //                 "clientId": clientid,
+    //                 "userName": username,
+    //                 "password": password,
+    //                 "rememberMe": true
+    //               },{})
+    // }
+
+    public login (usuario:string, contrasenia:string, recordarme:boolean): Observable<any>{
         return this.httpClientService
-                .post(this.buildUrl('user/login'), { 
-                    "clientId": clientid, 
-                    "userName": username, 
-                    "password": password, 
-                    "rememberMe": true 
-                  },{})
+                .post(this.buildUrl('Seguridad/usuario/login'), {
+                    "usuario": usuario,
+                    "contrasenia": contrasenia,
+                    "recordarme": recordarme
+                  }, {})
     }
 }
