@@ -57,6 +57,10 @@ export const routes: Routes = [
       //   path:'recuperables-ko',
       //   loadChildren:()=> import('../recuperablesok/recuperablesok.module').then((m)=> m.RecuperablesokModule)
       // },
+      {
+        path:'productos',
+        loadChildren:()=> import('../version/version.module').then((m)=> m.VersionModule)
+      },
       { path: 'unauthorized', component: UnauthorizedComponent },
       {
         path: 'version',

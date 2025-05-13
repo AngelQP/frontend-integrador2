@@ -28,6 +28,23 @@ export class HomeComponent extends BaseComponent implements OnInit {
   }
   ngOnInit(): void {
     console.log("home");
+    this.items = [
+      {
+        label: 'Productos',
+        icon: 'pi pi-desktop',
+        routerLink: '/productos'
+      },
+      {
+        label: 'Clientes',
+        icon: 'pi pi-users',
+        routerLink: '/clientes'
+      },
+      {
+        label: 'Proveedores',
+        icon: 'pi pi-briefcase',
+        routerLink: '/proveedores'
+      }
+    ]
     // this.authorizationOptionsService
     //             .getOptionsAsync()
     //             .pipe(tap((r:any)=>{

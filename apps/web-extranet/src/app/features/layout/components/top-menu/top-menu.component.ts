@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { Router, ActivationEnd, ActivationStart } from '@angular/router';
+import { Router, ActivationEnd, ActivationStart, NavigationEnd } from '@angular/router';
 import { filter, map, mergeMap, tap } from 'rxjs/operators';
 import { AuthorizationOptionsService } from '@tramarsa/xplat/features';
 
@@ -14,57 +14,83 @@ export class TopMenuComponent implements OnInit {
 
 
   items: MenuItem[] = [];
-  a:any=this.router.events.pipe(
-    filter(event => ((event instanceof ActivationStart ||event instanceof ActivationEnd) && event.snapshot.component != null)),
-    mergeMap((activeted:any)=>{
-      return this.authorizationOptionsService
-          .getOptionsAsync()
-          .pipe(
-            map((r:any)=>{
-              return {
-                items: r,
-                activation:activeted
-              }
-            })
-          )
-    }),
-    tap((r:any)=>{
-                  
-      const rcode = r.activation?.snapshot?.data?.authorizationCode
-      this.items = r.items;
-      if (rcode){
-        this.items.forEach((i:any)=>{
-          if(i.authorizationCode && i.authorizationCode == rcode)
-            i.styleClass = "option-selected-rb";
-          else{
-            if (i.items && i.items.length>0){
-              let selection = false
-              i.items?.forEach((element:any) => {
-                if(element.authorizationCode && element.authorizationCode == rcode){
-                  selection = true;
-                  element.styleClass = "option-selected-rb";
-                  i.styleClass = "option-selected-rb";
-                }else{
-                  element.styleClass = "";                              
-                }
-              });
-              i.styleClass =selection ?i.styleClass:"";
-            }else{
-              i.styleClass = "";
-            }
-          }
-        })
-      }
-    })
-  ).subscribe();
+  // a:any=this.router.events.pipe(
+  //   filter(event => ((event instanceof ActivationStart ||event instanceof ActivationEnd) && event.snapshot.component != null)),
+  //   mergeMap((activeted:any)=>{
+  //     return this.authorizationOptionsService
+  //         .getOptionsAsync()
+  //         .pipe(
+  //           map((r:any)=>{
+  //             return {
+  //               items: r,
+  //               activation:activeted
+  //             }
+  //           })
+  //         )
+  //   }),
+  //   tap((r:any)=>{
+
+  //     const rcode = r.activation?.snapshot?.data?.authorizationCode
+  //     this.items = r.items;
+  //     if (rcode){
+  //       this.items.forEach((i:any)=>{
+  //         if(i.authorizationCode && i.authorizationCode == rcode)
+  //           i.styleClass = "option-selected-rb";
+  //         else{
+  //           if (i.items && i.items.length>0){
+  //             let selection = false
+  //             i.items?.forEach((element:any) => {
+  //               if(element.authorizationCode && element.authorizationCode == rcode){
+  //                 selection = true;
+  //                 element.styleClass = "option-selected-rb";
+  //                 i.styleClass = "option-selected-rb";
+  //               }else{
+  //                 element.styleClass = "";
+  //               }
+  //             });
+  //             i.styleClass =selection ?i.styleClass:"";
+  //           }else{
+  //             i.styleClass = "";
+  //           }
+  //         }
+  //       })
+  //     }
+  //   })
+  // ).subscribe();
 
   constructor(private router: Router, private authorizationOptionsService: AuthorizationOptionsService) {
 
-    
+
 
   }
-  
+
   ngOnInit(): void {
+    this.items = [
+      {
+        label: 'Productos',
+        icon: 'pi pi-desktop',
+        routerLink: '/productos'
+      },
+      {
+        label: 'Clientes',
+        icon: 'pi pi-users',
+        routerLink: '/clientes'
+      },
+      {
+        label: 'Proveedores',
+        icon: 'pi pi-briefcase',
+        routerLink: '/proveedores'
+      }
+    ];
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        const url = event.urlAfterRedirects;
+        this.items.forEach(item => {
+          item.styleClass = (item.routerLink === url) ? 'option-selected-rb' : '';
+        });
+      }
+    });
   }
 
 }
