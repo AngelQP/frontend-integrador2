@@ -58,8 +58,8 @@ export const routes: Routes = [
       //   loadChildren:()=> import('../recuperablesok/recuperablesok.module').then((m)=> m.RecuperablesokModule)
       // },
       {
-        path:'productos',
-        loadChildren:()=> import('../version/version.module').then((m)=> m.VersionModule)
+        path: 'productos',
+        loadChildren: () => import('../products/products.module').then((m) => m.ProductsModule)
       },
       { path: 'unauthorized', component: UnauthorizedComponent },
       {

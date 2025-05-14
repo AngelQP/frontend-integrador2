@@ -32,7 +32,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
       {
         label: 'Productos',
         icon: 'pi pi-desktop',
-        routerLink: '/productos'
+        routerLink: '/Productos'
       },
       {
         label: 'Clientes',
