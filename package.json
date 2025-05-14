@@ -6,7 +6,7 @@
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
     "nx": "nx",
-    "start-extranet": "ng serve web-extranet --proxy-config proxy.conf.json --port 4404 --open --host 0.0.0.0",
+    "start-extranet": "set NODE_OPTIONS=--openssl-legacy-provider && ng serve web-extranet --proxy-config proxy.conf.json --port 4404 --open --host 0.0.0.0",
     "start": "ng serve",
     "build": "ng build",
     "build-extranet": "ng build web-extranet",
