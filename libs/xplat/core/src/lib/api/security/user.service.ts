@@ -31,4 +31,21 @@ export class UserService extends ApiBaseService {
                     "recordarme": recordarme
                   }, {})
     }
+
+    public forgotPassword (correo:string): Observable<any>{
+        return this.httpClientService
+                .post(this.buildUrl('Seguridad/forgot-password'), {
+                    "correo": correo,
+                  }, {})
+    }
+
+    public resetPassword (correo:string, otp:string, nuevaContrasenia:string, confirmarContrasenia:string): Observable<any>{
+        return this.httpClientService
+                .post(this.buildUrl('Seguridad/reset-password'), {
+                    "correo": correo,
+                    "otp": otp,
+                    "nuevaContrasenia": nuevaContrasenia,
+                    "confirmarContrasenia": confirmarContrasenia
+                  }, {})
+    }
 }

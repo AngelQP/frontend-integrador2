@@ -3,7 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { ForgotPassworComponent } from "./components";
 
 import { SharedModule } from "../shared/shared.module";
-import { RecoveryPasswordComponent } from "./components/recovery-password/recovery-password.component";
+import { ResetPasswordComponent } from "./components/reset-password/reset-password.component";
 
 export const routes: Routes = [
   {
@@ -13,13 +13,13 @@ export const routes: Routes = [
   },
   {
     path: 'reset-password',
-    component: RecoveryPasswordComponent
+    component: ResetPasswordComponent
   },
 ];
 
 @NgModule({
   imports: [SharedModule, RouterModule.forChild(routes)],
-  declarations: [ForgotPassworComponent, RecoveryPasswordComponent],
-  exports: [ForgotPassworComponent, RecoveryPasswordComponent]
+  declarations: [ForgotPassworComponent, ResetPasswordComponent],
+  exports: [ForgotPassworComponent, ResetPasswordComponent]
 })
 export class ForgotPasswordModule {}

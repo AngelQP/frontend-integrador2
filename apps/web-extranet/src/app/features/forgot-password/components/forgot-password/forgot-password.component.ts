@@ -2,7 +2,9 @@ import { DOCUMENT } from "@angular/common";
 import { Component, Inject, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { GenericValidator } from "@tramarsa/xplat/core";
+import { GenericValidator, LoadingService, UserService } from "@tramarsa/xplat/core";
+import { StorageService } from "@tramarsa/xplat/utils";
+import { catchError, finalize, map } from "rxjs/operators";
 
 @Component({
   selector: 'tramarsa-forgot-password',
@@ -16,13 +18,17 @@ export class ForgotPassworComponent implements OnInit, OnDestroy {
   public displayMessage: { [key: string]: string; } = {};
   messageServer?:string;
 
+  storage: StorageService  = new StorageService();
+
   forgotPasswordForm: FormGroup = this._builder.group({
     email:['', Validators.required]
   });
 
   constructor(@Inject(DOCUMENT) private _document: any,
               private _builder: FormBuilder,
-              private router: Router) {
+              private router: Router,
+              private userService: UserService,
+              private loadingService: LoadingService,) {
     this.buildValidation();
   }
 
@@ -47,10 +53,32 @@ export class ForgotPassworComponent implements OnInit, OnDestroy {
     if (!this.forgotPasswordForm.invalid) {
       this.showErrors(false);
       this.messageServer="";
-      this.router.navigate(['/forgot-password/reset-password']);
+      this.loadingService.show();
+
+      this.userService.forgotPassword(value.email)
+        .pipe(
+          finalize(() => this.loadingService.hide()),
+          catchError(err => {
+            this.messageServer = "Ha ocurrido un error, intentelo mas tarde.";
+            return err;
+          }),
+          map(res => {
+            if (res.isSuccess) {
+              // this.storage.setItem('correoRecuperacion', value.email);
+              sessionStorage.setItem('correoRecuperacion', value.email);
+              this.router.navigate(['/forgot-password/reset-password']);
+            } else if (res.brokenRules && res.brokenRules.length > 0) {
+              this.messageServer =res.brokenRules[0].description;
+            } else {
+              this.messageServer = "Ha ocurrido un error al enviar el correo electronico."
+            }
+            return res;
+          })
+        )
+        .subscribe();
     } else {
       this.showErrors(true);
-      this.router.navigate(['/forgot-password/reset-password']);
+      // this.router.navigate(['/forgot-password/reset-password']);
     }
   }
 
