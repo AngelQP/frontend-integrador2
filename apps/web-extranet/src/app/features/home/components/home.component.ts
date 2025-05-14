@@ -43,6 +43,11 @@ export class HomeComponent extends BaseComponent implements OnInit {
         label: 'Proveedores',
         icon: 'pi pi-briefcase',
         routerLink: '/proveedores'
+      },
+      {
+        label: 'Usuarios',
+        icon: 'pi pi-users',
+        routerLink: '/usuarios'
       }
     ]
     // this.authorizationOptionsService

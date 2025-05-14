@@ -1,0 +1,82 @@
+<p-sidebar [visible]="true" [dismissible]="false" [blockScroll]="true" position="right" styleClass="p-sidebar-md">
+  <div class="px-3 md:px-4 surface-0 shadow-1">
+      <div class="grid my-0 py-2 flex align-content-center flex-wrap justify-content-end">
+          <div class="col-8 md:col-6 flex align-items-center flex-wrap">
+              <button pButton pRipple type="button" icon="pi pi pi-times" (click)="close()"
+                  class="p-button-rounded p-button-text mr-2"></button>
+              <div class="text-xl font-medium">Producto #{{cliente?.codigoCliente}}</div>
+          </div>
+          <div class="col-4 md:col-6 text-right flex align-content-center flex-wrap justify-content-end">
+              <!-- <button pTooltip="Editar" pButton pRipple type="button" icon="pi pi-pencil"
+                  class="p-button-rounded p-button-text mr-2" (click)="openEdit()" ></button> -->
+
+          </div>
+      </div>
+  </div>
+
+  <div class="py-2 px-3 md:py-3 md:px-4">
+      <div class="py-3">
+          <div class="grid mt-0 flex align-content-center flex-wrap">
+              <div class="col-9 md:col-8 flex align-content-center flex-wrap">
+                  <div class="text-lg font-semibold c-deep-blue">Datos generales</div>
+              </div>
+          </div>
+      </div>
+      <div class="mt-3 md:mt-4">
+          <div class="formgrid grid">
+              <div class="col-12 md:col-6 mb-3">
+                  <label class="text-base font-semibold mr-2">Pais:</label>
+                  <label class="text-base">{{cliente?.pais}}</label>
+              </div>
+              <div class="col-12 md:col-6 mb-3">
+                  <label class="text-base font-semibold mr-2">{{cliente?.tipoDocumento}}:</label>
+                  <label class="text-base">{{cliente?.numeroDocumento}}</label>
+              </div>
+              <!-- <div class="col-12 md:col-6 mb-3">
+                  <label class="text-base font-semibold mr-2">DNI:</label>
+                  <label class="text-base">{{cliente?.numeroDocumento}}</label>
+              </div>
+              <div class="col-12 md:col-6 mb-3">
+                  <label class="text-base font-semibold mr-2">CE:</label>
+                  <label class="text-base">{{cliente?.numeroDocumento}}</label>
+              </div> -->
+              <div class="col-12 md:col-12 mb-3">
+                  <label class="text-base font-semibold mr-2">Razon Social:</label>
+                  <label class="text-base">{{cliente?.razonSocial}}</label>
+              </div>
+              <div class="col-12 md:col-12 mb-3">
+                  <label class="text-base font-semibold mr-2">Dirección:</label>
+                  <label class="text-base">{{cliente?.direccion}}</label>
+              </div>
+              <div class="col-12 md:col-6 mb-3">
+                  <label class="text-base font-semibold mr-2">Departamento:</label>
+                  <label class="text-base">{{cliente?.departamento}}</label>
+              </div>
+              <div class="col-12 md:col-6 mb-3">
+                  <label class="text-base font-semibold mr-2">Provincia:</label>
+                  <label class="text-base">{{cliente?.provincia}}</label>
+              </div>
+              <div class="col-12 md:col-12 mb-3">
+                  <label class="text-base font-semibold mr-2">Distrito:</label>
+                  <label class="text-base">{{cliente?.distrito}}</label>
+              </div>
+              <div class="col-12 md:col-6 mb-3">
+                  <label class="text-base font-semibold mr-2">Cliente SAP:</label>
+                  <label class="text-base">{{cliente?.codigoClienteSAP}}</label>
+              </div>
+              <div class="col-12 md:col-6 mb-3">
+                  <label class="text-base font-semibold mr-2">Proveedor SAP:</label>
+                  <label class="text-base">{{cliente?.codigoProveedorSAP}}</label>
+              </div>
+          </div>
+      </div>
+      <div class="py-3">
+          <div class="grid mb-0">
+              <div class="col-12 text-right flex align-content-center flex-wrap justify-content-end">
+                  <!-- <button  pButton pRipple type="button" icon="" label="Eliminar Cliente" (click)="deleteCliente()"
+                      class="p-button-rounded flex-1 md:flex-none w-auto p-button-danger p-button-text mr-2"></button> -->
+              </div>
+          </div>
+      </div>
+  </div>
+</p-sidebar>
