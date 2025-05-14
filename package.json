@@ -46,7 +46,7 @@
     "@tramarsa/xplat-scss": "file:libs/xplat/scss/src",
     "primeflex": "^3.0.1",
     "primeicons": "^4.1.0",
-    "primeng": "^12.1.0-rc.2",
+    "primeng": "^12.2.3",
     "ramda": "^0.27.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",

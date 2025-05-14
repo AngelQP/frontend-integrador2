@@ -59,7 +59,7 @@ export const routes: Routes = [
       // },
       {
         path:'productos',
-        loadChildren:()=> import('../version/version.module').then((m)=> m.VersionModule)
+        loadChildren:()=> import('../products/products.module').then((m)=> m.ProductsModule)
       },
       { path: 'unauthorized', component: UnauthorizedComponent },
       {

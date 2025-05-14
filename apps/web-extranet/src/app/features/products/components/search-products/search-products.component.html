@@ -1,0 +1,188 @@
+<div class="surface-0 shadow-1 mb-1">
+    <div class="container-rb">
+        <div class="grid m-0 pt-2 pb-2 flex align-content-center flex-wrap justify-content-end">
+            <div class="col-12 md:col-6 flex align-items-center flex-wrap px-0 mb-1 md:mb-0">
+                <div class="text-2xl"><span class="font-bold">Registro de Productos</span></div>
+            </div>
+            <div class="col-12 flex align-content-center flex-wrap justify-content-end px-0 md:col-6 mb-0">
+                <button pButton pRipple type="button" icon="pi pi-plus" label="Nuevo Producto" (click)="openNewProduct()"
+                    class="flex-1 block md:flex-none w-auto p-button-rounded p-button-secondary font-medium"></button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class=" bg-bluegray-50">
+    <div class="container-rb py-5">
+        <!-- START SECTION SEARCH FILTERS -->
+        <div class="py-2 px-3 md:py-3 md:px-4 surface-0 shadow-1 br-12-rb mb-4 md:mb-5">
+            <p-accordion class="accordionFilter" expandIcon="pi pi-chevron-down" collapseIcon="pi pi-chevron-up">
+                <p-accordionTab class="border-none" [selected]="true">
+                    <ng-template pTemplate="header">
+                        <div class="text-lg font-medium">Filtros de búsqueda</div>
+                    </ng-template>
+                    <ng-template pTemplate="content">
+                        <form [formGroup]="formCriteria" (ngSubmit)="search(formCriteria.value)">
+                            <div class="p-fluid p-formgrid p-grid formgrid grid mt-2 md:mt-3 mb-1">
+                                <div class="field col-12 md:col-6">
+                                    <label class="text-sm font-medium">Cliente</label>
+                                    <input formControlName="nombreCliente" placeholder="Escriba un nombre de cliente"
+                                        type="text" pInputText>
+                                </div>
+                                <!-- <div class="field col-12 md:col-2">
+                                    <label class="text-sm font-medium">Tipo de documento</label>
+                                    <p-selectButton class="btnGroup-rb" [options]="tiposDocumentos"
+                                        formControlName="tipoDocumento" optionLabel="label"></p-selectButton>
+
+                                </div> -->
+                                <div class="field col-12 md:col-2">
+                                    <label class="text-sm font-medium">Nro. de Documento</label>
+                                    <input formControlName="nroDocumento" placeholder="Escriba un numero de documento"
+                                        type="text" pInputText>
+                                    <small *ngIf="displayMessage['nroDocumento']" class="p-error">Numero de documento
+                                        invalido</small>
+                                </div>
+                                <!-- <div class="field col-12 md:col-2">
+                                    <label class="text-sm font-medium">Pais</label>
+                                    <p-dropdown formControlName="pais" [options]="paises" optionLabel="nombre"
+                                        [filter]="true" filterBy="nombre" placeholder="Todos">
+                                        <ng-template pTemplate="selectedItem">
+                                            <div class="country-item country-item-value"
+                                                *ngIf="formCriteria.value?.pais?.nombre">
+                                                <img src="assets/images/flag_placeholder.png"
+                                                    class='flag flag-{{formCriteria.value?.pais?.iso2?.toLowerCase()}}'>
+                                                <div>{{formCriteria.value?.pais?.nombre}}</div>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template let-country pTemplate="item">
+                                            <div class="country-item">
+                                                <img src="assets/images/flag_placeholder.png"
+                                                    class='flag flag-{{country.iso2.toLowerCase()}}'>
+                                                <div>{{ country.nombre }}</div>
+                                            </div>
+                                        </ng-template>
+
+                                    </p-dropdown>
+                                </div> -->
+                                <div class="field col-12 md:col-12 mb-1 md:mb-0">
+                                    <label class="md:block">&nbsp;</label>
+                                    <div class="flex align-content-center flex-wrap justify-content-end">
+                                        <button pButton pRipple type="button" label="Limpiar" (click)="clear()"
+                                            class="flex-1 md:flex-none w-auto p-button-rounded p-button-plain p-button-text mr-2"></button>
+                                        <button pButton pRipple type="button" label="Buscar"
+                                            (click)="search(formCriteria.value)"
+                                            class="flex-1 md:flex-none w-auto p-button-rounded"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </ng-template>
+                </p-accordionTab>
+            </p-accordion>
+        </div>
+
+        <div class="py-2 px-3 md:px-4 md:py-4 surface-0 shadow-1 br-12-rb mb-5">
+            <div class="grid my-0 title-section-rb">
+                <div class="col-8 md:col-6 flex align-content-center flex-wrap">
+                    <div class="text-lg font-medium">Lista de Productos</div>
+                </div>
+                <div class="col-4 md:col-6 flex align-content-center flex-wrap justify-content-end">
+                    <button *ngIf="clientesResult?.clienteList?.length > 0" pButton pRipple
+                        pTooltip="Descargar resultados" tooltipPosition="left" type="button" icon="pi pi-download"
+                        class="p-button-rounded p-button-text" (click)="download(formCriteria.value)"></button>
+                </div>
+            </div>
+
+            <div *ngIf="clientesResult?.clienteList?.length > 0" class="pt-4">
+                <div class="hidden md:block bg-bluegray-50 px-1 md:py-2">
+                    <div class="md:flex align-items-center">
+                        <div class="flex-1">
+                            <div class="grid m-0 align-items-center text-sm font-semibold">
+                                <div class="col-12 md:col-1">
+                                    <label>Código</label>
+                                </div>
+                                <div class="col-12 md:col-3">
+                                    <label>Cliente</label>
+                                </div>
+                                <div class="col-12 md:col-2">
+                                    <label>Pais</label>
+                                </div>
+                                <div class="col-12 md:col-2">
+                                    <label>Nro de Documento</label>
+                                </div>
+                                <div class="col-12 md:col-2">
+                                    <label>Cliente SAP</label>
+                                </div>
+                                <div class="col-12 md:col-2">
+                                    <label>Proveedor SAP</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex px-1 align-items-center w-icon-1-rb">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="m-0">
+                    <div *ngFor="let client of clientesResult?.clienteList" class="item-grid-rb px-1 py-3 md:py-2">
+                        <div class="md:flex align-items-center relative">
+                            <div class="flex-1 mr-6 md:mr-0">
+                                <div class="grid m-0 align-items-center">
+                                    <div class="col-12 md:col-1">
+                                        <label class="md:hidden font-medium mr-2">Código:</label>
+                                        <label>{{ client.codigoCliente }}</label>
+                                    </div>
+                                    <div class="col-12 md:col-3">
+                                        <label class="md:hidden font-medium mr-2">Cliente:</label>
+                                        <label>{{ client.razonSocial }}</label>
+                                    </div>
+                                    <div class="col-12 md:col-2">
+                                        <label class="md:hidden font-medium mr-2">Pais:</label>
+                                        <label>
+                                            <div class="country-item">
+                                                <img src="assets/images/flag_placeholder.png"
+                                                    class='flag flag-{{client.codigoPais?.toLowerCase()}}'>
+                                                <div>{{ client.pais }}</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-12 md:col-2">
+                                        <label class="md:hidden font-medium mr-2">Nro de Documento:</label>
+                                        <label>{{ client.tipoDocumento }} {{ client.numeroDocumento }}</label>
+                                    </div>
+                                    <div class="col-12 md:col-2">
+                                        <label class="md:hidden font-medium mr-2">Cliente SAP:</label>
+                                        <label>{{ client.codigoClienteSAP }}</label>
+                                    </div>
+                                    <div class="col-12 md:col-2">
+                                        <label class="md:hidden font-medium mr-2">Proveedor SAP:</label>
+                                        <label>{{ client.codigoProveedorSAP }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="flex px-1 align-items-center flex-column-reverse md:flex-row flex-wrap absolute top-0 right-0 md:relative">
+                                <div class="px-1">
+                                    <button pButton pRipple type="button" icon="pi pi-arrow-right"
+                                        class="p-button-rounded p-button-text" (click)="openView(client)"></button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <p-paginator #paginator [rows]="_maxResult" [totalRecords]="clientesResult?.total"
+                    (onPageChange)="paginate($event, formCriteria.value)"></p-paginator>
+            </div>
+            <tramarsa-message-result
+                *ngIf="clientesResult?.clienteList !== null && clientesResult?.clienteList?.length <= 0"
+                [message]="'No se han encontrado coincidencias con los criterios seleccionados.'">
+            </tramarsa-message-result>
+            <tramarsa-message-result *ngIf="clientesResult?.clienteList === null"
+                [message]="'Seleccione los criterios para mostrar resultados.'">
+            </tramarsa-message-result>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+</div>
+
+<p-toast position="bottom-right"></p-toast>
+<p-confirmDialog [style]="{width: '50vw'}" [position]="'top'" [baseZIndex]="10000"></p-confirmDialog>
