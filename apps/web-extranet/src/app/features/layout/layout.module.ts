@@ -65,6 +65,10 @@ export const routes: Routes = [
         path:'clientes',
         loadChildren:()=> import('../clients/clients.module').then((m)=> m.ClientsModule)
       },
+      {
+        path:'proveedores',
+        loadChildren:()=> import('../suppliers/suppliers.module').then((m)=> m.SuppliersModule)
+      },
       { path: 'unauthorized', component: UnauthorizedComponent },
       {
         path: 'version',

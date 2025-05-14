@@ -4,11 +4,11 @@ import { Router } from "@angular/router";
 import { GenericValidator } from "@tramarsa/xplat/core";
 
 @Component({
-  selector: 'tramarsa-search-clients',
-  templateUrl: './search-clients.component.html',
-  styleUrls: ['./search-clients.component.scss']
+  selector: 'tramarsa-search-suppliers',
+  templateUrl: './search-suppliers.component.html',
+  styleUrls: ['./search-suppliers.component.scss']
 })
-export class SearchClientsComponent implements OnInit {
+export class SearchSuppliersComponent implements OnInit {
 
   clientesResult: any;
   _maxResult = 20;
@@ -51,12 +51,12 @@ export class SearchClientsComponent implements OnInit {
     // this.clientesResult = null;
   }
 
-  openNewClient() {
-    this.router.navigate(['/clientes/new'])
+  openNewSupplier() {
+    this.router.navigate(['/proveedores/new'])
   }
 
   openView(cliente: any) {
-    this.router.navigate([`/clients/view/${cliente.idCliente}`])
+    this.router.navigate([`/proveedores/view/${cliente.idCliente}`])
   }
 
   search(value: any) {
