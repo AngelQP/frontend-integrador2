@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
-import { GenericValidator } from "@tramarsa/xplat/core";
+import { GenericValidator, UserService } from "@tramarsa/xplat/core";
+import { map } from "rxjs/operators";
 
 @Component({
   selector: 'tramarsa-search-users',
@@ -10,7 +11,7 @@ import { GenericValidator } from "@tramarsa/xplat/core";
 })
 export class SearchUsersComponent implements OnInit {
 
-  clientesResult: any;
+  userResult: any;
   _maxResult = 20;
   currentCriteria: any;
 
@@ -19,14 +20,15 @@ export class SearchUsersComponent implements OnInit {
   public displayMessage: { [key: string]: string; } = {};
 
   public formCriteria: FormGroup = this._builder.group({
-    nombreCliente: [null],
-    tipoDocumento: [null],
+    nombreUsuario: [null],
+    // tipoDocumento: [null],
     // nroDocumento: [null, [this.peDocumentsValidator.documentValid(this.isDocumentType.bind(this))]],
-    pais: [null]
+    // pais: [null]
   });
 
   constructor(private router: Router,
-              private _builder: FormBuilder,) {
+              private _builder: FormBuilder,
+              private userService: UserService) {
     this.buildValidation();
   }
 
@@ -48,15 +50,15 @@ export class SearchUsersComponent implements OnInit {
     this.formCriteria.reset();
     this.showErrors(false);
     this.currentCriteria = null;
-    // this.clientesResult = null;
+    this.userResult = null;
   }
 
   openNewProduct() {
     this.router.navigate(['/usuarios/new'])
   }
 
-  openView(cliente: any) {
-    this.router.navigate([`/usuarios/view/${cliente.idCliente}`])
+  openView(user: any) {
+    this.router.navigate([`/usuarios/view/${user.id}`])
   }
 
   search(value: any) {
@@ -64,7 +66,7 @@ export class SearchUsersComponent implements OnInit {
     if (!this.formCriteria.invalid) {
       //this.paginator?.changePage(0);
       this.currentCriteria = value;
-      // this._search(this.currentCriteria, 1, this._maxResult);
+      this._search(this.currentCriteria, 1, this._maxResult);
       this.showErrors(false);
     }
     else {
@@ -91,11 +93,20 @@ export class SearchUsersComponent implements OnInit {
   paginate(event: any, value: any): void {
     this.currentCriteria = value;
     if (this.currentCriteria) {
-      // this._search(this.currentCriteria, event.page * this._maxResult, this._maxResult);
+      this._search(this.currentCriteria, event.page * this._maxResult, this._maxResult);
     }
   }
 
   clear() {
     this.resetForm();
+  }
+
+  private _search(value: any, startAt: number, maxResult: number) {
+    this.userService
+      .searchUsers(value.nombreUsuario, startAt, maxResult, true)
+      .pipe(map((r: any) => {
+        this.userResult = r.data;
+      }))
+      .subscribe();
   }
 }

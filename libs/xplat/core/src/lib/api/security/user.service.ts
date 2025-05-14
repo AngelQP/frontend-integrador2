@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClientService } from '../..';
+import { HttpClientService, QueryStringBuilder, ServerErrorAction } from '../..';
 import { ApiBaseService } from '../api.base.service';
 import { environment }from '../../environments/environment';
 import { Observable } from 'rxjs';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class UserService extends ApiBaseService {
@@ -48,4 +49,34 @@ export class UserService extends ApiBaseService {
                     "confirmarContrasenia": confirmarContrasenia
                   }, {})
     }
+
+    public createUser (sociedad:string, usuario:string, correo:string, nombre:string, apellidoPaterno:string,
+                        apellidoMaterno:string, telefono:string, contrasenia:string, confirmarContrasenia:string): Observable<any>{
+        return this.httpClientService
+                .post(this.buildUrl('Seguridad/usuario'), {
+                    "sociedad": sociedad,
+                    "usuario": usuario,
+                    "correo": correo,
+                    "nombre": nombre,
+                    "apellidoPaterno": apellidoPaterno,
+                    "apellidoMaterno": apellidoMaterno,
+                    "telefono": telefono,
+                    "contrasenia": contrasenia,
+                    "confirmarContrasenia": confirmarContrasenia
+                  }, {})
+    }
+
+    public searchUsers(nombre:any,  startAt:any, maxResult:any,
+      progress=false, handlerEnable: boolean|ServerErrorAction=false):Observable<any>{
+      const query = new QueryStringBuilder()
+      .add("nombre", nombre)
+      .add("startAt", startAt)
+      .add("maxResult", maxResult)
+      .build();
+      const url = this.buildUrl(`Seguridad/usuarios${query}`)
+      return this
+              .httpClientService
+              .get(url, new HttpParams(), progress, handlerEnable)
+
+  }
 }
