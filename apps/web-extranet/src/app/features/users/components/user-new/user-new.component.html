@@ -10,7 +10,7 @@
   </div>
 
   <div class="py-2 px-3 md:py-3 md:px-4">
-      <form [formGroup]="formNewCliente">
+      <form [formGroup]="formNewUser">
           <div class="py-3">
               <div class="grid mt-0 flex align-content-center flex-wrap">
                   <div class="col-9 md:col-8 flex align-content-center flex-wrap">
@@ -19,102 +19,70 @@
               </div>
               <div class="mt-3">
                   <div class="p-fluid p-formgrid p-grid formgrid grid">
-                      <!-- <div class="field col-12 md:col-6">
-                          <label class="text-sm font-medium">Pais</label>
-                          <p-dropdown formControlName="pais" [options]="paises" optionLabel="nombre"
-                              [filter]="true" filterBy="nombre"
-                              (onChange)="changePais(formNewCliente.value?.pais?.iso2)">
-                              <ng-template pTemplate="selectedItem">
-                                  <div class="country-item country-item-value"
-                                      *ngIf="formNewCliente.value?.pais?.nombre">
-                                      <img src="assets/images/flag_placeholder.png"
-                                          class='flag flag-{{formNewCliente.value?.pais?.iso2?.toLowerCase()}}'>
-                                      <div>{{formNewCliente.value?.pais?.nombre}}</div>
-                                  </div>
-                              </ng-template>
-                              <ng-template let-country pTemplate="item">
-                                  <div class="country-item">
-                                      <img src="assets/images/flag_placeholder.png"
-                                          class='flag flag-{{country.iso2.toLowerCase()}}'>
-                                      <div>{{ country.nombre }}</div>
-                                  </div>
-                              </ng-template>
-                          </p-dropdown>
-                      </div> -->
-                      <!-- <div class="field col-12 md:col-6"></div> -->
-                      <!-- <div class="field col-12 md:col-6">
-                          <label class="text-sm font-medium">Tipo de Documento</label>
-                          <p-selectButton class="btnGroup-rb" [options]="tiposDocumentosFilter"
-                              formControlName="tipoDocumento" optionLabel="label"></p-selectButton> -->
-                      <!-- </div> -->
                       <div class="field col-12 md:col-6">
-                          <label class="text-sm font-medium">Nro de Documento</label>
-                          <input formControlName="nroDocumento" #rucInput id="rucInput" placeholder="Ingrese un número de documento"
+                          <label class="text-sm font-medium">Usuario</label>
+                          <input formControlName="usuario" placeholder="Ingrese un nombre de usuario"
                               type="text" pInputText max>
-                          <small *ngIf="displayMessage['nroDocumento']" class="p-error">
-                              Numero de documento invalido
+                          <small *ngIf="displayMessage['usuario']" class="p-error">
+                              * Nombre de usuario invalido
+                          </small>
+                      </div>
+                       <div class="field col-12 md:col-6">
+                          <label class="text-sm font-medium">Correo</label>
+                          <input formControlName="correo" placeholder="Ingrese correo"
+                              type="text" pInputText max>
+                          <small *ngIf="displayMessage['correo']" class="p-error">
+                              * Correo invalido
                           </small>
                       </div>
                       <div class="field col-12 md:col-12">
-                          <label class="text-sm font-medium">Razón Social</label>
-                          <input formControlName="razonSocial" placeholder="Ingrese una razón social" type="text"
+                          <label class="text-sm font-medium">Nombre</label>
+                          <input formControlName="nombre" placeholder="Ingrese nombre" type="text"
                               pInputText>
-                          <small *ngIf="displayMessage['razonSocial']" class="p-error">
-                              Ingreso razón social
-                          </small>
-                      </div>
-                      <div class="field col-12 md:col-12">
-                          <label class="text-sm font-medium">Dirección</label>
-                          <input formControlName="direccion" placeholder="Ingrese una dirección" type="text"
-                              pInputText>
-                          <small *ngIf="displayMessage['direccion']" class="p-error">
-                              Seleccione un dirección
-                          </small>
-                      </div>
-                      <!-- <div class="field col-12 md:col-6">
-                          <label class="text-sm font-medium">Departamento</label>
-                          <p-dropdown formControlName="departamento" [options]="departamentos"
-                              optionLabel="nombre" [filter]="true" filterBy="nombre"
-                              placeholder="Seleccione un departamento" (onChange)="changeDepartamento($event)">
-                              <ng-template let-departamento pTemplate="item">
-                                  <div class="country-item">
-                                      <div>{{departamento.nombre}}</div>
-                                  </div>
-                              </ng-template>
-                          </p-dropdown>
-                          <small *ngIf="displayMessage['departamento']" class="p-error">
-                              Seleccione un departamento
+                          <small *ngIf="displayMessage['nombre']" class="p-error">
+                              * Ingrese nombre
                           </small>
                       </div>
                       <div class="field col-12 md:col-6">
-                          <label class="text-sm font-medium">Provincia</label>
-                          <p-dropdown formControlName="provincia" [options]="provincias" optionLabel="nombre"
-                              [filter]="true" filterBy="nombre" placeholder="Seleccione una provincia"
-                              (onChange)="changeProvincia($event)">
-                              <ng-template let-provincia pTemplate="item">
-                                  <div class="country-item">
-                                      <div>{{provincia.nombre}}</div>
-                                  </div>
-                              </ng-template>
-                          </p-dropdown>
-                          <small *ngIf="displayMessage['provincia']" class="p-error">
-                              Seleccione un provincia
+                          <label class="text-sm font-medium">Apellido Paterno</label>
+                          <input formControlName="apellidoPaterno" placeholder="Ingrese apellido paterno" type="text"
+                              pInputText>
+                          <small *ngIf="displayMessage['apellidoPaterno']" class="p-error">
+                              * Ingrese apellido paterno
+                          </small>
+                      </div>
+                      <div class="field col-12 md:col-6">
+                          <label class="text-sm font-medium">Apellido Materno</label>
+                          <input formControlName="apellidoMaterno" placeholder="Ingrese apellido materno" type="text"
+                              pInputText>
+                          <small *ngIf="displayMessage['apellidoMaterno']" class="p-error">
+                              * Ingrese apellido materno
                           </small>
                       </div>
                       <div class="field col-12 md:col-12">
-                          <label class="text-sm font-medium">Distrito</label>
-                          <p-dropdown formControlName="distrito" [options]="distritos" optionLabel="nombre"
-                              [filter]="true" filterBy="nombre" placeholder="Seleccione un distrito">
-                              <ng-template let-distrito pTemplate="item">
-                                  <div class="country-item">
-                                      <div>{{distrito.nombre}}</div>
-                                  </div>
-                              </ng-template>
-                          </p-dropdown>
-                          <small *ngIf="displayMessage['distrito']" class="p-error">
-                              Seleccione un distrito
+                          <label class="text-sm font-medium">Teléfono</label>
+                          <input formControlName="telefono" placeholder="Ingrese telefono" type="text"
+                              pInputText>
+                          <small *ngIf="displayMessage['telefono']" class="p-error">
+                              * Ingrese teléfono
                           </small>
-                      </div> -->
+                      </div>
+                      <div class="field col-12 md:col-6">
+                          <label class="text-sm font-medium">Contraseña</label>
+                          <input formControlName="contrasenia" placeholder="Ingrese contraseña" type="text"
+                              pInputText>
+                          <small *ngIf="displayMessage['contrasenia']" class="p-error">
+                              * Ingrese contraseña
+                          </small>
+                      </div>
+                      <div class="field col-12 md:col-6">
+                          <label class="text-sm font-medium">Confirmar Contraseña</label>
+                          <input formControlName="confirmarContrasenia" placeholder="Ingrese confirmar contraseña" type="text"
+                              pInputText>
+                          <small *ngIf="displayMessage['confirmarContrasenia']" class="p-error">
+                              * Ingrese confirmar contraseña
+                          </small>
+                      </div>
                   </div>
               </div>
           </div>

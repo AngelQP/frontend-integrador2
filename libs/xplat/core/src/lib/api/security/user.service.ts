@@ -14,16 +14,6 @@ export class UserService extends ApiBaseService {
 
     }
 
-    // public login (username:string, password:string, clientid:string): Observable<any>{
-    //     return this.httpClientService
-    //             .post(this.buildUrl('user/login'), {
-    //                 "clientId": clientid,
-    //                 "userName": username,
-    //                 "password": password,
-    //                 "rememberMe": true
-    //               },{})
-    // }
-
     public login (usuario:string, contrasenia:string, recordarme:boolean): Observable<any>{
         return this.httpClientService
                 .post(this.buildUrl('Seguridad/usuario/login'), {
@@ -50,20 +40,8 @@ export class UserService extends ApiBaseService {
                   }, {})
     }
 
-    public createUser (sociedad:string, usuario:string, correo:string, nombre:string, apellidoPaterno:string,
-                        apellidoMaterno:string, telefono:string, contrasenia:string, confirmarContrasenia:string): Observable<any>{
-        return this.httpClientService
-                .post(this.buildUrl('Seguridad/usuario'), {
-                    "sociedad": sociedad,
-                    "usuario": usuario,
-                    "correo": correo,
-                    "nombre": nombre,
-                    "apellidoPaterno": apellidoPaterno,
-                    "apellidoMaterno": apellidoMaterno,
-                    "telefono": telefono,
-                    "contrasenia": contrasenia,
-                    "confirmarContrasenia": confirmarContrasenia
-                  }, {})
+    public createUser(request: any, progress=false, handlerEnable: boolean|ServerErrorAction=false){
+        return this.httpClientService.post(this.buildUrl("Seguridad/usuario"), request, {}, progress, handlerEnable)
     }
 
     public searchUsers(nombre:any,  startAt:any, maxResult:any,

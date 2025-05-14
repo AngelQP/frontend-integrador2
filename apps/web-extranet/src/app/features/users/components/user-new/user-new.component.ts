@@ -1,8 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { EmailValidator, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { GenericValidator } from "@tramarsa/xplat/core";
-import { ConfirmationService } from "primeng/api";
+import { GenericValidator, handlerRequestResultResolve, UserService } from "@tramarsa/xplat/core";
+import { ConfirmationService, MessageService } from "primeng/api";
+import { map } from "rxjs/operators";
+import { SearchUsersComponent } from "../search-users/search-users.component";
 
 @Component({
   selector: 'tramarsa-user-new',
@@ -11,17 +13,15 @@ import { ConfirmationService } from "primeng/api";
 })
 export class UserNewComponent implements OnInit {
 
-
-  formNewCliente: FormGroup = this._builder.group({
-    pais: [null, [Validators.required]],
-    tipoDocumento: [null, [Validators.required]],
-    nroDocumento: [null, [Validators.required]],
-    // this.peDocumentsValidator.documentValid(this.isDocumentType.bind(this))]],
-    razonSocial: [null, [Validators.required]],
-    departamento: [null, [Validators.required]],
-    provincia: [null, [Validators.required]],
-    distrito: [null, [Validators.required]],
-    direccion: [null, [Validators.required]]
+  formNewUser: FormGroup = this._builder.group({
+    usuario: [null, [Validators.required]],
+    correo: [null, [Validators.required]],
+    nombre: [null, [Validators.required]],
+    apellidoPaterno: [null, [Validators.required]],
+    apellidoMaterno: [null, [Validators.required]],
+    telefono: [null, [Validators.required]],
+    contrasenia: [null, [Validators.required]],
+    confirmarContrasenia: [null, [Validators.required]],
   })
 
   public genericValidator?: GenericValidator;
@@ -31,16 +31,23 @@ export class UserNewComponent implements OnInit {
   constructor(private router: Router,
               private _builder: FormBuilder,
               private activatedRoute: ActivatedRoute,
-              private confirmationService: ConfirmationService,) {
-
+              private confirmationService: ConfirmationService,
+              private userService: UserService,
+              private messageService: MessageService,
+              private mainComponent: SearchUsersComponent) {
+    this.buildValidation();
   }
 
   ngOnInit(): void {
     console.log("pantalla crear usuarios")
   }
 
+  buildValidation() {
+    this.genericValidator = new GenericValidator(this.validationMessages);
+  }
+
   isValid() {
-    return !this.formNewCliente.invalid;
+    return !this.formNewUser.invalid;
   }
 
   save() {
@@ -51,19 +58,45 @@ export class UserNewComponent implements OnInit {
         header: 'Confirmar',
         icon: 'pi pi-info-circle',
         accept: () => {
-          // const request = this.buildRequest()
-          // this.clientService.create(request, true, true)
-          //   .pipe(map((r: any) => {
-          //     handlerRequestResultResolve(r, //pasamos el requestResult
-          //       () => this.showSuccessMessage(), // esto se ejecuta cuando es success
-          //       (message: string) => this.errorMessage(message)) // esto se ejecuta cuando no es success
+          const request = this.buildRequest()
+          this.userService.createUser(request, true, true)
+            .pipe(map((r: any) => {
+              handlerRequestResultResolve(
+                r, //pasamos el requestResult
+                () => this.showSuccessMessage(), // esto se ejecuta cuando es success
+                (message: string) => this.errorMessage(message)) // esto se ejecuta cuando no es success
 
-          //   })).subscribe()
+            })).subscribe()
         }
       });
     } else {
       this.showErrors(true);
     }
+  }
+
+  buildRequest() {
+    const valueFrm = this.formNewUser.value
+    return {
+      sociedad: "S1",
+      usuario: valueFrm.usuario,
+      correo: valueFrm.correo,
+      nombre: valueFrm.nombre,
+      apellidoPaterno: valueFrm.apellidoPaterno,
+      apellidoMaterno: valueFrm.apellidoMaterno,
+      telefono: valueFrm.telefono,
+      contrasenia: valueFrm.contrasenia,
+      confirmarContrasenia: valueFrm.confirmarContrasenia,
+    }
+  }
+
+  showSuccessMessage() {
+    this.messageService.add({ severity: 'success', summary: 'Registrado', detail: 'El usuario se registro exitosamente.' });
+    this.mainComponent.search(this.mainComponent.formCriteria.value);
+    this.returnRoute();
+  }
+
+  errorMessage(message: string) {
+    this.messageService.add({ key: "samePage", severity: 'error', summary: 'Cliente', detail: message });
   }
 
   returnRoute() {
@@ -76,7 +109,7 @@ export class UserNewComponent implements OnInit {
 
   private showErrors(force: boolean = false) {
     if (this.genericValidator) {
-      this.displayMessage = this.genericValidator.processMessages(this.formNewCliente, force);
+      this.displayMessage = this.genericValidator.processMessages(this.formNewUser, force);
     }
   }
 }
