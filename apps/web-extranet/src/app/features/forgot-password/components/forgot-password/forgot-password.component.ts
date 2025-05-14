@@ -78,7 +78,6 @@ export class ForgotPassworComponent implements OnInit, OnDestroy {
         .subscribe();
     } else {
       this.showErrors(true);
-      // this.router.navigate(['/forgot-password/reset-password']);
     }
   }
 

@@ -3,6 +3,7 @@ import { Component, Inject, OnDestroy, OnInit, ViewEncapsulation } from "@angula
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { GenericValidator, LoadingService, UserService } from "@tramarsa/xplat/core";
+import { MessageService } from "primeng/api";
 import { catchError, finalize, map } from "rxjs/operators";
 
 @Component({
@@ -26,11 +27,15 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   resendCountdown = 0;
   intervalId: any;
 
+  mostrarDialogoExito = false;
+  mensajeExito = '';
+
   constructor(@Inject(DOCUMENT) private _document: any,
                 private _builder: FormBuilder,
                 private router: Router,
                 private userService: UserService,
-                private loadingService: LoadingService,) {
+                private loadingService: LoadingService,
+                private messageService: MessageService,) {
     this.buildValidation();
   }
 
@@ -91,7 +96,9 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
             }),
             map(res => {
               if (res.isSuccess) {
-                this.router.navigate(['/login']);
+                this.mensajeExito = 'La contraseña se restableció correctamente.';
+                this.mostrarDialogoExito = true;
+                // this.router.navigate(['/login']);
               } else if (res.brokenRules && res.brokenRules.length > 0) {
                 this.messageServer =res.brokenRules[0].description;
               } else {
@@ -138,6 +145,11 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
         .subscribe();
     }
     console.log("codigo reenviado");
+  }
+
+  redirigirLogin() {
+    this.mostrarDialogoExito = false;
+    this.router.navigate(['/login']);
   }
 
   startResendCooldown() {
