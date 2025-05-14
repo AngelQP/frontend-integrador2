@@ -1,29 +1,27 @@
-import { NgModule } from '@angular/core';
+import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { ClientEditComponent, ClientNewComponent, ClientViewComponent, COMPONENTS, SearchClientsComponent } from "./components";
 
-import { COMPONENTS } from "./components";
-import { AutorizationGuard } from "@tramarsa/xplat/features";
 import { SharedModule } from '../shared/shared.module';
-import { ProductNewComponent, ProductViewComponent, ProductEditComponent, SearchProductsComponent } from "./components";
 
 export const routes: Routes = [
   {
     path: '',
-    component: SearchProductsComponent,
+    component: SearchClientsComponent,
     // canActivate: [AutorizationGuard],
     // data: { authorizationCode: 'pweb.clientes' },
     children:[
       {
         path: 'new',
-        component: ProductNewComponent
+        component: ClientNewComponent
       },
       {
         path: 'edit/:id',
-        component: ProductEditComponent
+        component: ClientEditComponent
       },
       {
         path: 'view/:id',
-        component: ProductViewComponent
+        component: ClientViewComponent
       }
     ]
   }
@@ -35,4 +33,4 @@ export const routes: Routes = [
   declarations:[...COMPONENTS],
   // providers: [ClienteLookupsService]
 })
-export class ProductsModule {}
+export class ClientsModule {}

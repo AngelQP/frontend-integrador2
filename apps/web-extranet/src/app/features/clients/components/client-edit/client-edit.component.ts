@@ -5,11 +5,11 @@ import { GenericValidator, LoadingService } from "@tramarsa/xplat/core";
 import { ConfirmationService, MessageService } from "primeng/api";
 
 @Component({
-  selector: 'tramarsa-product-edit',
-  templateUrl: './product-edit.component.html',
-  styleUrls: ['./product-edit.component.scss']
+  selector: 'tramarsa-client-edit',
+  templateUrl: './client-edit.component.html',
+  styleUrls: ['./client-edit.component.scss']
 })
-export class ProductEditComponent implements OnInit {
+export class ClientEditComponent implements OnInit {
 
   formNewCliente: FormGroup = this._builder.group({
     razonSocial: [null, [Validators.required]],

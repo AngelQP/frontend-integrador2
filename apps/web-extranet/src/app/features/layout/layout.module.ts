@@ -61,6 +61,10 @@ export const routes: Routes = [
         path:'productos',
         loadChildren:()=> import('../products/products.module').then((m)=> m.ProductsModule)
       },
+      {
+        path:'clientes',
+        loadChildren:()=> import('../clients/clients.module').then((m)=> m.ClientsModule)
+      },
       { path: 'unauthorized', component: UnauthorizedComponent },
       {
         path: 'version',
