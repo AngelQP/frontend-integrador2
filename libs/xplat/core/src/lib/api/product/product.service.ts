@@ -9,15 +9,17 @@ import { HttpParams } from '@angular/common/http';
 export class ProductService extends ApiBaseService {
   constructor(private httpClientService: HttpClientService) {
     super();
-    this.endpoint = environment.endpoint.products; // Asegúrate de tener esto en tu environment
+    this.endpoint = environment.endpoint.security; // Asegúrate de tener esto en tu environment
   }
 
-  public searchProducts(nombre: string,   categoria?: string,
-  proveedor?: string, progress = false, handlerEnable: boolean | ServerErrorAction = false): Observable<any> {
+  public searchProducts(nombre?: string,   categoria?: string,
+  proveedor?: string, startAt?:any, maxResult?:any, progress = false, handlerEnable: boolean | ServerErrorAction = false): Observable<any> {
     const query = new QueryStringBuilder()
       .add('nombre', nombre)
       .add('categoria', categoria)
-    .add('proveedor', proveedor)
+      .add('proveedor', proveedor)
+      .add("startAt", startAt)
+      .add("maxResult", maxResult)
       .build();
     const url = this.buildUrl(`Productos/producto${query}`);
     return this.httpClientService.get(url, new HttpParams(), progress, handlerEnable);

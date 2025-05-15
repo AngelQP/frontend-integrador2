@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
-import { GenericValidator } from "@tramarsa/xplat/core";
+import { GenericValidator, ProductService } from "@tramarsa/xplat/core";
+import { map } from "rxjs/operators";
 
 @Component({
   selector: 'tramarsa-search-products',
@@ -10,7 +11,7 @@ import { GenericValidator } from "@tramarsa/xplat/core";
 })
 export class SearchProductsComponent implements OnInit {
 
-  clientesResult: any;
+  productResult: any;
   _maxResult = 20;
   currentCriteria: any;
 
@@ -19,14 +20,20 @@ export class SearchProductsComponent implements OnInit {
   public displayMessage: { [key: string]: string; } = {};
 
   public formCriteria: FormGroup = this._builder.group({
-    nombreCliente: [null],
-    tipoDocumento: [null],
+    sku: [null],
+    nombre: [null],
     // nroDocumento: [null, [this.peDocumentsValidator.documentValid(this.isDocumentType.bind(this))]],
-    pais: [null]
+    categoria: [null],
+    proveedor: [null],
+    cantidad: [null],
+    precio: [null]
+
   });
 
   constructor(private router: Router,
-              private _builder: FormBuilder,) {
+              private _builder: FormBuilder,
+              private productService: ProductService// ProductService
+            ) {
     this.buildValidation();
   }
 
@@ -48,15 +55,15 @@ export class SearchProductsComponent implements OnInit {
     this.formCriteria.reset();
     this.showErrors(false);
     this.currentCriteria = null;
-    // this.clientesResult = null;
+    this.productResult = null;
   }
 
   openNewProduct() {
     this.router.navigate(['/productos/new'])
   }
 
-  openView(cliente: any) {
-    this.router.navigate([`/productos/view/${cliente.idCliente}`])
+  openView(product: any) {
+    this.router.navigate([`/productos/view/${product.id}`])
   }
 
   search(value: any) {
@@ -64,7 +71,7 @@ export class SearchProductsComponent implements OnInit {
     if (!this.formCriteria.invalid) {
       //this.paginator?.changePage(0);
       this.currentCriteria = value;
-      // this._search(this.currentCriteria, 1, this._maxResult);
+      this._search(this.currentCriteria, 1, this._maxResult);
       this.showErrors(false);
     }
     else {
@@ -97,5 +104,14 @@ export class SearchProductsComponent implements OnInit {
 
   clear() {
     this.resetForm();
+  }
+
+  private _search(value: any, startAt: number, maxResult: number) {
+    this.productService
+      .searchProducts(value.nombre, value.categoria, value.proveedor, startAt, maxResult,true)
+        .pipe(map((b: any) => {
+          this.productResult = b.data;
+        }))
+        .subscribe();
   }
 }
