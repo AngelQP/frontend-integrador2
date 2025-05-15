@@ -81,30 +81,6 @@ export class LoginComponent implements OnInit, OnDestroy {
           })
         )
         .subscribe();
-      // this.authService
-      // .doLogin(value.txtUsername, value.txtPassword)
-      // .pipe(
-      //   finalize(()=> this.loadingService.hide()),
-      //   catchError(err=> {
-      //     this.messageServer = "Ha ocurrido un error, intentelo mas tarde."
-      //     return err;
-      //   }),
-      //   map(res=>
-      //     {
-
-      //       if(res.isValid){
-      //         this.router.navigate(['/']);
-      //       }
-      //       else if(res.messages && res.messages.length>0){
-      //         this.messageServer =res.messages[0].message;
-      //       }
-      //       else{
-      //         this.messageServer = "Ha ocurrido un error al iniciar sesión."
-      //       }
-      //       return res;
-      //     })
-      // )
-      // .subscribe();
     }
     else{
       this.showErrors(true);

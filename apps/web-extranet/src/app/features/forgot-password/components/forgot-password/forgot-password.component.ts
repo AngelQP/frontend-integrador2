@@ -21,7 +21,7 @@ export class ForgotPassworComponent implements OnInit, OnDestroy {
   storage: StorageService  = new StorageService();
 
   forgotPasswordForm: FormGroup = this._builder.group({
-    email:['', Validators.required]
+    email:['', [Validators.required, Validators.email]]
   });
 
   constructor(@Inject(DOCUMENT) private _document: any,

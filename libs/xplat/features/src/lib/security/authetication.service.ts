@@ -52,15 +52,6 @@ export class AuthenticationService {
     public isClient(): boolean{
        return this.inRole(this.ROLECODECLIENT) && !!this.client;
     }
-    public isAgenteAduanaClient(): boolean{
-         if (this.isClient()) {
-             const _client = this.client
-             if (_client?.rolList && _client.rolList.length>0){
-                return !!_client.rolList.find((r:any)=>r==8)
-             }
-         }
-         return false;
-     }
     public isAdmin(): boolean{
         return this.inRole(this.ROLECODEADMIN);
      }
