@@ -24,9 +24,19 @@
                     <ng-template pTemplate="content">
                         <form [formGroup]="formCriteria" (ngSubmit)="search(formCriteria.value)">
                             <div class="p-fluid p-formgrid p-grid formgrid grid mt-2 md:mt-3 mb-1">
-                                <div class="field col-12 md:col-6">
-                                    <label class="text-sm font-medium">Cliente</label>
-                                    <input formControlName="nombreCliente" placeholder="Escriba un nombre de cliente"
+                                <div class="field col-12 md:col-4">
+                                    <label class="text-sm font-medium">Nombre</label>
+                                    <input formControlName="nombreCliente" placeholder="Escriba un nombre de Producto"
+                                        type="text" pInputText>
+                                </div>
+                                <div class="field col-12 md:col-3">
+                                    <label class="text-sm font-medium">Categoria</label>
+                                    <input formControlName="nombreCliente" placeholder="Escriba un nombre de Categoria"
+                                        type="text" pInputText>
+                                </div>
+                                <div class="field col-12 md:col-3">
+                                    <label class="text-sm font-medium">Proveedor</label>
+                                    <input formControlName="nombreCliente" placeholder="Escriba un nombre de Proveedor"
                                         type="text" pInputText>
                                 </div>
                                 <!-- <div class="field col-12 md:col-2">
