@@ -10,7 +10,7 @@
   </div>
 
   <div class="py-2 px-3 md:py-3 md:px-4">
-      <form [formGroup]="formNewCliente">
+      <form [formGroup]="formNewProveedor">
           <div class="py-3">
               <div class="grid mt-0 flex align-content-center flex-wrap">
                   <div class="col-9 md:col-8 flex align-content-center flex-wrap">
@@ -50,29 +50,53 @@
 
 
                       <div class="field col-12 md:col-6">
-                          <label class="text-sm font-medium">Nro de Documento</label>
-                          <input formControlName="nroDocumento" #rucInput id="rucInput" placeholder="Ingrese un número de documento"
+                          <label class="text-sm font-medium">Nombre</label>
+                          <input formControlName="nomProveedor" #rucInput id="rucInput" placeholder="Ingrese un nombre"
                               type="text" pInputText max>
-                          <small *ngIf="displayMessage['nroDocumento']" class="p-error">
-                              Numero de documento invalido
+                          <small *ngIf="displayMessage['nroProveedor']" class="p-error">
+                              Nombre de proveedor invalido
                           </small>
                       </div>
                       <div class="field col-12 md:col-12">
-                          <label class="text-sm font-medium">Razón Social</label>
-                          <input formControlName="razonSocial" placeholder="Ingrese una razón social" type="text"
+                          <label class="text-sm font-medium">RUC</label>
+                          <input formControlName="rucProveedor" placeholder="Ingrese un numero de RUC" type="text"
                               pInputText>
-                          <small *ngIf="displayMessage['razonSocial']" class="p-error">
-                              Ingreso razón social
+                          <small *ngIf="displayMessage['rucProveedor']" class="p-error">
+                              Ingreso ruc invalido
                           </small>
                       </div>
                       <div class="field col-12 md:col-12">
                           <label class="text-sm font-medium">Dirección</label>
-                          <input formControlName="direccion" placeholder="Ingrese una dirección" type="text"
+                          <input formControlName="dirProveedor" placeholder="Ingrese una dirección" type="text"
                               pInputText>
-                          <small *ngIf="displayMessage['direccion']" class="p-error">
-                              Seleccione un dirección
+                          <small *ngIf="displayMessage['dirProveedor']" class="p-error">
+                              Dirección incorrecta
                           </small>
                       </div>
+                      <div class="field col-12 md:col-12">
+                        <label class="text-sm font-medium">Telefono</label>
+                        <input formControlName="telfProveedor" placeholder="Ingrese numero telefonico" type="text"
+                            pInputText>
+                        <small *ngIf="displayMessage['dirProveedor']" class="p-error">
+                            Numero incorrecto
+                        </small>
+                    </div>
+                    <div class="field col-12 md:col-12">
+                        <label class="text-sm font-medium">Correo</label>
+                        <input formControlName="corProveedor" placeholder="Ingrese un Email" type="text"
+                            pInputText>
+                        <small *ngIf="displayMessage['corProveedor']" class="p-error">
+                            Email incorrecta
+                        </small>
+                    </div>
+                    <div class="field col-12 md:col-12">
+                        <label class="text-sm font-medium">Contacto</label>
+                        <input formControlName="conProveedor" placeholder="Ingrese una dirección" type="text"
+                            pInputText>
+                        <small *ngIf="displayMessage['conProveedor']" class="p-error">
+                            Contacto incorrecto
+                        </small>
+                    </div>
                       <!-- <div class="field col-12 md:col-6">
                           <label class="text-sm font-medium">Departamento</label>
                           <p-dropdown formControlName="departamento" [options]="departamentos"

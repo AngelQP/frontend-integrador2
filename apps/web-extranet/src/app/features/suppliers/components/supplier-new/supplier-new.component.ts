@@ -12,17 +12,15 @@ import { ConfirmationService } from "primeng/api";
 export class SupplierNewComponent implements OnInit {
 
 
-  formNewCliente: FormGroup = this._builder.group({
-    pais: [null, [Validators.required]],
-    tipoDocumento: [null, [Validators.required]],
-    nroDocumento: [null, [Validators.required]],
+  formNewProveedor: FormGroup = this._builder.group({
+    nomProveedor: [null, [Validators.required]],
+    rucProveedor: [null, [Validators.required]],
+    dirProveedor: [null, [Validators.required]],
     // this.peDocumentsValidator.documentValid(this.isDocumentType.bind(this))]],
-    razonSocial: [null, [Validators.required]],
-    departamento: [null, [Validators.required]],
-    provincia: [null, [Validators.required]],
-    distrito: [null, [Validators.required]],
-    direccion: [null, [Validators.required]]
-  })
+    telfProveedor: [null, [Validators.required]],
+    corProveedor: [null, [Validators.required]],
+    conProveedor: [null, [Validators.required]],
+    })
 
   public genericValidator?: GenericValidator;
   public validationMessages: { [key: string]: { [key: string]: string } } = {};
@@ -36,11 +34,11 @@ export class SupplierNewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("pantalla crear producto")
+    console.log("pantalla crear proveedor")
   }
 
   isValid() {
-    return !this.formNewCliente.invalid;
+    return !this.formNewProveedor.invalid;
   }
 
   save() {
@@ -76,7 +74,7 @@ export class SupplierNewComponent implements OnInit {
 
   private showErrors(force: boolean = false) {
     if (this.genericValidator) {
-      this.displayMessage = this.genericValidator.processMessages(this.formNewCliente, force);
+      this.displayMessage = this.genericValidator.processMessages(this.formNewProveedor, force);
     }
   }
 }
