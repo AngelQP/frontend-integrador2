@@ -8,7 +8,7 @@ import { TokenProviderService } from './tokenprovider.service';
 @Injectable()
 export class AuthenticationService {
 
-    ROLECODECLIENT: string = "client"
+    ROLECODECAJERO: string = "Cajero"
     ROLECODEADMIN: string = "Admin"
 
     constructor(private userService: UserService,
@@ -50,7 +50,7 @@ export class AuthenticationService {
     }
 
     public isClient(): boolean{
-       return this.inRole(this.ROLECODECLIENT) && !!this.client;
+       return this.inRole(this.ROLECODECAJERO) && !!this.client;
     }
     public isAdmin(): boolean{
         return this.inRole(this.ROLECODEADMIN);
@@ -100,21 +100,15 @@ export class AuthenticationService {
                         if (loginRequest.isSuccess) {
 
 
-                            // if (this.inRole(this.ROLECODECLIENT)){
+                            // if (this.inRole(this.ROLECODECAJERO)){
                             //     const data = this.tokenProvider.getData();
 
 
                             //     return data;
                             // }
                         }
-                        // else {
-                        //   this.clear();
-                        //   loginRequest.isSuccess = false;
-                        //   loginRequest.messages=[{message:"No s"}]
-                        // }
                         return of(loginRequest);
                    }))
-                   //.pipe(map(res=> this.success(res) ));
     }
 
     private success(response:any){

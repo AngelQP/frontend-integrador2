@@ -12,51 +12,6 @@ export const routes: Routes = [
     component: LayoutComponent,
     canActivate: [AuthGuard],
     children: [
-
-      // {
-      //   path: 'desglose',
-      //   loadChildren: () =>
-      //     import('../desglose/desglose.module').then((m) => m.DesgloseModule)
-      // },
-      // {
-      //   path: 'direccionamiento',
-      //   loadChildren: () =>
-      //     import('../direccionamiento/direccionamiento.module').then((m) => m.DireccionamientoModule)
-      // },
-      // {
-      //   path: 'itinerarios',
-      //   loadChildren: () =>
-      //     import('../itinerarios/itinerarios.module').then((m) => m.ItinereriosModule)
-      // },
-      // {
-      //   path: 'sobreestadia',
-      //   loadChildren: () =>
-      //     import('../sobreestadia/sobreestadia.module').then((m) => m.SobreestadiaModule)
-      // },
-      // {
-      //   path: 'servicioskn',
-      //   loadChildren: () => import('../servicioskn/servicioskn.module').then((m) => m.ServicioKNModule)
-      // },
-      // {
-      //   path: 'generaciondoc',
-      //   loadChildren: () => import('../generaciondoc/generaciondoc.modules').then((m) => m.GeneracionDocModule)
-      // },
-      // {
-      //   path: 'emisionbl',
-      //   loadChildren: () => import('../emisionbl/emisionbl.module').then((m) => m.EmisionBLModule)
-      // },
-      // {
-      //   path: 'reporteria',
-      //   loadChildren: () => import('../reporteria/reporteria.module').then((m) => m.ReporteriaModule)
-      // },
-      // {
-      //   path:'solicitud-servicio',
-      //   loadChildren:()=> import('../solicitudServicio/solicitudServicio.module').then((m)=> m.SolicitudServicioModule)
-      // },
-      // {
-      //   path:'recuperables-ko',
-      //   loadChildren:()=> import('../recuperablesok/recuperablesok.module').then((m)=> m.RecuperablesokModule)
-      // },
       {
         path:'productos',
         loadChildren:()=> import('../products/products.module').then((m)=> m.ProductsModule)
