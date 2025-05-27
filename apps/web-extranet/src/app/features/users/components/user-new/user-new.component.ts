@@ -5,6 +5,7 @@ import { GenericValidator, handlerRequestResultResolve, UserService } from "@tra
 import { ConfirmationService, MessageService } from "primeng/api";
 import { map } from "rxjs/operators";
 import { SearchUsersComponent } from "../search-users/search-users.component";
+import { AuthenticationService } from "@tramarsa/xplat/features";
 
 @Component({
   selector: 'tramarsa-user-new',
@@ -14,7 +15,7 @@ import { SearchUsersComponent } from "../search-users/search-users.component";
 export class UserNewComponent implements OnInit {
 
   formNewUser: FormGroup = this._builder.group({
-    usuario: [null, [Validators.required]],
+    // usuario: [null, [Validators.required]],
     correo: [null, [Validators.required]],
     nombre: [null, [Validators.required]],
     apellidoPaterno: [null, [Validators.required]],
@@ -22,11 +23,20 @@ export class UserNewComponent implements OnInit {
     telefono: [null, [Validators.required]],
     contrasenia: [null, [Validators.required]],
     confirmarContrasenia: [null, [Validators.required]],
+    rol: [null, [Validators.required]],
   })
 
   public genericValidator?: GenericValidator;
   public validationMessages: { [key: string]: { [key: string]: string } } = {};
   public displayMessage: { [key: string]: string; } = {};
+
+  allRoles = [
+    { label: 'Administrador General', value: 'ADMIN_GENERAL' },
+    { label: 'Administrador Tienda', value: 'ADMIN_TIENDA' },
+    { label: 'Cajero', value: 'CAJERO' }
+  ];
+
+  roles: { label: string; value: string }[] = [];
 
   constructor(private router: Router,
               private _builder: FormBuilder,
@@ -34,12 +44,17 @@ export class UserNewComponent implements OnInit {
               private confirmationService: ConfirmationService,
               private userService: UserService,
               private messageService: MessageService,
-              private mainComponent: SearchUsersComponent) {
+              private mainComponent: SearchUsersComponent,
+              private authService: AuthenticationService,) {
     this.buildValidation();
   }
 
   ngOnInit(): void {
-    console.log("pantalla crear usuarios")
+    if (this.authService.isAdminGeneral()) {
+      this.roles = this.allRoles;
+    } else if (this.authService.isAdminTienda()) {
+      this.roles = this.allRoles.filter(r => r.value === 'CAJERO');
+    }
   }
 
   buildValidation() {

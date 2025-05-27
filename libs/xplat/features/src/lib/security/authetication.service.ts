@@ -8,8 +8,11 @@ import { TokenProviderService } from './tokenprovider.service';
 @Injectable()
 export class AuthenticationService {
 
-    ROLECODECAJERO: string = "Cajero"
-    ROLECODEADMIN: string = "Admin"
+    // ROLECODECAJERO: string = "Cajero"
+    // ROLECODEADMIN: string = "Admin"
+    ROLECODEADMINGENERAL = "ADMIN_GENERAL";
+    ROLECODEADMINTIENDA = "ADMIN_TIENDA";
+    ROLECODECAJERO = "CAJERO";
 
     constructor(private userService: UserService,
                 private tokenProvider: TokenProviderService,
@@ -49,24 +52,53 @@ export class AuthenticationService {
         return "";
     }
 
-    public isClient(): boolean{
-       return this.inRole(this.ROLECODECAJERO) && !!this.client;
+    // public isClient(): boolean{
+    //    return this.inRole(this.ROLECODECAJERO) && !!this.client;
+    // }
+    // public isAdmin(): boolean{
+    //     return this.inRole(this.ROLECODEADMIN);
+    //  }
+    // public inRole(role:string):boolean{
+    //     const roles = this.getRoles();
+    //     const roleApp = `${this.authConfig.clientId}.${role}`
+    //     return roles.filter(x=>x.toLocaleLowerCase().trim() === roleApp.toLocaleLowerCase().trim()).length > 0;
+    // }
+    // public getRoles():string[]{
+    //     const data = this.tokenProvider.getData()
+    //     if (data.application && data.application.roles){
+    //         return data.application.roles;
+    //     }
+    //     return [];
+    // }
+
+
+    public isAdminGeneral(): boolean {
+      return this.inRole(this.ROLECODEADMINGENERAL);
     }
-    public isAdmin(): boolean{
-        return this.inRole(this.ROLECODEADMIN);
-     }
-    public inRole(role:string):boolean{
-        const roles = this.getRoles();
-        const roleApp = `${this.authConfig.clientId}.${role}`
-        return roles.filter(x=>x.toLocaleLowerCase().trim() === roleApp.toLocaleLowerCase().trim()).length > 0;
+
+    public isAdminTienda(): boolean {
+      return this.inRole(this.ROLECODEADMINTIENDA);
     }
-    public getRoles():string[]{
-        const data = this.tokenProvider.getData()
-        if (data.application && data.application.roles){
-            return data.application.roles;
-        }
-        return [];
+
+    public isCajero(): boolean {
+      return this.inRole(this.ROLECODECAJERO);
     }
+
+    public inRole(role: string): boolean {
+      const currentRole = this.getRole();
+      if (!currentRole) return false;
+
+      return currentRole.toLocaleLowerCase().trim() === role.toLocaleLowerCase().trim();
+    }
+
+    public getRole(): string {
+      const data = this.tokenProvider.getData();
+      if (data) {
+        return data.rol;
+      }
+      return "";
+    }
+
     public isAuthenticate() :boolean {
         if(this.tokenProvider.isToken())
         {

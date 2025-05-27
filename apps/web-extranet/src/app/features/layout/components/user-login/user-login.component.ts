@@ -18,8 +18,8 @@ export class UserLoginComponent implements OnInit {
   }
 
   getRoleName(){
-    const roles = this.authService.getRoles();
-    const role = roles && roles.length>0?roles[0]:""
+    const role = this.authService.getRole();
+    // const role = roles && roles.length>0?roles[0]:""
     if (role){
       const part = role.split(".")
       if (part.length>0){
@@ -30,7 +30,7 @@ export class UserLoginComponent implements OnInit {
   }
 
   logout(){
-    
+
     this.authService.doLogout();
   }
 
