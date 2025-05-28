@@ -2,7 +2,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Router, ActivationEnd, ActivationStart, NavigationEnd } from '@angular/router';
 import { filter, map, mergeMap, tap } from 'rxjs/operators';
-import { AuthorizationOptionsService } from '@tramarsa/xplat/features';
+import { AuthenticationService, AuthorizationOptionsService } from '@tramarsa/xplat/features';
+import { APP_MENU_ITEMS } from '../../../shared/constants/menu.config';
 
 @Component({
   selector: 'tramarsa-top-menu',
@@ -58,35 +59,18 @@ export class TopMenuComponent implements OnInit {
   //   })
   // ).subscribe();
 
-  constructor(private router: Router, private authorizationOptionsService: AuthorizationOptionsService) {
+  constructor(private router: Router,
+              private authService: AuthenticationService,
+              private authorizationOptionsService: AuthorizationOptionsService) {
 
 
 
   }
 
   ngOnInit(): void {
-    this.items = [
-      {
-        label: 'Productos',
-        icon: 'pi pi-desktop',
-        routerLink: '/productos'
-      },
-      {
-        label: 'Clientes',
-        icon: 'pi pi-users',
-        routerLink: '/clientes'
-      },
-      {
-        label: 'Proveedores',
-        icon: 'pi pi-briefcase',
-        routerLink: '/proveedores'
-      },
-      {
-        label: 'Usuarios',
-        icon: 'pi pi-users',
-        routerLink: '/usuarios'
-      }
-    ];
+    this.items = APP_MENU_ITEMS.filter(item =>
+      item.roles.includes(this.authService.getRole())
+    );
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {

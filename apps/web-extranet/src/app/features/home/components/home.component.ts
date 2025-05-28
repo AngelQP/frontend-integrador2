@@ -7,6 +7,7 @@ import { tap } from 'rxjs/operators';
 
 import * as R from 'ramda';
 import { Observable } from 'rxjs';
+import { APP_MENU_ITEMS } from '../../shared/constants/menu.config';
 
 @Component({
   selector: 'tramarsa-home',
@@ -28,28 +29,10 @@ export class HomeComponent extends BaseComponent implements OnInit {
   }
   ngOnInit(): void {
     console.log("home");
-    this.items = [
-      {
-        label: 'Productos',
-        icon: 'pi pi-desktop',
-        routerLink: '/productos'
-      },
-      {
-        label: 'Clientes',
-        icon: 'pi pi-users',
-        routerLink: '/clientes'
-      },
-      {
-        label: 'Proveedores',
-        icon: 'pi pi-briefcase',
-        routerLink: '/proveedores'
-      },
-      {
-        label: 'Usuarios',
-        icon: 'pi pi-users',
-        routerLink: '/usuarios'
-      }
-    ]
+    this.items = APP_MENU_ITEMS.filter(item =>
+      item.roles.includes(this.authService.getRole())
+    );
+
     // this.authorizationOptionsService
     //             .getOptionsAsync()
     //             .pipe(tap((r:any)=>{

@@ -5,7 +5,7 @@ import { AuthenticationService } from '.';
 
 @Injectable()
 export class AuthGuard implements CanLoad, CanActivate {
-    constructor(protected authenticationService: AuthenticationService ) 
+    constructor(protected authenticationService: AuthenticationService )
     {
 
     }
@@ -15,9 +15,9 @@ export class AuthGuard implements CanLoad, CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
         return this.verifyLogged();
     }
-    
+
     verifyLogged() : boolean{
-        
+
         if(this.authenticationService.isAuthenticate()){
             return true;
         }

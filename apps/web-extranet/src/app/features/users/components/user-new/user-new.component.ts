@@ -94,13 +94,14 @@ export class UserNewComponent implements OnInit {
     return {
       sociedad: "S1",
       usuario: valueFrm.usuario,
-      correo: valueFrm.correo,
-      nombre: valueFrm.nombre,
-      apellidoPaterno: valueFrm.apellidoPaterno,
-      apellidoMaterno: valueFrm.apellidoMaterno,
-      telefono: valueFrm.telefono,
-      contrasenia: valueFrm.contrasenia,
-      confirmarContrasenia: valueFrm.confirmarContrasenia,
+      correo: valueFrm.correo.trim(),
+      nombre: valueFrm.nombre.trim(),
+      apellidoPaterno: valueFrm.apellidoPaterno.trim(),
+      apellidoMaterno: valueFrm.apellidoMaterno.trim(),
+      telefono: valueFrm.telefono.trim(),
+      contrasenia: valueFrm.contrasenia.trim(),
+      confirmarContrasenia: valueFrm.confirmarContrasenia.trim(),
+      rol: valueFrm.rol.value,
     }
   }
 
