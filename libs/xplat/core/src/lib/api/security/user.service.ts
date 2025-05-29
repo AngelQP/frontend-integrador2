@@ -56,5 +56,13 @@ export class UserService extends ApiBaseService {
               .httpClientService
               .get(url, new HttpParams(), progress, handlerEnable)
 
-  }
+    }
+
+    public userGetById(idUsuario:any, progress=false, handlerEnable: boolean|ServerErrorAction=false):Observable<any>{
+      const url = this.buildUrl(`Seguridad/usuario/${idUsuario}`)
+      return this
+              .httpClientService
+              .get(url, new HttpParams(), progress, handlerEnable)
+
+    }
 }

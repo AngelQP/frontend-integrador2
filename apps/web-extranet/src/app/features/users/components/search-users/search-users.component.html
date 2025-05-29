@@ -24,46 +24,30 @@
                     <ng-template pTemplate="content">
                         <form [formGroup]="formCriteria" (ngSubmit)="search(formCriteria.value)">
                             <div class="p-fluid p-formgrid p-grid formgrid grid mt-2 md:mt-3 mb-1">
-                                <div class="field col-12 md:col-6">
+                                <div class="field col-12 md:col-4">
                                     <label class="text-sm font-medium">Nombre</label>
                                     <input formControlName="nombreUsuario" placeholder="Escriba un nombre de usuario"
                                         type="text" pInputText>
                                 </div>
-                                <!-- <div class="field col-12 md:col-2">
-                                    <label class="text-sm font-medium">Tipo de documento</label>
-                                    <p-selectButton class="btnGroup-rb" [options]="tiposDocumentos"
-                                        formControlName="tipoDocumento" optionLabel="label"></p-selectButton>
+                                <div class="field col-12 md:col-4">
+                                  <label class="text-sm font-medium">Rol</label>
+                                  <p-dropdown
+                                      formControlName="rol"
+                                      [options]="roles"
+                                      optionLabel="label"
+                                      placeholder="Seleccione un rol">
+                                  </p-dropdown>
+                              </div>
 
-                                </div> -->
-                                <!-- <div class="field col-12 md:col-2">
-                                    <label class="text-sm font-medium">Nro. de Documento</label>
-                                    <input formControlName="nroDocumento" placeholder="Escriba un numero de documento"
-                                        type="text" pInputText>
-                                    <small *ngIf="displayMessage['nroDocumento']" class="p-error">Numero de documento
-                                        invalido</small>
-                                </div> -->
-                                <!-- <div class="field col-12 md:col-2">
-                                    <label class="text-sm font-medium">Pais</label>
-                                    <p-dropdown formControlName="pais" [options]="paises" optionLabel="nombre"
-                                        [filter]="true" filterBy="nombre" placeholder="Todos">
-                                        <ng-template pTemplate="selectedItem">
-                                            <div class="country-item country-item-value"
-                                                *ngIf="formCriteria.value?.pais?.nombre">
-                                                <img src="assets/images/flag_placeholder.png"
-                                                    class='flag flag-{{formCriteria.value?.pais?.iso2?.toLowerCase()}}'>
-                                                <div>{{formCriteria.value?.pais?.nombre}}</div>
-                                            </div>
-                                        </ng-template>
-                                        <ng-template let-country pTemplate="item">
-                                            <div class="country-item">
-                                                <img src="assets/images/flag_placeholder.png"
-                                                    class='flag flag-{{country.iso2.toLowerCase()}}'>
-                                                <div>{{ country.nombre }}</div>
-                                            </div>
-                                        </ng-template>
-
-                                    </p-dropdown>
-                                </div> -->
+                              <div class="field col-12 md:col-4">
+                                  <label class="text-sm font-medium">Estado</label>
+                                  <p-dropdown
+                                      formControlName="estado"
+                                      [options]="estados"
+                                      optionLabel="label"
+                                      placeholder="Seleccione un estado">
+                                  </p-dropdown>
+                              </div>
                                 <div class="field col-12 md:col-12 mb-1 md:mb-0">
                                     <label class="md:block">&nbsp;</label>
                                     <div class="flex align-content-center flex-wrap justify-content-end">
@@ -96,73 +80,70 @@
             <div *ngIf="userResult?.users?.length > 0" class="pt-4">
                 <div class="hidden md:block bg-bluegray-50 px-1 md:py-2">
                     <div class="md:flex align-items-center">
+                        <div class="flex px-2 md:px-1 align-items-center w-status-rb">&nbsp;</div>
                         <div class="flex-1">
                             <div class="grid m-0 align-items-center text-sm font-semibold">
-                                <div class="col-12 md:col-2">
-                                    <label>Usuario</label>
-                                </div>
-                                <div class="col-12 md:col-2">
+                                <div class="col-12 md:col-3">
                                     <label>Correo</label>
                                 </div>
-                                <!-- <div class="col-12 md:col-2">
-                                    <label>Pais</label>
-                                </div> -->
-                                <div class="col-12 md:col-3">
-                                    <label>Apellido Paterno</label>
+                                <div class="col-12 md:col-2">
+                                    <label>Nombres</label>
                                 </div>
-                                <div class="col-12 md:col-3">
-                                    <label>Apellido Materno</label>
+                                <div class="col-12 md:col-2">
+                                    <label>Apellidos</label>
                                 </div>
                                 <div class="col-12 md:col-2">
                                     <label>Telefono</label>
                                 </div>
+                                <div class="col-12 md:col-2">
+                                    <label>Rol</label>
+                                </div>
+                                <div class="col-12 md:col-1">
+                                    <label>&nbsp;</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="flex px-1 align-items-center w-icon-1-rb">&nbsp;</div>
+                        <!-- <div class="flex px-1 align-items-center w-icon-1-rb">&nbsp;</div> -->
                     </div>
                 </div>
                 <div class="m-0">
                     <div *ngFor="let user of userResult?.users" class="item-grid-rb px-1 py-3 md:py-2">
                         <div class="md:flex align-items-center relative">
+                            <div class="flex py-1 md:py-0 px-2 md:px-1 align-items-center mr-6 md:mr-0">
+                                <div class="md:px-2">
+                                    <div class="status-rb" [ngClass]="{
+                                        'status-processed-rb': user.estadoRegistro === 1,
+                                        'status-rejected-rb': user.estadoRegistro === 0
+                                        }
+                                        ">{{user.estadoNombre}}</div>
+                                </div>
+                            </div>
                             <div class="flex-1 mr-6 md:mr-0">
                                 <div class="grid m-0 align-items-center">
-                                    <div class="col-12 md:col-2">
-                                        <label class="md:hidden font-medium mr-2">Usuario:</label>
-                                        <label>{{ user.usuario }}</label>
-                                    </div>
-                                    <div class="col-12 md:col-2">
+                                    <div class="col-12 md:col-3">
                                         <label class="md:hidden font-medium mr-2">Correo:</label>
                                         <label>{{ user.correo }}</label>
                                     </div>
-                                    <!-- <div class="col-12 md:col-2">
-                                        <label class="md:hidden font-medium mr-2">Pais:</label>
-                                        <label>
-                                            <div class="country-item">
-                                                <img src="assets/images/flag_placeholder.png"
-                                                    class='flag flag-{{user.codigoPais?.toLowerCase()}}'>
-                                                <div>{{ user.pais }}</div>
-                                            </div>
-                                        </label>
-                                    </div> -->
-                                    <div class="col-12 md:col-3">
-                                        <label class="md:hidden font-medium mr-2">Apellido Paterno:</label>
-                                        <label>{{ user.apellidoPaterno }}</label>
+                                    <div class="col-12 md:col-2">
+                                        <label class="md:hidden font-medium mr-2">Nombres:</label>
+                                        <label>{{ user.nombre }}</label>
                                     </div>
-                                    <div class="col-12 md:col-3">
-                                        <label class="md:hidden font-medium mr-2">Apellido Materno:</label>
-                                        <label>{{ user.apellidoMaterno }}</label>
+                                    <div class="col-12 md:col-2">
+                                        <label class="md:hidden font-medium mr-2">Apellidos:</label>
+                                        <label>{{ user.apellidoPaterno }} {{ user.apellidoMaterno }}</label>
                                     </div>
                                     <div class="col-12 md:col-2">
                                         <label class="md:hidden font-medium mr-2">Telefono:</label>
                                         <label>{{ user.telefono }}</label>
                                     </div>
-                                </div>
-                            </div>
-                            <div
-                                class="flex px-1 align-items-center flex-column-reverse md:flex-row flex-wrap absolute top-0 right-0 md:relative">
-                                <div class="px-1">
-                                    <button pButton pRipple type="button" icon="pi pi-arrow-right"
-                                        class="p-button-rounded p-button-text" (click)="openView(user)"></button>
+                                    <div class="col-12 md:col-2">
+                                        <label class="md:hidden font-medium mr-2">Rol:</label>
+                                        <label>{{ user.rolNombre }}</label>
+                                    </div>
+                                    <div class="col-12 md:col-1">
+                                      <button pButton icon="pi pi-pencil" class="p-button-text p-button-rounded" (click)="openEdit(user)"></button>
+                                      <button pButton icon="pi pi-trash" class="p-button-text p-button-rounded" (click)="confirmDelete(user)"></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

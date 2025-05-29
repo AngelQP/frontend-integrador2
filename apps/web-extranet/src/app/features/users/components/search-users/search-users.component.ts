@@ -14,6 +14,16 @@ export class SearchUsersComponent implements OnInit {
   userResult: any;
   _maxResult = 20;
   currentCriteria: any;
+  roles = [
+    { label: 'Administrador General', value: 'ADMIN_GENERAL' },
+    { label: 'Administrador Tienda', value: 'ADMIN_TIENDA' },
+    { label: 'Cajero', value: 'CAJERO' }
+  ];
+
+  estados = [
+    { label: 'Activo', value: 1 },
+    { label: 'Inactivo', value: 0 }
+  ];
 
   public genericValidator?: GenericValidator;
   public validationMessages: { [key: string]: { [key: string]: string } } = {};
@@ -21,9 +31,8 @@ export class SearchUsersComponent implements OnInit {
 
   public formCriteria: FormGroup = this._builder.group({
     nombreUsuario: [null],
-    // tipoDocumento: [null],
-    // nroDocumento: [null, [this.peDocumentsValidator.documentValid(this.isDocumentType.bind(this))]],
-    // pais: [null]
+    rol: [null],
+    estado: [null]
   });
 
   constructor(private router: Router,
@@ -108,5 +117,13 @@ export class SearchUsersComponent implements OnInit {
         this.userResult = r.data;
       }))
       .subscribe();
+  }
+
+  openEdit(user:any){
+    this.router.navigate([`/usuarios/edit/${user.idUsuario}`])
+  }
+
+  confirmDelete(user:any) {
+    console.log("El usuario ha sido eliminado");
   }
 }

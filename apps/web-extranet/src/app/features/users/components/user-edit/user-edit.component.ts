@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { GenericValidator, LoadingService } from "@tramarsa/xplat/core";
+import { GenericValidator, LoadingService, UserService } from "@tramarsa/xplat/core";
 import { ConfirmationService, MessageService } from "primeng/api";
+import { map } from "rxjs/operators";
 
 @Component({
   selector: 'tramarsa-user-edit',
@@ -11,14 +12,19 @@ import { ConfirmationService, MessageService } from "primeng/api";
 })
 export class UserEditComponent implements OnInit {
 
-  formNewCliente: FormGroup = this._builder.group({
-    razonSocial: [null, [Validators.required]],
+  user:any;
 
-    departamento: [null, [Validators.required]],
-    provincia: [null, [Validators.required]],
-    distrito: [null, [Validators.required]],
-    direccion: [null, [Validators.required]]
-  })
+  formEditUser: FormGroup = this._builder.group({
+    // usuario: [null, [Validators.required]],
+    correo: [null, [Validators.required]],
+    nombre: [null, [Validators.required]],
+    apellidoPaterno: [null, [Validators.required]],
+    apellidoMaterno: [null, [Validators.required]],
+    telefono: [null, [Validators.required]],
+    contrasenia: [null, [Validators.required]],
+    confirmarContrasenia: [null, [Validators.required]],
+    // rol: [null, [Validators.required]],
+  });
 
   public genericValidator?: GenericValidator;
   public validationMessages: { [key: string]: { [key: string]: string } } = {};
@@ -29,7 +35,8 @@ export class UserEditComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private confirmationService: ConfirmationService,
               private messageService: MessageService,
-              private loadingService: LoadingService) {
+              private loadingService: LoadingService,
+              private userService: UserService) {
     this.buildValidation();
   }
 
@@ -38,11 +45,37 @@ export class UserEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("pantalla editar");
+    this.activatedRoute
+    .params
+    .pipe(map(p => this.getUser(p.id)))
+    .subscribe();
+  }
+
+  getUser(id:any){
+    this.userService.userGetById(id, true)
+    .pipe(map((r:any)=>{
+      const user = r.data;
+      if(user){
+        this.user = user;
+
+        this.populate(this.user);
+      }
+    }))
+    .subscribe();
+  }
+
+  populate(user:any) {
+    this.formEditUser.patchValue({
+      correo: user.correo,
+      nombre: user.nombre,
+      apellidoPaterno: user.apellidoPaterno,
+      apellidoMaterno: user.apellidoMaterno,
+      telefono: user.telefono,
+    })
   }
 
   isValid() {
-    return !this.formNewCliente.invalid;
+    return !this.formEditUser.invalid;
   }
 
   save() {
@@ -80,7 +113,7 @@ export class UserEditComponent implements OnInit {
 
   private showErrors(force: boolean = false) {
     if (this.genericValidator) {
-      this.displayMessage = this.genericValidator.processMessages(this.formNewCliente, force);
+      this.displayMessage = this.genericValidator.processMessages(this.formEditUser, force);
     }
   }
 }
