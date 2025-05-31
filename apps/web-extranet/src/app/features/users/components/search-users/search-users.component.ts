@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 import { GenericValidator, UserService } from "@tramarsa/xplat/core";
+import { ConfirmationService, MessageService } from "primeng/api";
 import { map } from "rxjs/operators";
 
 @Component({
@@ -37,7 +38,9 @@ export class SearchUsersComponent implements OnInit {
 
   constructor(private router: Router,
               private _builder: FormBuilder,
-              private userService: UserService) {
+              private userService: UserService,
+              private confirmationService: ConfirmationService,
+              private messageService: MessageService,) {
     this.buildValidation();
   }
 
@@ -86,16 +89,16 @@ export class SearchUsersComponent implements OnInit {
   download(value: any) {
     this.currentCriteria = value;
     if (this.currentCriteria) {
-      // this.clientService
-      //   .downloadSearch(value.nombreCliente, value.tipoDocumento?.codigoDetalle, value.nroDocumento, value.pais?.codigoPais, true)
-      //   .pipe(map((b: any) => {
-      //     const url = window.URL.createObjectURL(b.content);
-      //     const anchor = document.createElement("a");
-      //     anchor.download = b.filename;
-      //     anchor.href = url;
-      //     anchor.click();
-      //   }))
-      //   .subscribe();
+      this.userService
+        .downloadSearch(value.nombreUsuario, value.rol?.value, value.estado?.value, true)
+        .pipe(map((b: any) => {
+          const url = window.URL.createObjectURL(b.content);
+          const anchor = document.createElement("a");
+          anchor.download = b.filename;
+          anchor.href = url;
+          anchor.click();
+        }))
+        .subscribe();
     }
   }
 
@@ -112,7 +115,7 @@ export class SearchUsersComponent implements OnInit {
 
   private _search(value: any, startAt: number, maxResult: number) {
     this.userService
-      .searchUsers(value.nombreUsuario, startAt, maxResult, true)
+      .searchUsers(value.nombreUsuario, value.rol?.value, value.estado?.value, startAt, maxResult, true)
       .pipe(map((r: any) => {
         this.userResult = r.data;
       }))
@@ -123,7 +126,36 @@ export class SearchUsersComponent implements OnInit {
     this.router.navigate([`/usuarios/edit/${user.idUsuario}`])
   }
 
-  confirmDelete(user:any) {
-    console.log("El usuario ha sido eliminado");
+  deactivateUser(user: any) {
+    this.confirmationService.confirm({
+      message: '¿Está seguro que desea desactivar este usuario?',
+      header: 'Confirmar desactivación',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.userService.userChangeState(user.idUsuario, 0, true)
+          .subscribe(() => {
+            this.showSuccessMessage('Usuario desactivado correctamente.');
+          });
+      }
+    });
+  }
+
+  activateUser(user: any) {
+    this.confirmationService.confirm({
+      message: '¿Está seguro que desea activar este usuario?',
+      header: 'Confirmar activación',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.userService.userChangeState(user.idUsuario, 1, true)
+          .subscribe(() => {
+            this.showSuccessMessage('Usuario activado correctamente.');
+          });
+      }
+    });
+  }
+
+  showSuccessMessage(message:any) {
+    this.messageService.add({ severity: 'success', summary: 'Cambio de estdo', detail: message });
+    this.search(this.formCriteria.value);
   }
 }

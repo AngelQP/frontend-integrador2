@@ -12,29 +12,36 @@ export class QueryStringBuilder {
             if (value)
                 return value.replace(/['"]+/g, '');
         }
-        
+
         return "";
     }
     public toDateStringUtcEncode(date: Date|any): string{
         const d = this.toDateStringUtc(date)
         if (d) return encodeURIComponent(d)
-            
-       return d; 
+
+       return d;
     }
 
     public addOrEmpty (key:string, value: any):QueryStringBuilder{
-        
+
         this.queryItems.push({key:key, value:value ?? ""})
-        
-            
+
+
         return this;
     }
-    public add (key:string, value: any):QueryStringBuilder{
-        if (value){
-            this.queryItems.push({key:key, value:value})
-        }
-            
-        return this;
+    // public add (key:string, value: any):QueryStringBuilder{
+    //     if (value){
+    //         this.queryItems.push({key:key, value:value})
+    //     }
+
+    //     return this;
+    // }
+
+    public add(key: string, value: any, includeFalsy = false): QueryStringBuilder {
+      if (includeFalsy ? value !== null && value !== undefined : !!value) {
+          this.queryItems.push({ key: key, value: value });
+      }
+      return this;
     }
 
     public addDate (key:string, value: any):QueryStringBuilder{
@@ -42,7 +49,7 @@ export class QueryStringBuilder {
             const dvalue = this.toDateStringUtc(value);
             this.add(key, dvalue);
         }
-            
+
         return this;
     }
 

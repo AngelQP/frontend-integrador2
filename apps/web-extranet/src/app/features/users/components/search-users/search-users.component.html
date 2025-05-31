@@ -35,7 +35,8 @@
                                       formControlName="rol"
                                       [options]="roles"
                                       optionLabel="label"
-                                      placeholder="Seleccione un rol">
+                                      [showClear]="true"
+                                      placeholder="Todos">
                                   </p-dropdown>
                               </div>
 
@@ -45,7 +46,8 @@
                                       formControlName="estado"
                                       [options]="estados"
                                       optionLabel="label"
-                                      placeholder="Seleccione un estado">
+                                      [showClear]="true"
+                                      placeholder="Todos">
                                   </p-dropdown>
                               </div>
                                 <div class="field col-12 md:col-12 mb-1 md:mb-0">
@@ -141,8 +143,9 @@
                                         <label>{{ user.rolNombre }}</label>
                                     </div>
                                     <div class="col-12 md:col-1">
-                                      <button pButton icon="pi pi-pencil" class="p-button-text p-button-rounded" (click)="openEdit(user)"></button>
-                                      <button pButton icon="pi pi-trash" class="p-button-text p-button-rounded" (click)="confirmDelete(user)"></button>
+                                      <button pButton icon="pi pi-pencil" class="p-button-text p-button-rounded" (click)="openEdit(user)" [disabled]="user.estadoRegistro === 0"></button>
+                                      <button *ngIf="user.estadoRegistro === 1" pButton icon="pi pi-trash" class="p-button-text p-button-rounded p-button-danger" (click)="deactivateUser(user)"></button>
+                                      <button *ngIf="user.estadoRegistro === 0" pButton icon="pi pi-check" class="p-button-text p-button-rounded p-button-success" (click)="activateUser(user)"></button>
                                     </div>
                                 </div>
                             </div>

@@ -4,6 +4,7 @@ import { ApiBaseService } from '../api.base.service';
 import { environment }from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class UserService extends ApiBaseService {
@@ -41,13 +42,15 @@ export class UserService extends ApiBaseService {
     }
 
     public createUser(request: any, progress=false, handlerEnable: boolean|ServerErrorAction=false){
-        return this.httpClientService.post(this.buildUrl("Seguridad/usuario"), request, {}, progress, handlerEnable)
+        return this.httpClientService.post(this.buildUrl("Seguridad/usuarios"), request, {}, progress, handlerEnable)
     }
 
-    public searchUsers(nombre:any,  startAt:any, maxResult:any,
+    public searchUsers(nombre:any, rol:any, estado:any, startAt:any, maxResult:any,
       progress=false, handlerEnable: boolean|ServerErrorAction=false):Observable<any>{
       const query = new QueryStringBuilder()
       .add("nombre", nombre)
+      .add("rol", rol)
+      .add("estado", estado, true)
       .add("startAt", startAt)
       .add("maxResult", maxResult)
       .build();
@@ -58,11 +61,33 @@ export class UserService extends ApiBaseService {
 
     }
 
+    public downloadSearch(nombre:any, rol:any, estado:any, progress=false){
+        const query = new QueryStringBuilder()
+        .add("nombre", nombre)
+        .add("rol", rol)
+        .add("estado", estado, true)
+        .build();
+
+        return this.httpClientService.getBlob(this.buildUrl(`Seguridad/usuarios/exportar`+query), progress)
+        .pipe(map( (r: any) => {
+            return {
+                content: this.mapBold(r.body),
+                filename: "Usuarios.xlsx"
+            }
+        }))
+    }
+
     public userGetById(idUsuario:any, progress=false, handlerEnable: boolean|ServerErrorAction=false):Observable<any>{
-      const url = this.buildUrl(`Seguridad/usuario/${idUsuario}`)
+      const url = this.buildUrl(`Seguridad/usuarios/${idUsuario}`)
       return this
               .httpClientService
               .get(url, new HttpParams(), progress, handlerEnable)
+    }
 
+    public userChangeState(idUsuario:any, estado:any, progress=false, handlerEnable: boolean|ServerErrorAction=false): Observable<any>{
+        return this.httpClientService
+                .put(this.buildUrl(`Seguridad/usuarios/${idUsuario}/estado`), {
+                    "estado": estado,
+                  }, progress, handlerEnable)
     }
 }
