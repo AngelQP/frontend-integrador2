@@ -90,4 +90,9 @@ export class UserService extends ApiBaseService {
                     "estado": estado,
                   }, progress, handlerEnable)
     }
+
+    public updateUser(idUsuario:any, request: any, progress=false, handlerEnable: boolean|ServerErrorAction=false): Observable<any>{
+        return this.httpClientService
+                .put(this.buildUrl(`Seguridad/usuarios/${idUsuario}`), request, progress, handlerEnable)
+    }
 }

@@ -155,7 +155,7 @@ export class SearchUsersComponent implements OnInit {
   }
 
   showSuccessMessage(message:any) {
-    this.messageService.add({ severity: 'success', summary: 'Cambio de estdo', detail: message });
+    this.messageService.add({ severity: 'success', summary: 'Cambio de estado', detail: message });
     this.search(this.formCriteria.value);
   }
 }

@@ -61,7 +61,7 @@
                       </div>
                       <div class="field col-12 md:col-6">
                           <label class="text-sm font-medium">Teléfono</label>
-                          <input formControlName="telefono" placeholder="Ingrese telefono" type="text"
+                          <input formControlName="telefono" placeholder="Ingrese telefono" type="text" maxlength="9"
                               pInputText>
                           <small *ngIf="displayMessage['telefono']" class="p-error">
                               * Ingrese teléfono
@@ -69,15 +69,18 @@
                       </div>
                       <div class="field col-12 md:col-6">
                           <label class="text-sm font-medium">Contraseña</label>
-                          <input formControlName="contrasenia" placeholder="Ingrese contraseña" type="text"
+                          <input formControlName="contrasenia" placeholder="Ingrese contraseña" type="password" autocomplete="new-password"
                               pInputText>
                           <small *ngIf="displayMessage['contrasenia']" class="p-error">
                               * Ingrese contraseña
                           </small>
+                          <small class="field col-12 md:col-6" *ngIf="formNewUser.errors?.mismatch" class="p-error">
+                            * Las contraseñas no coinciden
+                          </small>
                       </div>
                       <div class="field col-12 md:col-6">
                           <label class="text-sm font-medium">Confirmar Contraseña</label>
-                          <input formControlName="confirmarContrasenia" placeholder="Ingrese confirmar contraseña" type="text"
+                          <input formControlName="confirmarContrasenia" placeholder="Ingrese confirmar contraseña" type="password" autocomplete="new-password"
                               pInputText>
                           <small *ngIf="displayMessage['confirmarContrasenia']" class="p-error">
                               * Ingrese confirmar contraseña

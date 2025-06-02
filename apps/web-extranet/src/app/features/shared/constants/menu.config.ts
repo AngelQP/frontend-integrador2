@@ -24,3 +24,18 @@ export const APP_MENU_ITEMS = [
     roles: ['ADMIN_GENERAL', 'ADMIN_TIENDA']
   }
 ];
+
+export const APP_ROLES_ITEMS = [
+  {
+    label: 'Administrador General',
+    value: 'ADMIN_GENERAL'
+  },
+  {
+    label: 'Administrador Tienda',
+    value: 'ADMIN_TIENDA'
+  },
+  {
+    label: 'Cajero',
+    value: 'CAJERO'
+  }
+];

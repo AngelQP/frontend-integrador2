@@ -1,13 +1,10 @@
 <p-sidebar [visible]="true" [dismissible]="false" [blockScroll]="true" position="right" styleClass="p-sidebar-md">
   <div class="px-3 md:px-4 surface-0 shadow-1">
       <div class="grid my-0 py-2 flex align-content-center flex-wrap justify-content-end">
-          <div class="col-12 md:col-6 flex align-items-center flex-wrap">
+          <div class="col-12 md:col-12 flex align-items-center flex-wrap">
               <button pButton pRipple type="button" icon="pi pi pi-times"
                   class="p-button-rounded p-button-text mr-2" (click)="returnRoute()"></button>
               <div class="text-xl font-medium">Editar Usuario</div>
-          </div>
-          <div class="col-12 md:col-6 flex justify-content-end align-items-center">
-            <span class="text-base font-medium">Rol: {{ user?.rolNombre }}</span>
           </div>
       </div>
   </div>
@@ -64,29 +61,13 @@
                       </div>
                       <div class="field col-12 md:col-6">
                           <label class="text-sm font-medium">Teléfono</label>
-                          <input formControlName="telefono" placeholder="Ingrese telefono" type="text"
+                          <input formControlName="telefono" placeholder="Ingrese telefono" maxlength="9" type="text"
                               pInputText>
                           <small *ngIf="displayMessage['telefono']" class="p-error">
                               * Ingrese teléfono
                           </small>
                       </div>
                       <div class="field col-12 md:col-6">
-                          <label class="text-sm font-medium">Contraseña</label>
-                          <input formControlName="contrasenia" placeholder="Ingrese contraseña" type="text"
-                              pInputText>
-                          <small *ngIf="displayMessage['contrasenia']" class="p-error">
-                              * Ingrese contraseña
-                          </small>
-                      </div>
-                      <div class="field col-12 md:col-6">
-                          <label class="text-sm font-medium">Confirmar Contraseña</label>
-                          <input formControlName="confirmarContrasenia" placeholder="Ingrese confirmar contraseña" type="text"
-                              pInputText>
-                          <small *ngIf="displayMessage['confirmarContrasenia']" class="p-error">
-                              * Ingrese confirmar contraseña
-                          </small>
-                      </div>
-                      <!-- <div class="field col-12 md:col-6">
                         <label class="text-sm font-medium">Rol</label>
                         <p-dropdown
                             [options]="roles"
@@ -97,7 +78,34 @@
                         <small *ngIf="displayMessage['rol']" class="p-error">
                             * Seleccione un rol
                         </small>
-                      </div> -->
+                      </div>
+                      <div class="field col-12 md:col-6">
+                        <label class="text-sm font-medium">Cambiar contraseña</label>
+                        <p-checkbox
+                            label="¿Desea cambiarla?"
+                            [binary]="true"
+                            formControlName="actualizarContrasenia">
+                        </p-checkbox>
+                      </div>
+                      <div class="field col-12 md:col-6" *ngIf="formEditUser.get('actualizarContrasenia')?.value">
+                          <label class="text-sm font-medium">Contraseña</label>
+                          <input formControlName="contrasenia" type="password" autocomplete="new-password" placeholder="Ingrese contraseña"
+                              pInputText>
+                          <small *ngIf="displayMessage['contrasenia']" class="p-error">
+                              * Ingrese contraseña
+                          </small>
+                          <small *ngIf="formEditUser.errors?.mismatch" class="p-error">
+                            * Las contraseñas no coinciden
+                          </small>
+                        </div>
+                        <div class="field col-12 md:col-6" *ngIf="formEditUser.get('actualizarContrasenia')?.value">
+                            <label class="text-sm font-medium">Confirmar Contraseña</label>
+                            <input formControlName="confirmarContrasenia" type="password" autocomplete="new-password" placeholder="Ingrese confirmar contraseña"
+                                pInputText>
+                            <small *ngIf="displayMessage['confirmarContrasenia']" class="p-error">
+                                * Ingrese confirmar contraseña
+                            </small>
+                        </div>
                   </div>
               </div>
           </div>
@@ -107,7 +115,7 @@
               <div class="col-12 text-right flex align-content-center flex-wrap justify-content-end">
                   <button pButton pRipple type="button" icon="" label="Cancelar" (click)="cancel()"
                       class="flex block md:flex-none w-auto p-button-rounded p-button-plain p-button-text mr-2"></button>
-                  <button pButton pRipple type="submit" icon="" label="Guardar cambios" (click)="save()"
+                  <button pButton pRipple type="submit" icon="" label="Guardar cambios" (click)="save()" [disabled]="!formChanged || !isValid()"
                       class="flex-1 block md:flex-none w-auto p-button-rounded p-button-secondary"></button>
               </div>
           </div>

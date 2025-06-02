@@ -6,6 +6,8 @@ import { ConfirmationService, MessageService } from "primeng/api";
 import { map } from "rxjs/operators";
 import { SearchUsersComponent } from "../search-users/search-users.component";
 import { AuthenticationService } from "@tramarsa/xplat/features";
+import { APP_ROLES_ITEMS } from "../../../shared/constants/menu.config";
+import { matchPasswords } from "../common/metods_commons";
 
 @Component({
   selector: 'tramarsa-user-new',
@@ -16,25 +18,23 @@ export class UserNewComponent implements OnInit {
 
   formNewUser: FormGroup = this._builder.group({
     // usuario: [null, [Validators.required]],
-    correo: [null, [Validators.required]],
+    correo: [null, [Validators.required, Validators.email]],
     nombre: [null, [Validators.required]],
     apellidoPaterno: [null, [Validators.required]],
     apellidoMaterno: [null, [Validators.required]],
-    telefono: [null, [Validators.required]],
+    telefono: [null, [Validators.required, Validators.pattern('^[0-9]{9}$')]],
     contrasenia: [null, [Validators.required]],
     confirmarContrasenia: [null, [Validators.required]],
     rol: [null, [Validators.required]],
-  })
+  }, {
+    validators: matchPasswords('contrasenia', 'confirmarContrasenia')
+  });
 
   public genericValidator?: GenericValidator;
   public validationMessages: { [key: string]: { [key: string]: string } } = {};
   public displayMessage: { [key: string]: string; } = {};
 
-  allRoles = [
-    { label: 'Administrador General', value: 'ADMIN_GENERAL' },
-    { label: 'Administrador Tienda', value: 'ADMIN_TIENDA' },
-    { label: 'Cajero', value: 'CAJERO' }
-  ];
+  allRoles = APP_ROLES_ITEMS;
 
   roles: { label: string; value: string }[] = [];
 
@@ -77,9 +77,9 @@ export class UserNewComponent implements OnInit {
           this.userService.createUser(request, true, true)
             .pipe(map((r: any) => {
               handlerRequestResultResolve(
-                r, //pasamos el requestResult
-                () => this.showSuccessMessage(), // esto se ejecuta cuando es success
-                (message: string) => this.errorMessage(message)) // esto se ejecuta cuando no es success
+                r,
+                () => this.showSuccessMessage(),
+                (message: string) => this.errorMessage(message))
 
             })).subscribe()
         }
@@ -112,7 +112,7 @@ export class UserNewComponent implements OnInit {
   }
 
   errorMessage(message: string) {
-    this.messageService.add({ key: "samePage", severity: 'error', summary: 'Cliente', detail: message });
+    this.messageService.add({ key: "samePage", severity: 'error', summary: 'Usuario', detail: message });
   }
 
   returnRoute() {
