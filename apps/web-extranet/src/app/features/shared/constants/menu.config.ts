@@ -22,6 +22,12 @@ export const APP_MENU_ITEMS = [
     icon: 'pi pi-users',
     routerLink: '/usuarios',
     roles: ['ADMIN_GENERAL', 'ADMIN_TIENDA']
+  },
+    {
+    label: 'Inventario',
+    icon: 'pi pi-briefcase',
+    routerLink: '/usuarios',
+    roles: ['ADMIN_GENERAL', 'ADMIN_TIENDA']
   }
 ];
 

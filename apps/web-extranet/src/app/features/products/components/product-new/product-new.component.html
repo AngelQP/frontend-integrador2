@@ -96,13 +96,18 @@
                           </small>
                       </div>
                       <div class="field col-12 md:col-6">
-                          <label class="text-sm font-medium">categoria</label>
-                          <input formControlName="nroDocumento" #rucInput id="rucInput" placeholder="Ingrese categoria"
-                              type="text" pInputText max>
-                          <small *ngIf="displayMessage['nroDocumento']" class="p-error">
-                              categoria invalido
-                          </small>
-                      </div>
+                        <label class="text-sm font-medium">Categoria</label>
+                        <p-dropdown
+                            formControlName="Categoria"
+                            [options]="categoria"
+                            optionLabel="label"
+                            [showClear]="true"
+                            placeholder="Todos">
+                        </p-dropdown>
+                        <small *ngIf="displayMessage['Categoria']" class="p-error">
+                            Categoría inválida
+                        </small>
+                        </div>
                       <div class="field col-12 md:col-6">
                           <label class="text-sm font-medium">Subcategoria</label>
                           <input formControlName="nroDocumento" #rucInput id="rucInput" placeholder="Ingrese una Subcategoria"

@@ -14,6 +14,19 @@ export class SearchProductsComponent implements OnInit {
   productResult: any;
   _maxResult = 20;
   currentCriteria: any;
+    categoria = [
+    { label: 'Herramientas', value: 1 },
+    { label: 'Pinturas', value: 2 },
+    { label: 'Tornillería', value: 3 },
+    { label: 'Iluminación', value: 4 },
+    { label: 'Cerraduras', value: 5 },
+    { label: 'Tuberías', value: 6 }
+  ];
+
+  proveedor = [
+    { label: 'Distribuciones FerreTech', value: 1 },
+    { label: 'Pinturas Peru S.A.C.', value: 0 }
+  ];
 
   public genericValidator?: GenericValidator;
   public validationMessages: { [key: string]: { [key: string]: string } } = {};
@@ -22,7 +35,6 @@ export class SearchProductsComponent implements OnInit {
   public formCriteria: FormGroup = this._builder.group({
     sku: [null],
     nombre: [null],
-    // nroDocumento: [null, [this.peDocumentsValidator.documentValid(this.isDocumentType.bind(this))]],
     categoria: [null],
     proveedor: [null],
     cantidad: [null],

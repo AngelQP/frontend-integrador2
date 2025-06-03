@@ -23,6 +23,19 @@ export class ProductNewComponent implements OnInit {
     distrito: [null, [Validators.required]],
     direccion: [null, [Validators.required]]
   })
+      categoria = [
+    { label: 'Herramientas', value: 1 },
+    { label: 'Pinturas', value: 2 },
+    { label: 'Tornillería', value: 3 },
+    { label: 'Iluminación', value: 4 },
+    { label: 'Cerraduras', value: 5 },
+    { label: 'Tuberías', value: 6 }
+  ];
+
+  proveedor = [
+    { label: 'Distribuciones FerreTech', value: 1 },
+    { label: 'Pinturas Peru S.A.C.', value: 0 }
+  ];
 
   public genericValidator?: GenericValidator;
   public validationMessages: { [key: string]: { [key: string]: string } } = {};
