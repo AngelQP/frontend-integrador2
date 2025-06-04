@@ -24,4 +24,17 @@ export class ProductService extends ApiBaseService {
     const url = this.buildUrl(`Productos/producto${query}`);
     return this.httpClientService.get(url, new HttpParams(), progress, handlerEnable);
   }
+  public getCategoriasLite(progress = false, handlerEnable: boolean | ServerErrorAction = false): Observable<any> {
+    const url = this.buildUrl(`Productos/categoriasLite`);
+    return this.httpClientService.get(url, new HttpParams(), progress, handlerEnable);
+  }
+
+      public createProduct(request: any, progress=false, handlerEnable: boolean|ServerErrorAction=false){
+        return this.httpClientService.post(this.buildUrl("Productos/producto"), request, {}, progress, handlerEnable)
+    }
+    
+public getProveedoresLite(progress = false, handlerEnable: boolean | ServerErrorAction = false): Observable<any> {
+  const url = this.buildUrl(`Productos/proveedoresLite`);
+  return this.httpClientService.get(url, new HttpParams(), progress, handlerEnable);
+}
 }

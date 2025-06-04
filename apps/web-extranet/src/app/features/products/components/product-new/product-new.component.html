@@ -10,7 +10,7 @@
   </div>
 
   <div class="py-2 px-3 md:py-3 md:px-4">
-      <form [formGroup]="formNewCliente">
+      <form [formGroup]="formNewProduct">
           <div class="py-3">
               <div class="grid mt-0 flex align-content-center flex-wrap">
                   <div class="col-9 md:col-8 flex align-content-center flex-wrap">
@@ -49,126 +49,133 @@
                       <!-- </div> -->
                       <div class="field col-12 md:col-12">
                           <label class="text-sm font-medium">Nombre</label>
-                          <input formControlName="nroDocumento" #rucInput id="rucInput" placeholder="Ingrese Nombre"
-                              type="text" pInputText max>
-                          <small *ngIf="displayMessage['nroDocumento']" class="p-error">
+                          <input formControlName="nombre" placeholder="Ingrese Nombre"
+                              type="text" pInputText>
+                          <small *ngIf="displayMessage['nombre']" class="p-error">
                               Nombre invalido
                           </small>
                       </div>
                       <div class="field col-12 md:col-12">
                           <label class="text-sm font-medium">Descripcion</label>
-                          <input formControlName="nroDocumento" #rucInput id="rucInput" placeholder="Ingrese una Descripcion"
-                              type="text" pInputText max>
-                          <small *ngIf="displayMessage['nroDocumento']" class="p-error">
+                          <input formControlName="descripcion" placeholder="Ingrese una Descripcion"
+                              type="text" pInputText c>
+                          <small *ngIf="displayMessage['descripcion']" class="p-error">
                               Descripcion invalido
                           </small>
                       </div>
                       <div class="field col-12 md:col-6">
                           <label class="text-sm font-medium">Marca</label>
-                          <input formControlName="nroDocumento" #rucInput id="rucInput" placeholder="Ingrese una Marca"
-                              type="text" pInputText max>
-                          <small *ngIf="displayMessage['nroDocumento']" class="p-error">
+                          <input formControlName="marca" placeholder="Ingrese una Marca"
+                              type="text" pInputText >
+                          <small *ngIf="displayMessage['marca']" class="p-error">
                               Marca invalido
                           </small>
                       </div>
                       <div class="field col-12 md:col-6">
                           <label class="text-sm font-medium">Modelo</label>
-                          <input formControlName="nroDocumento" #rucInput id="rucInput" placeholder="Ingrese un Modelo"
-                              type="text" pInputText max>
-                          <small *ngIf="displayMessage['nroDocumento']" class="p-error">
+                          <input formControlName="modelo" placeholder="Ingrese un Modelo"
+                              type="text" pInputText >
+                          <small *ngIf="displayMessage['modelo']" class="p-error">
                               Modelo invalido
                           </small>
                       </div>
                       <div class="field col-12 md:col-6">
                           <label class="text-sm font-medium">SKU</label>
-                          <input formControlName="nroDocumento" #rucInput id="rucInput" placeholder="Ingrese SKU"
-                              type="text" pInputText max>
-                          <small *ngIf="displayMessage['nroDocumento']" class="p-error">
+                          <input formControlName="sku" placeholder="Ingrese SKU"
+                              type="text" pInputText >
+                          <small *ngIf="displayMessage['sku']" class="p-error">
                               SKU invalido
                           </small>
                       </div>
                       <div class="field col-12 md:col-6">
                           <label class="text-sm font-medium">unidad</label>
-                          <input formControlName="nroDocumento" #rucInput id="rucInput" placeholder="Ingrese unidad"
-                              type="text" pInputText max>
-                          <small *ngIf="displayMessage['nroDocumento']" class="p-error">
+                          <input formControlName="unidad" placeholder="Ingrese unidad"
+                              type="text" pInputText >
+                          <small *ngIf="displayMessage['unidad']" class="p-error">
                               unidad invalido
                           </small>
                       </div>
                       <div class="field col-12 md:col-6">
                         <label class="text-sm font-medium">Categoria</label>
                         <p-dropdown
-                            formControlName="Categoria"
+                            formControlName="categoria"
                             [options]="categoria"
                             optionLabel="label"
                             [showClear]="true"
-                            placeholder="Todos">
+                            placeholder="Selecciome una Categoria">
                         </p-dropdown>
-                        <small *ngIf="displayMessage['Categoria']" class="p-error">
+                        <small *ngIf="displayMessage['categoria']" class="p-error">
                             Categoría inválida
                         </small>
                         </div>
                       <div class="field col-12 md:col-6">
                           <label class="text-sm font-medium">Subcategoria</label>
-                          <input formControlName="nroDocumento" #rucInput id="rucInput" placeholder="Ingrese una Subcategoria"
-                              type="text" pInputText max>
-                          <small *ngIf="displayMessage['nroDocumento']" class="p-error">
+                          <input formControlName="subcategoria" placeholder="Ingrese una Subcategoria"
+                              type="text" pInputText >
+                          <small *ngIf="displayMessage['subcategoria']" class="p-error">
                               Subcategoria invalido
                           </small>
                       </div>
                       <div class="field col-12 md:col-6">
                           <label class="text-sm font-medium">Impuesto Tipo</label>
-                          <input formControlName="nroDocumento" #rucInput id="rucInput" placeholder="Ingrese un Impuesto Tipo"
-                              type="text" pInputText max>
-                          <small *ngIf="displayMessage['nroDocumento']" class="p-error">
-                              Impuesto Tipo invalido
-                          </small>
+                        <p-dropdown
+                            formControlName="impuestoTipo"
+                            [options]="allImpuesto"
+                            optionLabel="label"
+                            [showClear]="true"
+                            placeholder="Seleccione tipo Impuesto">
+                        </p-dropdown>
                       </div>
                       <div class="field col-12 md:col-6">
                           <label class="text-sm font-medium">Precio</label>
-                          <input formControlName="nroDocumento" #rucInput id="rucInput" placeholder="Ingrese un Precio"
-                              type="text" pInputText max>
-                          <small *ngIf="displayMessage['nroDocumento']" class="p-error">
+                          <input formControlName="precio" placeholder="Ingrese un Precio"
+                              type="text" pInputText >
+                          <small *ngIf="displayMessage['precio']" class="p-error">
                               Precio invalido
                           </small>
                       </div>
                       <div class="field col-12 md:col-6">
                           <label class="text-sm font-medium">Cantidad</label>
-                          <input formControlName="nroDocumento" #rucInput id="rucInput" placeholder="Ingrese una Cantidad"
-                              type="text" pInputText max>
-                          <small *ngIf="displayMessage['nroDocumento']" class="p-error">
+                          <input formControlName="cantidad" placeholder="Ingrese una Cantidad"
+                              type="text" pInputText >
+                          <small *ngIf="displayMessage['cantidad']" class="p-error">
                               Cantidad invalido
                           </small>
                       </div>
                       <div class="field col-12 md:col-6">
                           <label class="text-sm font-medium">Costo</label>
-                          <input formControlName="nroDocumento" #rucInput id="rucInput" placeholder="Ingrese un Costo"
-                              type="text" pInputText max>
-                          <small *ngIf="displayMessage['nroDocumento']" class="p-error">
+                          <input formControlName="costo" placeholder="Ingrese un Costo"
+                              type="text" pInputText >
+                          <small *ngIf="displayMessage['costo']" class="p-error">
                               Costo invalido
                           </small>
                       </div>
                       <div class="field col-12 md:col-6">
                           <label class="text-sm font-medium">Codigo de Barras</label>
-                          <input formControlName="nroDocumento" #rucInput id="rucInput" placeholder="Ingrese Codigo de Barras"
-                              type="text" pInputText max>
-                          <small *ngIf="displayMessage['nroDocumento']" class="p-error">
+                          <input formControlName="codigoBarras" placeholder="Ingrese Codigo de Barras"
+                              type="text" pInputText >
+                          <small *ngIf="displayMessage['codigoBarras']" class="p-error">
                               Codigo de Barras invalido
                           </small>
                       </div>
                       <div class="field col-12 md:col-6">
                           <label class="text-sm font-medium">Usuario Creacion</label>
-                          <input formControlName="nroDocumento" #rucInput id="rucInput" placeholder="Ingrese un Usuario Creacion"
-                              type="text" pInputText max>
-                          <small *ngIf="displayMessage['nroDocumento']" class="p-error">
+                          <input formControlName="usuarioCreacion" placeholder="Ingrese un Usuario Creacion"
+                              type="text" pInputText >
+                          <small *ngIf="displayMessage['usuarioCreacion']" class="p-error">
                               Usuario Creacion invalido
                           </small>
                       </div>
                       <div class="field col-12 md:col-12">
                           <label class="text-sm font-medium">Proveedor</label>
-                          <input formControlName="razonSocial" placeholder="Ingrese un Proveedor" type="text"
-                              pInputText>
-                          <small *ngIf="displayMessage['razonSocial']" class="p-error">
+                         <p-dropdown
+                            formControlName="proveedor"
+                            [options]="proveedor"
+                            optionLabel="label"
+                            [showClear]="true"
+                            placeholder="Seleccione un Proveedor">
+                        </p-dropdown>
+                          <small *ngIf="displayMessage['proveedor']" class="p-error">
                               Ingreso Proveedor
                           </small>
                       </div>
@@ -226,6 +233,7 @@
               <div class="col-12 text-right flex align-content-center flex-wrap justify-content-end">
                   <button pButton pRipple type="button" icon="" label="Cancelar" (click)="cancel()"
                       class="flex block md:flex-none w-auto p-button-rounded p-button-plain p-button-text mr-2"></button>
+
                   <button pButton pRipple type="submit" icon="" label="Registrar" (click)="save()"
                       class="flex-1 block md:flex-none w-auto p-button-rounded p-button-secondary"></button>
               </div>

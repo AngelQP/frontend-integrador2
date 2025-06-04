@@ -45,3 +45,28 @@ export const APP_ROLES_ITEMS = [
     value: 'CAJERO'
   }
 ];
+
+
+export const APP_IMPUESTO_ITEMS = [
+  {
+    label: 'GRAVADO 18%',
+    value: 'g18'
+  },
+  {
+    label: 'Exonerado',
+    value: 'exo'
+  },
+  {
+    label: 'Inafecto',
+    value: 'ina'
+  },
+    {
+    label: 'ICBPER',
+    value: 'icb'
+  },
+  {
+    label: 'Gravado 10%',
+    value: 'g10'
+  }
+];
+
