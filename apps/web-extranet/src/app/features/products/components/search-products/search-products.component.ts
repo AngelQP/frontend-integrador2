@@ -14,19 +14,9 @@ export class SearchProductsComponent implements OnInit {
   productResult: any;
   _maxResult = 20;
   currentCriteria: any;
-    categoria = [
-    { label: 'Herramientas', value: 1 },
-    { label: 'Pinturas', value: 2 },
-    { label: 'Tornillería', value: 3 },
-    { label: 'Iluminación', value: 4 },
-    { label: 'Cerraduras', value: 5 },
-    { label: 'Tuberías', value: 6 }
-  ];
+  categoria: any[] = [];
+  proveedor : any[] = [];
 
-  proveedor = [
-    { label: 'Distribuciones FerreTech', value: 1 },
-    { label: 'Pinturas Peru S.A.C.', value: 0 }
-  ];
 
   public genericValidator?: GenericValidator;
   public validationMessages: { [key: string]: { [key: string]: string } } = {};
@@ -50,9 +40,26 @@ export class SearchProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+        this.loadCategorias();
+        this.loadProveedores(); 
     console.log("pantalla listado de productos");
   }
-
+  loadCategorias() {
+    this.productService.getCategoriasLite().subscribe((res: any) => {
+      this.categoria = (res.data || []).map((cat: any) => ({
+        label: cat.nombre,
+        value: cat.idCategoria
+      }));
+    });
+  }
+  loadProveedores() {
+    this.productService.getProveedoresLite().subscribe((res: any) => {
+      this.proveedor = (res.data || []).map((prov: any) => ({
+        label: prov.razonSocial,
+        value: prov.idProveedor
+      }));
+    });
+  }
   buildValidation() {
     this.genericValidator = new GenericValidator(this.validationMessages);
   }
@@ -74,8 +81,8 @@ export class SearchProductsComponent implements OnInit {
     this.router.navigate(['/productos/new'])
   }
 
-  openView(product: any) {
-    this.router.navigate([`/productos/view/${product.id}`])
+  openEdit(product: any) {
+    this.router.navigate([`/productos/edit/${product.id}`])
   }
 
   search(value: any) {
@@ -120,7 +127,12 @@ export class SearchProductsComponent implements OnInit {
 
   private _search(value: any, startAt: number, maxResult: number) {
     this.productService
-      .searchProducts(value.nombre, value.categoria, value.proveedor, startAt, maxResult,true)
+      .searchProducts(value.nombre,
+      value.categoria?.label ?? null,   
+      value.proveedor?.label ?? null,  
+      startAt,
+      maxResult,
+      true)
         .pipe(map((b: any) => {
           this.productResult = b.data;
         }))

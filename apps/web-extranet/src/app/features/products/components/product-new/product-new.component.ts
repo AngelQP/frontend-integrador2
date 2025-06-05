@@ -113,7 +113,7 @@ buildRequest() {
     modelo: valueFrm.modelo?.trim() ?? '',
     sku: valueFrm.sku?.trim() ?? '',
     unidad: valueFrm.unidad?.trim() ?? '',
-    categoria: valueFrm.categoria?.value ?? null,
+    categoria: valueFrm.categoria?.label ?? null,
     subcategoria: valueFrm.subcategoria?.trim() ?? '',
     impuestoTipo: valueFrm.impuestoTipo?.value ?? null,
     precio: valueFrm.precio?.trim() ?? '',
@@ -121,7 +121,7 @@ buildRequest() {
     costo: valueFrm.costo?.trim() ?? '',
     codigoBarras: valueFrm.codigoBarras?.trim() ?? '',
     usuarioCreacion: valueFrm.usuarioCreacion?.trim() ?? '',
-    proveedor: valueFrm.proveedor?.value ?? null
+    proveedor: valueFrm.proveedor?.label ?? null
   };
 }
 

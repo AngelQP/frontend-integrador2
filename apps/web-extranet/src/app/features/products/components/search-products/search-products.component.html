@@ -175,8 +175,8 @@
                             <div
                                 class="flex px-1 align-items-center flex-column-reverse md:flex-row flex-wrap absolute top-0 right-0 md:relative">
                                 <div class="px-1">
-                                    <button pButton pRipple type="button" icon="pi pi-arrow-right"
-                                        class="p-button-rounded p-button-text" (click)="openView(product)"></button>
+                                    <button pButton pRipple type="button" icon="pi pi-pencil"
+                                        class="p-button-rounded p-button-text" (click)="openEdit(product)"></button>
                                 </div>
                             </div>
                         </div>
@@ -187,7 +187,7 @@
                     (onPageChange)="paginate($event, formCriteria.value)"></p-paginator>
             </div>
             <tramarsa-message-result
-                *ngIf="productResult?.producto !== null && productResult?.productt?.length <= 0"
+                *ngIf="productResult?.producto !== null && productResult?.producto?.length <= 0"
                 [message]="'No se han encontrado coincidencias con los criterios seleccionados.'">
             </tramarsa-message-result>
             <tramarsa-message-result *ngIf="productResult?.producto === null"
