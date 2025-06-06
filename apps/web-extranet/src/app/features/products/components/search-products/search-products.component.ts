@@ -27,8 +27,8 @@ export class SearchProductsComponent implements OnInit {
     nombre: [null],
     categoria: [null],
     proveedor: [null],
-    cantidad: [null],
-    precio: [null]
+    stock: [null],
+    precioUnitario: [null]
 
   });
 
@@ -82,7 +82,7 @@ export class SearchProductsComponent implements OnInit {
   }
 
   openEdit(product: any) {
-    this.router.navigate([`/productos/edit/${product.id}`])
+    this.router.navigate([`/productos/edit/${product.idProducto}`])
   }
 
   search(value: any) {

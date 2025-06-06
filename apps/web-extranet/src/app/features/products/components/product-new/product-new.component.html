@@ -19,34 +19,6 @@
               </div>
               <div class="mt-3">
                   <div class="p-fluid p-formgrid p-grid formgrid grid">
-                      <!-- <div class="field col-12 md:col-6">
-                          <label class="text-sm font-medium">Pais</label>
-                          <p-dropdown formControlName="pais" [options]="paises" optionLabel="nombre"
-                              [filter]="true" filterBy="nombre"
-                              (onChange)="changePais(formNewCliente.value?.pais?.iso2)">
-                              <ng-template pTemplate="selectedItem">
-                                  <div class="country-item country-item-value"
-                                      *ngIf="formNewCliente.value?.pais?.nombre">
-                                      <img src="assets/images/flag_placeholder.png"
-                                          class='flag flag-{{formNewCliente.value?.pais?.iso2?.toLowerCase()}}'>
-                                      <div>{{formNewCliente.value?.pais?.nombre}}</div>
-                                  </div>
-                              </ng-template>
-                              <ng-template let-country pTemplate="item">
-                                  <div class="country-item">
-                                      <img src="assets/images/flag_placeholder.png"
-                                          class='flag flag-{{country.iso2.toLowerCase()}}'>
-                                      <div>{{ country.nombre }}</div>
-                                  </div>
-                              </ng-template>
-                          </p-dropdown>
-                      </div> -->
-                      <!-- <div class="field col-12 md:col-6"></div> -->
-                      <!-- <div class="field col-12 md:col-6">
-                          <label class="text-sm font-medium">Tipo de Documento</label>
-                          <p-selectButton class="btnGroup-rb" [options]="tiposDocumentosFilter"
-                              formControlName="tipoDocumento" optionLabel="label"></p-selectButton> -->
-                      <!-- </div> -->
                       <div class="field col-12 md:col-12">
                           <label class="text-sm font-medium">Nombre</label>
                           <input formControlName="nombre" placeholder="Ingrese Nombre"
@@ -89,9 +61,9 @@
                       </div>
                       <div class="field col-12 md:col-6">
                           <label class="text-sm font-medium">unidad</label>
-                          <input formControlName="unidad" placeholder="Ingrese unidad"
+                          <input formControlName="unidadMedida" placeholder="Ingrese unidad"
                               type="text" pInputText >
-                          <small *ngIf="displayMessage['unidad']" class="p-error">
+                          <small *ngIf="displayMessage['unidadMedida']" class="p-error">
                               unidad invalido
                           </small>
                       </div>
