@@ -30,6 +30,14 @@ export const routes: Routes = [
       },
       { path: 'unauthorized', component: UnauthorizedComponent },
       {
+        path:'inventario',
+        loadChildren:()=> import('../inventory/inventory.module').then((m)=> m.InventoryModule)
+      },
+      {
+        path:'notificacion',
+        loadChildren:()=> import('../notification/notification.module').then((m)=> m.NotificationModule)
+      },
+      {
         path: 'version',
         loadChildren: () => import('../version/version.module').then((m) => m.VersionModule)
       },
