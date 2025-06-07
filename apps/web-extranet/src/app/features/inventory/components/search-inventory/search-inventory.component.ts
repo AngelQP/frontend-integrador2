@@ -5,44 +5,45 @@ import { GenericValidator, ProductService } from "@tramarsa/xplat/core";
 import { map } from "rxjs/operators";
 
 @Component({
-  selector: 'tramarsa-search-products',
-  templateUrl: './search-products.component.html',
-  styleUrls: ['./search-products.component.scss']
+  selector: 'tramarsa-search-inventory',
+  templateUrl: './search-inventory.component.html',
+  styleUrls: ['./search-inventory.component.scss']
 })
-export class SearchProductsComponent implements OnInit {
+export class SearchInventoryComponent implements OnInit {
 
-  productResult: any;
+  inventoryResult: any;
   _maxResult = 20;
   currentCriteria: any;
   categoria: any[] = [];
   proveedor : any[] = [];
-
 
   public genericValidator?: GenericValidator;
   public validationMessages: { [key: string]: { [key: string]: string } } = {};
   public displayMessage: { [key: string]: string; } = {};
 
   public formCriteria: FormGroup = this._builder.group({
-    Nombre: [null],
-    SKU: [null],
-    Stock: [null],
-    unidad: [null],
-    costo: [null],
+    sku: [null],
+    nombre: [null],
+    categoria: [null],
+    proveedor: [null],
+    stock: [null],
     precioUnitario: [null]
 
   });
 
-  constructor(private router: Router,
+    constructor(private router: Router,
               private _builder: FormBuilder,
-              private productService: ProductService// ProductService
+              private productService: ProductService
             ) {
     this.buildValidation();
   }
-
+    buildValidation() {
+      this.genericValidator = new GenericValidator(this.validationMessages);
+    }
   ngOnInit(): void {
         this.loadCategorias();
         this.loadProveedores(); 
-    console.log("pantalla listado de productos");
+    console.log("pantalla listado de Inventario");
   }
   loadCategorias() {
     this.productService.getCategoriasLite().subscribe((res: any) => {
@@ -60,32 +61,21 @@ export class SearchProductsComponent implements OnInit {
       }));
     });
   }
-  buildValidation() {
-    this.genericValidator = new GenericValidator(this.validationMessages);
+    clear() {
+    this.resetForm();
   }
-
+    private resetForm() {
+    this.formCriteria.reset();
+    this.showErrors(false);
+    this.currentCriteria = null;
+    this.inventoryResult = null;
+  }
   private showErrors(force: boolean = false) {
     if (this.genericValidator) {
       this.displayMessage = this.genericValidator.processMessages(this.formCriteria, force);
     }
   }
-
-  private resetForm() {
-    this.formCriteria.reset();
-    this.showErrors(false);
-    this.currentCriteria = null;
-    this.productResult = null;
-  }
-
-  openNewProduct() {
-    this.router.navigate(['/productos/new'])
-  }
-
-  openEdit(product: any) {
-    this.router.navigate([`/productos/edit/${product.idProducto}`])
-  }
-
-  search(value: any) {
+   search(value: any) {
     this.genericValidator?.allValidate(this.formCriteria);
     if (!this.formCriteria.invalid) {
       //this.paginator?.changePage(0);
@@ -97,8 +87,20 @@ export class SearchProductsComponent implements OnInit {
       this.showErrors(true);
     }
   }
-
-  download(value: any) {
+    private _search(value: any, startAt: number, maxResult: number) {
+    this.productService
+      .searchProducts(value.nombre,
+      value.categoria?.label ?? null,   
+      value.proveedor?.label ?? null,  
+      startAt,
+      maxResult,
+      true)
+        .pipe(map((b: any) => {
+          this.inventoryResult = b.data;
+        }))
+        .subscribe();
+  }
+    download(value: any) {
     this.currentCriteria = value;
     if (this.currentCriteria) {
       // this.clientService
@@ -112,30 +114,25 @@ export class SearchProductsComponent implements OnInit {
       //   }))
       //   .subscribe();
     }
+    
   }
-
-  paginate(event: any, value: any): void {
+  openNewInventory() {
+    this.router.navigate(['/inventario/new'])
+  }
+  openEdit(inventory: any) {
+    this.router.navigate([`/inventario/edit/${inventory.idInventario}`])
+  }
+    paginate(event: any, value: any): void {
     this.currentCriteria = value;
     if (this.currentCriteria) {
       // this._search(this.currentCriteria, event.page * this._maxResult, this._maxResult);
     }
   }
+  onAdd(inventory: any) {
+  this.router.navigate([`/inventario/edit/${inventory.idInventario}`])
+}
 
-  clear() {
-    this.resetForm();
-  }
-
-  private _search(value: any, startAt: number, maxResult: number) {
-    this.productService
-      .searchProducts(value.nombre,
-      value.categoria?.label ?? null,   
-      value.proveedor?.label ?? null,  
-      startAt,
-      maxResult,
-      true)
-        .pipe(map((b: any) => {
-          this.productResult = b.data;
-        }))
-        .subscribe();
-  }
+onRemove(inventory: any) {
+  // Lógica para quitar
+}
 }

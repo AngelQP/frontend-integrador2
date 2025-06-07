@@ -35,7 +35,8 @@ export class ProductEditComponent implements OnInit {
     costo: [null, [Validators.required]],
     codigoBarra: [null, [Validators.required]],
     usuarioCreacion: [null],
-    proveedor: [null, [Validators.required]]
+    proveedor: [null, [Validators.required]],
+    estado: [true, [Validators.required]],
 
   })
 
@@ -109,7 +110,8 @@ ngOnInit(): void {
         costo: product.costo ?? '',
         codigoBarra: product.codigoBarra ?? '',
         usuarioCreacion: product.usuarioCreacion ?? '',
-        proveedor: product.proveedor ? { label: product.proveedorNombre, value: product.proveedor } : null
+        proveedor: product.proveedor ? { label: product.proveedorNombre, value: product.proveedor } : null,
+        estado: product.estado ?? true,
       });
           this.originalFormValue = JSON.stringify(this.formEditProduct.getRawValue());
 
@@ -171,11 +173,12 @@ if (typeof formValue.categoria === 'number' || typeof formValue.categoria === 's
     subcategoria: formValue.subcategoria,
     impuestoTipo: formValue.impuestoTipo ? formValue.impuestoTipo.value || formValue.impuestoTipo : null,
     precioUnitario: formValue.precioUnitario,
-    stock: formValue.stock,
+    stock: Number(formValue.stock),
     costo: formValue.costo,
-    codigoBarras: formValue.codigoBarras,
+    codigoBarra: formValue.codigoBarra,
     usuarioCreacion: formValue.usuarioCreacion,
-    proveedor: formValue.proveedor ? formValue.proveedor.value || formValue.proveedor : null
+    proveedor: formValue.proveedor ? formValue.proveedor.value || formValue.proveedor : null,
+    estado: formValue.estado,
   }
   return request;
 }

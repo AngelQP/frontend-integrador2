@@ -5,7 +5,7 @@
                 <div class="text-2xl"><span class="font-bold">Registro de Productos</span></div>
             </div>
             <div class="col-12 flex align-content-center flex-wrap justify-content-end px-0 md:col-6 mb-0">
-                <button pButton pRipple type="button" icon="pi pi-plus" label="Nuevo Producto" (click)="openNewProduct()"
+                <button pButton pRipple type="button" icon="pi pi-plus" label="Nuevo Producto" (click)="openNewInventory()"
                     class="flex-1 block md:flex-none w-auto p-button-rounded p-button-secondary font-medium"></button>
             </div>
 
@@ -72,90 +72,103 @@
                     <div class="text-lg font-medium">Lista de Productos</div>
                 </div>
                 <div class="col-4 md:col-6 flex align-content-center flex-wrap justify-content-end">
-                    <button *ngIf="productResult?.producto?.length > 0" pButton pRipple
+                    <button *ngIf="inventoryResult?.producto?.length > 0" pButton pRipple
                         pTooltip="Descargar resultados" tooltipPosition="left" type="button" icon="pi pi-download"
                         class="p-button-rounded p-button-text" (click)="download(formCriteria.value)"></button>
                 </div>
             </div>
 
-            <div *ngIf="productResult?.producto?.length > 0" class="pt-4">
+            <div *ngIf="inventoryResult?.producto?.length > 0" class="pt-4">
                 <div class="hidden md:block bg-bluegray-50 px-1 md:py-2">
                     <div class="md:flex align-items-center">
                         <div class="flex-1">
                             <div class="grid m-0 align-items-center text-sm font-semibold">
                                 <div class="col-12 md:col-2">
-                                    <label>SKU</label>
-                                </div>
-                                <div class="col-12 md:col-2">
                                     <label>Nombre</label>
                                 </div>
                                 <div class="col-12 md:col-2">
+                                    <label>SKU</label>
+                                </div>
+                                    <div class="col-12 md:col-2">
                                     <label>Categoria</label>
                                 </div>
-                                <div class="col-12 md:col-3">
-                                    <label>Proveedor</label>
+                                <div class="col-12 md:col-1">
+                                    <label>Stock</label>
+                                </div>
+                                <div class="col-12 md:col-2">
+                                    <label>U. de Medida</label>
                                 </div>
                                 <div class="col-12 md:col-1">
-                                    <label>Cantidad</label>
+                                    <label>Costo</label>
                                 </div>
                                 <div class="col-12 md:col-1">
                                     <label>Precio</label>
                                 </div>
+
                             </div>
                         </div>
                         <div class="flex px-1 align-items-center w-icon-1-rb">&nbsp;</div>
                     </div>
                 </div>
                 <div class="m-0">
-                    <div *ngFor="let product of productResult?.producto" class="item-grid-rb px-1 py-3 md:py-2">
+                    <div *ngFor="let producto of inventoryResult?.producto" class="item-grid-rb px-1 py-3 md:py-2">
                         <div class="md:flex align-items-center relative">
                             <div class="flex-1 mr-6 md:mr-0">
                                 <div class="grid m-0 align-items-center">
                                     <div class="col-12 md:col-2">
-                                        <label class="md:hidden font-medium mr-2">SKU:</label>
-                                        <label>{{ product.sku }}</label>
+                                        <label class="md:hidden font-medium mr-2">Nombre:</label>
+                                        <label>{{ producto.nombre }}</label>
                                     </div>
                                     <div class="col-12 md:col-2">
-                                        <label class="md:hidden font-medium mr-2">Nombre:</label>
-                                        <label>{{ product.nombre }}</label>
+                                        <label class="md:hidden font-medium mr-2">SKU:</label>
+                                        <label>{{ producto.sku }}</label>
                                     </div>
                                     <div class="col-12 md:col-2">
                                         <label class="md:hidden font-medium mr-2">Categoria:</label>
-                                        <label>{{ product.categoria }}</label>
-                                    </div>
-                                    <div class="col-12 md:col-3">
-                                        <label class="md:hidden font-medium mr-2">Proveedor:</label>
-                                        <label>{{ product.proveedor }}</label>
+                                        <label>{{ producto.categoria }}</label>
                                     </div>
                                     <div class="col-12 md:col-1">
-                                        <label class="md:hidden font-medium mr-2">Cantidad:</label>
-                                        <label>{{ product.stock }}</label>
+                                        <label class="md:hidden font-medium mr-1">Stock actual:</label>
+                                        <label>{{ producto.stock }}</label>
+                                    </div>
+
+                                    <div class="col-12 md:col-2">
+                                        <label class="md:hidden font-medium mr-2">Unidad:</label>
+                                        <label>{{ producto.unidadMedida }}</label>
                                     </div>
                                     <div class="col-12 md:col-1">
-                                        <label class="md:hidden font-medium mr-2">Precio:</label>
-                                        <label>S/ {{ product.precioUnitario }}</label>
+                                        <label class="md:hidden font-medium mr-1">Costo:</label>
+                                        <label>S/ {{ producto.costo }}</label>
+                                    </div>
+                                    <div class="col-12 md:col-1">
+                                        <label class="md:hidden font-medium mr-1">Precio:</label>
+                                        <label>S/ {{ producto.precioUnitario }}</label>
                                     </div>
                                 </div>
                             </div>
                             <div
                                 class="flex px-1 align-items-center flex-column-reverse md:flex-row flex-wrap absolute top-0 right-0 md:relative">
                                 <div class="px-1">
-                                    <button pButton pRipple type="button" icon="pi pi-pencil"
-                                        class="p-button-rounded p-button-text" (click)="openEdit(product)"></button>
+                                    <button pButton pRipple type="button" icon="pi pi-plus"
+                                        class="p-button-rounded p-button-text mr-2"
+                                        (click)="onAdd(producto)"></button>
+                                    <button pButton pRipple type="button" icon="pi pi-minus"
+                                        class="p-button-rounded p-button-text"
+                                        (click)="onRemove(producto)"></button>
                                 </div>
                             </div>
                         </div>
 
                     </div>
                 </div>
-                <p-paginator #paginator [rows]="_maxResult" [totalRecords]="productResult?.total"
+                <p-paginator #paginator [rows]="_maxResult" [totalRecords]="inventoryResult?.total"
                     (onPageChange)="paginate($event, formCriteria.value)"></p-paginator>
             </div>
             <tramarsa-message-result
-                *ngIf="productResult?.producto !== null && productResult?.producto?.length <= 0"
+                *ngIf="inventoryResult?.inventario !== null && inventoryResult?.inventario?.length <= 0"
                 [message]="'No se han encontrado coincidencias con los criterios seleccionados.'">
             </tramarsa-message-result>
-            <tramarsa-message-result *ngIf="productResult?.producto === null"
+            <tramarsa-message-result *ngIf="inventoryResult?.inventario === null"
                 [message]="'Seleccione los criterios para mostrar resultados.'">
             </tramarsa-message-result>
         </div>

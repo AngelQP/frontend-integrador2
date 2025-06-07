@@ -23,10 +23,16 @@ export const APP_MENU_ITEMS = [
     routerLink: '/usuarios',
     roles: ['ADMIN_GENERAL', 'ADMIN_TIENDA']
   },
-    {
+  {
     label: 'Inventario',
     icon: 'pi pi-briefcase',
-    routerLink: '/usuarios',
+    routerLink: '/inventario',
+    roles: ['ADMIN_GENERAL', 'ADMIN_TIENDA']
+  },
+  {
+    label: 'Notificacion',
+    icon: 'pi pi-briefcase',
+    routerLink: '/notificacion ',
     roles: ['ADMIN_GENERAL', 'ADMIN_TIENDA']
   }
 ];
