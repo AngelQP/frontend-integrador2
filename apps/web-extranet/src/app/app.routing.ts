@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 // app
 import { SharedModule } from './features/shared/shared.module';
+import { PageNotFoundComponent } from './features/shared/components';
 
 const routes: Routes = [
   {
@@ -25,7 +26,8 @@ const routes: Routes = [
     path: 'forgot-password',
     loadChildren: () =>
       import('./features/forgot-password/forgot-password.module').then((m) => m.ForgotPasswordModule)
-  }
+  },
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({

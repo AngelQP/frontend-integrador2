@@ -164,7 +164,7 @@ export class AuthenticationService {
         return of(this.logout())
     }
 
-    public login(path: string=''){
+    public login(path = ''){
         let url = `${this.authConfig.issuer}`
 
         if (path) url += `?returnUrl=${encodeURIComponent(path)}`;

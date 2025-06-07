@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@tramarsa/xplat/features';
-import { PageNotFoundComponent, UnauthorizedComponent } from '../shared/components';
+import { UnauthorizedComponent } from '../shared/components';
 
 import { SharedModule } from '../shared/shared.module';
 import { LayoutComponent, LayoutComponentModule } from './components';
