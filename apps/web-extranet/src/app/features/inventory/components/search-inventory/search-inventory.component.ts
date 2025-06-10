@@ -120,7 +120,7 @@ export class SearchInventoryComponent implements OnInit {
     this.router.navigate(['/inventario/new'])
   }
   openEdit(inventory: any) {
-    this.router.navigate([`/inventario/edit/${inventory.idInventario}`])
+    this.router.navigate([`/inventario/edit/${inventory.idProducto}`])
   }
     paginate(event: any, value: any): void {
     this.currentCriteria = value;
@@ -129,10 +129,10 @@ export class SearchInventoryComponent implements OnInit {
     }
   }
   onAdd(inventory: any) {
-  this.router.navigate([`/inventario/edit/${inventory.idInventario}`])
+  this.router.navigate([`/inventario/edit/${inventory.idProducto}`], { queryParams: { modo: 'agregar' } });
+}
+  onRemove(inventory: any) {
+  this.router.navigate([`/inventario/edit/${inventory.idProducto}`],  { queryParams: { modo: 'descontar' } });
 }
 
-onRemove(inventory: any) {
-  // Lógica para quitar
-}
 }

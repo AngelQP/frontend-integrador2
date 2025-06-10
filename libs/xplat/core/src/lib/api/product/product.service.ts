@@ -29,23 +29,27 @@ export class ProductService extends ApiBaseService {
     return this.httpClientService.get(url, new HttpParams(), progress, handlerEnable);
   }
 
-      public createProduct(request: any, progress=false, handlerEnable: boolean|ServerErrorAction=false){
-        return this.httpClientService.post(this.buildUrl("Productos/producto"), request, {}, progress, handlerEnable)
-    }
+    public createProduct(request: any, progress=false, handlerEnable: boolean|ServerErrorAction=false){
+      return this.httpClientService.post(this.buildUrl("Productos/producto"), request, {}, progress, handlerEnable)
+  }
     
   public getProveedoresLite(progress = false, handlerEnable: boolean | ServerErrorAction = false): Observable<any> {
     const url = this.buildUrl(`Productos/proveedoresLite`);
     return this.httpClientService.get(url, new HttpParams(), progress, handlerEnable);
   }
 
-      public ProductGetById(idProducto:any, progress=false, handlerEnable: boolean|ServerErrorAction=false):Observable<any>{
-      const url = this.buildUrl(`Productos/productos/${idProducto}`)
-      return this
-              .httpClientService
-              .get(url, new HttpParams(), progress, handlerEnable)
-    }
-     public updateProduct(idProducto:any, request: any, progress=false, handlerEnable: boolean|ServerErrorAction=false): Observable<any>{
-        return this.httpClientService
-                .put(this.buildUrl(`Productos/productos/${idProducto}`), request, progress, handlerEnable)
-    }   
+    public ProductGetById(idProducto:any, progress=false, handlerEnable: boolean|ServerErrorAction=false):Observable<any>{
+    const url = this.buildUrl(`Productos/productos/${idProducto}`)
+    return this
+            .httpClientService
+            .get(url, new HttpParams(), progress, handlerEnable)
+  }
+    public updateProduct(idProducto:any, request: any, progress=false, handlerEnable: boolean|ServerErrorAction=false): Observable<any>{
+      return this.httpClientService
+              .put(this.buildUrl(`Productos/productos/${idProducto}`), request, progress, handlerEnable)
+  }   
+      public createLote(request: any, progress=false, handlerEnable: boolean|ServerErrorAction=false){
+      return this.httpClientService.post(this.buildUrl("Productos/lote"), request, {}, progress, handlerEnable)
+  }
+    
 }
