@@ -21,7 +21,7 @@ export class ProductNewComponent implements OnInit {
     // this.peDocumentsValidator.documentValid(this.isDocumentType.bind(this))]],
     modelo: [null, [Validators.required]],
     sku: [null, [Validators.required]],
-    unidad: [null, [Validators.required]],
+    unidadMedida: [null, [Validators.required]],
     categoria: [null, [Validators.required]],
     subcategoria: [null],
     impuestoTipo: [null, [Validators.required]],
@@ -81,6 +81,8 @@ export class ProductNewComponent implements OnInit {
 
 save() {
   this.showErrors(false);
+  console.log('Formulario válido:', this.isValid());
+  console.log('Valores:', this.formNewProduct.value);
   if (this.isValid()) {
     this.confirmationService.confirm({
       message: '¿Desea continuar?',
@@ -102,6 +104,7 @@ save() {
     });
   } else {
     this.showErrors(true);
+    console.log('Errores:', this.formNewProduct.errors);
   }
 }
 buildRequest() {
@@ -112,7 +115,7 @@ buildRequest() {
     marca: valueFrm.marca?.trim() ?? '',
     modelo: valueFrm.modelo?.trim() ?? '',
     sku: valueFrm.sku?.trim() ?? '',
-    unidad: valueFrm.unidad?.trim() ?? '',
+    unidadMedida: valueFrm.unidadMedida?.trim() ?? '',
     categoria: valueFrm.categoria?.label ?? null,
     subcategoria: valueFrm.subcategoria?.trim() ?? '',
     impuestoTipo: valueFrm.impuestoTipo?.value ?? null,

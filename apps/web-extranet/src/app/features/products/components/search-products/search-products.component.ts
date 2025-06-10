@@ -23,12 +23,14 @@ export class SearchProductsComponent implements OnInit {
   public displayMessage: { [key: string]: string; } = {};
 
   public formCriteria: FormGroup = this._builder.group({
-    Nombre: [null],
-    SKU: [null],
-    Stock: [null],
-    unidad: [null],
-    costo: [null],
-    precioUnitario: [null]
+  nombre: [null],
+  sku: [null],
+  stock: [null],
+  unidad: [null],
+  costo: [null],
+  precioUnitario: [null],
+  categoria: [null],
+  proveedor: [null]
 
   });
 
