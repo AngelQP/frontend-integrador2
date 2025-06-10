@@ -49,37 +49,29 @@
                       <!-- </div> -->
 
 
-                      <div class="field col-12 md:col-6">
-                          <label class="text-sm font-medium">Nombre</label>
-                          <input formControlName="nomProveedor" #rucInput id="rucInput" placeholder="Ingrese un nombre"
+                      <div class="field col-12 md:col-12">
+                          <label class="text-sm font-medium">Razon social</label>
+                          <input formControlName="RSProveedor" placeholder="Ingrese la Razon Social"
                               type="text" pInputText max>
-                          <small *ngIf="displayMessage['nroProveedor']" class="p-error">
-                              Nombre de proveedor invalido
+                          <small *ngIf="displayMessage['RSProveedor']" class="p-error">
+                              Nombre de Razon social invalido
                           </small>
                       </div>
-                      <div class="field col-12 md:col-12">
+                      <div class="field col-12 md:col-6">
                           <label class="text-sm font-medium">RUC</label>
-                          <input formControlName="rucProveedor" placeholder="Ingrese un numero de RUC" type="text"
+                          <input formControlName="rucProveedor" placeholder="Ingrese un numero de RUC" type="text" maxlength="11"
                               pInputText>
                           <small *ngIf="displayMessage['rucProveedor']" class="p-error">
                               Ingreso ruc invalido
                           </small>
                       </div>
-                      <div class="field col-12 md:col-12">
-                          <label class="text-sm font-medium">Dirección</label>
-                          <input formControlName="dirProveedor" placeholder="Ingrese una dirección" type="text"
+                      <div class="field col-12 md:col-6">
+                          <label class="text-sm font-medium">Telefono</label>
+                          <input formControlName="telfProveedor" placeholder="Ingrese un telefono" type="text" maxlength="9"
                               pInputText>
-                          <small *ngIf="displayMessage['dirProveedor']" class="p-error">
-                              Dirección incorrecta
+                          <small *ngIf="displayMessage['telfProveedor']" class="p-error">
+                              Ingrese teléfono
                           </small>
-                      </div>
-                      <div class="field col-12 md:col-12">
-                        <label class="text-sm font-medium">Telefono</label>
-                        <input formControlName="telfProveedor" placeholder="Ingrese numero telefonico" type="text"
-                            pInputText>
-                        <small *ngIf="displayMessage['dirProveedor']" class="p-error">
-                            Numero incorrecto
-                        </small>
                     </div>
                     <div class="field col-12 md:col-12">
                         <label class="text-sm font-medium">Correo</label>
@@ -87,14 +79,6 @@
                             pInputText>
                         <small *ngIf="displayMessage['corProveedor']" class="p-error">
                             Email incorrecta
-                        </small>
-                    </div>
-                    <div class="field col-12 md:col-12">
-                        <label class="text-sm font-medium">Contacto</label>
-                        <input formControlName="conProveedor" placeholder="Ingrese una dirección" type="text"
-                            pInputText>
-                        <small *ngIf="displayMessage['conProveedor']" class="p-error">
-                            Contacto incorrecto
                         </small>
                     </div>
                       <!-- <div class="field col-12 md:col-6">

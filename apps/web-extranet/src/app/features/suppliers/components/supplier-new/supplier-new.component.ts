@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { EmailValidator, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { GenericValidator } from "@tramarsa/xplat/core";
-import { ConfirmationService } from "primeng/api";
+import { ConfirmationService, MessageService } from "primeng/api";
+import { SearchSuppliersComponent } from "../search-suppliers/search-suppliers.component";
 
 @Component({
   selector: 'tramarsa-supplier-new',
@@ -13,13 +14,10 @@ export class SupplierNewComponent implements OnInit {
 
 
   formNewProveedor: FormGroup = this._builder.group({
-    nomProveedor: [null, [Validators.required]],
-    rucProveedor: [null, [Validators.required]],
-    dirProveedor: [null, [Validators.required]],
-    // this.peDocumentsValidator.documentValid(this.isDocumentType.bind(this))]],
-    telfProveedor: [null, [Validators.required]],
-    corProveedor: [null, [Validators.required]],
-    conProveedor: [null, [Validators.required]],
+    RSProveedor: [null, [Validators.required]],
+    rucProveedor: [null, [Validators.required, Validators.pattern('^(10|15|16|17|20)[0-9]{9}$')]],
+    telfProveedor: [null, [Validators.required, Validators.pattern('^[0-9]{9}$')]],
+    corProveedor: [null, [Validators.required,  Validators.email]],
     })
 
   public genericValidator?: GenericValidator;
@@ -29,12 +27,18 @@ export class SupplierNewComponent implements OnInit {
   constructor(private router: Router,
               private _builder: FormBuilder,
               private activatedRoute: ActivatedRoute,
-              private confirmationService: ConfirmationService,) {
-
+              private confirmationService: ConfirmationService,
+              private messageService: MessageService,
+              private mainComponent: SearchSuppliersComponent,) {
+                this.buildValidation();
   }
 
   ngOnInit(): void {
     console.log("pantalla crear proveedor")
+  }
+
+  buildValidation() {
+    this.genericValidator = new GenericValidator(this.validationMessages);
   }
 
   isValid() {
@@ -62,6 +66,26 @@ export class SupplierNewComponent implements OnInit {
     } else {
       this.showErrors(true);
     }
+  }
+
+  buildRequest(){
+    const valueFrm = this.formNewProveedor.value
+    return{
+      RSProveedor: valueFrm.RSProveedor.trim(),
+      rucProveedor: valueFrm.rucProveedor.trim(),
+      telfProveedor: valueFrm.telfProveedor.trim(),
+      corProveedor: valueFrm.corProveedor.trim(),
+    }
+  }
+
+  showSuccessMessage() {
+    this.messageService.add({ severity: 'success', summary: 'Registrado', detail: 'El usuario se registro exitosamente.' });
+    this.mainComponent.search(this.mainComponent.formCriteria.value);
+    this.returnRoute();
+  }
+
+  errorMessage(message: string) {
+    this.messageService.add({ key: "samePage", severity: 'error', summary: 'Proveedor', detail: message });
   }
 
   returnRoute() {
