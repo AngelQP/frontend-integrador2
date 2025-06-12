@@ -6,7 +6,7 @@ import { ConfirmationService, MessageService } from "primeng/api";
 import { map } from "rxjs/operators";
 import { SearchUsersComponent } from "../search-users/search-users.component";
 import { AuthenticationService } from "@tramarsa/xplat/features";
-import { APP_ROLES_ITEMS } from "../../../shared/constants/menu.config";
+import { APP_ROLES_ITEMS, APP_SOCIEDAD_ITEMS } from "../../../shared/constants/menu.config";
 import { matchPasswords } from "../common/metods_commons";
 
 @Component({
@@ -18,6 +18,7 @@ export class UserNewComponent implements OnInit {
 
   formNewUser: FormGroup = this._builder.group({
     // usuario: [null, [Validators.required]],
+    sociedad: [null, []],
     correo: [null, [Validators.required, Validators.email]],
     nombre: [null, [Validators.required]],
     apellidoPaterno: [null, [Validators.required]],
@@ -37,6 +38,8 @@ export class UserNewComponent implements OnInit {
   allRoles = APP_ROLES_ITEMS;
 
   roles: { label: string; value: string }[] = [];
+  sociedad:any;
+  sociedades:any;
 
   constructor(private router: Router,
               private _builder: FormBuilder,
@@ -50,10 +53,40 @@ export class UserNewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.sociedad = this.authService.sociedad();
+    this.sociedades = [...APP_SOCIEDAD_ITEMS];
+    this.sociedades.unshift({
+      label: 'Todas las sociedades',
+      value: 'ANY'
+    });
+
+    this.formNewUser.get('sociedad')?.valueChanges.subscribe(sociedadValue => {
+      this.onSociedadChange(sociedadValue.value);
+    });
+
+    this.setInitialRoles();
+  }
+
+  setInitialRoles(): void {
     if (this.authService.isAdminGeneral()) {
       this.roles = this.allRoles;
     } else if (this.authService.isAdminTienda()) {
       this.roles = this.allRoles.filter(r => r.value === 'CAJERO');
+      this.formNewUser.get('rol')?.setValue(this.roles[0]);
+    }
+  }
+
+  onSociedadChange(sociedadValue: string): void {
+    if (sociedadValue === 'ANY') {
+      this.roles = this.allRoles.filter(r => r.value === 'ADMIN_GENERAL');
+      this.formNewUser.get('rol')?.setValue(this.roles[0]);
+    } else {
+      if (this.authService.isAdminGeneral()) {
+        this.roles = this.allRoles.filter(r => r.value !== 'ADMIN_GENERAL');
+      } else if (this.authService.isAdminTienda()) {
+        this.roles = this.allRoles.filter(r => r.value === 'CAJERO');
+      }
+      this.formNewUser.get('rol')?.setValue(null);
     }
   }
 
@@ -90,9 +123,10 @@ export class UserNewComponent implements OnInit {
   }
 
   buildRequest() {
-    const valueFrm = this.formNewUser.value
+    const valueFrm = this.formNewUser.value;
+    const sociedad = this.sociedad == "ANY" ? valueFrm.sociedad?.value : this.sociedad;
     return {
-      sociedad: "S1",
+      sociedad: sociedad,
       usuario: valueFrm.usuario,
       correo: valueFrm.correo.trim(),
       nombre: valueFrm.nombre.trim(),

@@ -2,8 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 import { GenericValidator, UserService } from "@tramarsa/xplat/core";
+import { AuthenticationService } from "@tramarsa/xplat/features";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { map } from "rxjs/operators";
+import { APP_SOCIEDAD_ITEMS } from "../../../shared/constants/menu.config";
 
 @Component({
   selector: 'tramarsa-search-users',
@@ -26,11 +28,15 @@ export class SearchUsersComponent implements OnInit {
     { label: 'Inactivo', value: 0 }
   ];
 
+  sociedad: string | undefined;
+  sociedades:any;
+
   public genericValidator?: GenericValidator;
   public validationMessages: { [key: string]: { [key: string]: string } } = {};
   public displayMessage: { [key: string]: string; } = {};
 
   public formCriteria: FormGroup = this._builder.group({
+    sociedad: [null],
     nombreUsuario: [null],
     rol: [null],
     estado: [null]
@@ -40,11 +46,14 @@ export class SearchUsersComponent implements OnInit {
               private _builder: FormBuilder,
               private userService: UserService,
               private confirmationService: ConfirmationService,
-              private messageService: MessageService,) {
+              private messageService: MessageService,
+              private authenticationService: AuthenticationService,) {
     this.buildValidation();
   }
 
   ngOnInit(): void {
+    this.sociedad = this.authenticationService.sociedad();
+    this.sociedades = APP_SOCIEDAD_ITEMS;
     console.log("pantalla listado de usuarios");
   }
 
@@ -114,8 +123,9 @@ export class SearchUsersComponent implements OnInit {
   }
 
   private _search(value: any, startAt: number, maxResult: number) {
+    const sociedad = this.sociedad == "ANY" ? value.sociedad?.value : this.sociedad;
     this.userService
-      .searchUsers(value.nombreUsuario, value.rol?.value, value.estado?.value, startAt, maxResult, true)
+      .searchUsers(sociedad, value.nombreUsuario, value.rol?.value, value.estado?.value, startAt, maxResult, true)
       .pipe(map((r: any) => {
         this.userResult = r.data;
       }))

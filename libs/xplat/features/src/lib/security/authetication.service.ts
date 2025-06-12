@@ -20,6 +20,12 @@ export class AuthenticationService {
     {
 
     }
+    public sociedad():string {
+      const data = this.tokenProvider.getData();
+      if (data)
+        return `${data.sociedad}`
+      return "";
+    }
     public firstName():string{
         const data = this.tokenProvider.getData();
         if (data)

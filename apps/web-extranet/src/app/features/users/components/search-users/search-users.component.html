@@ -24,20 +24,30 @@
                     <ng-template pTemplate="content">
                         <form [formGroup]="formCriteria" (ngSubmit)="search(formCriteria.value)">
                             <div class="p-fluid p-formgrid p-grid formgrid grid mt-2 md:mt-3 mb-1">
-                                <div class="field col-12 md:col-4">
-                                    <label class="text-sm font-medium">Nombre</label>
-                                    <input formControlName="nombreUsuario" placeholder="Escriba un nombre de usuario"
-                                        type="text" pInputText>
-                                </div>
-                                <div class="field col-12 md:col-4">
-                                  <label class="text-sm font-medium">Rol</label>
-                                  <p-dropdown
-                                      formControlName="rol"
-                                      [options]="roles"
-                                      optionLabel="label"
-                                      [showClear]="true"
-                                      placeholder="Todos">
-                                  </p-dropdown>
+                              <div *ngIf="sociedad === 'ANY'" class="field col-12 md:col-4">
+                                <label class="text-sm font-medium">Sociedad</label>
+                                <p-dropdown
+                                    formControlName="sociedad"
+                                    [options]="sociedades"
+                                    optionLabel="label"
+                                    [showClear]="true"
+                                    placeholder="Todos">
+                                </p-dropdown>
+                              </div>
+                              <div class="field col-12 md:col-4">
+                                  <label class="text-sm font-medium">Nombre</label>
+                                  <input formControlName="nombreUsuario" placeholder="Escriba un nombre de usuario"
+                                      type="text" pInputText>
+                              </div>
+                              <div class="field col-12 md:col-4">
+                                <label class="text-sm font-medium">Rol</label>
+                                <p-dropdown
+                                    formControlName="rol"
+                                    [options]="roles"
+                                    optionLabel="label"
+                                    [showClear]="true"
+                                    placeholder="Todos">
+                                </p-dropdown>
                               </div>
 
                               <div class="field col-12 md:col-4">

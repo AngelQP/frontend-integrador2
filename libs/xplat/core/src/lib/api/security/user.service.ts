@@ -45,9 +45,10 @@ export class UserService extends ApiBaseService {
         return this.httpClientService.post(this.buildUrl("Seguridad/usuarios"), request, {}, progress, handlerEnable)
     }
 
-    public searchUsers(nombre:any, rol:any, estado:any, startAt:any, maxResult:any,
+    public searchUsers(sociedad:any, nombre:any, rol:any, estado:any, startAt:any, maxResult:any,
       progress=false, handlerEnable: boolean|ServerErrorAction=false):Observable<any>{
       const query = new QueryStringBuilder()
+      .add("sociedad", sociedad)
       .add("nombre", nombre)
       .add("rol", rol)
       .add("estado", estado, true)

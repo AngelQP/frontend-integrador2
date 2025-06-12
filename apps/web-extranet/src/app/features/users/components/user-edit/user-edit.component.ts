@@ -70,7 +70,7 @@ export class UserEditComponent implements OnInit {
     if (this.authService.isAdminGeneral()) {
       this.roles = this.allRoles;
     } else if (this.authService.isAdminTienda()) {
-      this.roles = this.allRoles.filter(r => r.value === 'CAJERO');
+      this.roles = this.allRoles.filter(r => r.value !== 'ADMIN_GENERAL');
     }
 
     this.formEditUser.get('actualizarContrasenia')?.valueChanges.subscribe((value) => {

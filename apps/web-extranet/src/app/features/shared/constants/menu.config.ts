@@ -76,3 +76,18 @@ export const APP_IMPUESTO_ITEMS = [
   }
 ];
 
+export const APP_SOCIEDAD_ITEMS = [
+  {
+    label: 'Ferreteria Juanito',
+    value: 'S1'
+  },
+  {
+    label: 'Ferretería Ochoa',
+    value: 'S2'
+  },
+  {
+    label: 'La Casa del Tornillo',
+    value: 'S3'
+  },
+];
+

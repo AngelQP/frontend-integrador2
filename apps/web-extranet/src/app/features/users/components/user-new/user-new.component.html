@@ -86,6 +86,18 @@
                               * Ingrese confirmar contraseña
                           </small>
                       </div>
+                      <div *ngIf="sociedad === 'ANY'" class="field col-12 md:col-6">
+                        <label class="text-sm font-medium">Sociedad</label>
+                        <p-dropdown
+                            [options]="sociedades"
+                            optionLabel="label"
+                            formControlName="sociedad"
+                            placeholder="Seleccione una sociedad">
+                        </p-dropdown>
+                        <small *ngIf="displayMessage['rol']" class="p-error">
+                            * Seleccione una sociedad
+                        </small>
+                      </div>
                       <div class="field col-12 md:col-6">
                         <label class="text-sm font-medium">Rol</label>
                         <p-dropdown
