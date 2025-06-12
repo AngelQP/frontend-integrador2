@@ -175,6 +175,7 @@ save() {
   }
 }
 buildRequest() {
+  const seleccionadosIds = JSON.parse(localStorage.getItem('usuariosSeleccionadosNotif') || '[]');
   const formValue = this.formEditInventory.value;
   return {
     idProducto: this.idProducto,
@@ -188,7 +189,8 @@ buildRequest() {
     estadoRegistro: 1,
     usuarioCreacion: formValue.usuarioCreacion,
     fechaCreacion: new Date().toISOString(),
-    idProveedor: formValue.proveedor ? (formValue.proveedor.value || formValue.proveedor) : null
+    idProveedor: formValue.proveedor ? (formValue.proveedor.value || formValue.proveedor) : null,
+    usuariosNotificados: seleccionadosIds
   };
 }
 

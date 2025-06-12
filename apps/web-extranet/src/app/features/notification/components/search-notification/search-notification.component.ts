@@ -15,6 +15,7 @@ export class SearchNotificationComponent implements OnInit {
   _maxResult = 20;
   currentCriteria: any;
   notificacionSeleccionadas: string[] = [];messageService: any;
+  confirmationService: any;
 ;
   usuarios: any[] = [];
   tiposNotificacion = [
@@ -78,7 +79,7 @@ export class SearchNotificationComponent implements OnInit {
     }
   }
 loadUsuarios() {
-  const seleccionadosIds: number[] = JSON.parse(localStorage.getItem('usuariosSeleccionadosNotif') || '[]');
+  const seleccionadosCorreos: number[] = JSON.parse(localStorage.getItem('usuariosSeleccionadosNotif') || '[]');
 
   this.productService.getUsuariosLite().subscribe((res: any) => {
     this.usuarios = (res.data || []).map((u: any) => ({
@@ -86,7 +87,7 @@ loadUsuarios() {
       nombre: u.nombre,
       correo: u.correo,
       rol: u.rol,
-      seleccionado: seleccionadosIds.includes(u.idUsuario)
+      seleccionado: seleccionadosCorreos.includes(u.correo)
     }));
   });
 }
@@ -132,15 +133,16 @@ loadUsuarios() {
     }
   }
 guardarSeleccion() {
-  const seleccionados = this.usuarios
+  const seleccionadosCorreos = this.usuarios
     .filter(u => u.seleccionado)
-    .map(u => u.id); 
-  localStorage.setItem('usuariosSeleccionadosNotif', JSON.stringify(seleccionados));
+    .map(u => u.correo);
+
+  localStorage.setItem('usuariosSeleccionadosNotif', JSON.stringify(seleccionadosCorreos));
+
   this.messageService.add({
     severity: 'success',
     summary: 'Guardado',
-    header: 'Confirmar',
-    detail: `${seleccionados.length} usuarios seleccionados`
+    detail: `${seleccionadosCorreos .length} usuario(s) seleccionado(s)`
   });
 }
 limpiarSeleccion() {
