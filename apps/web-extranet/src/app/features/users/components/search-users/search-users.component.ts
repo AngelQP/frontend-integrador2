@@ -169,15 +169,4 @@ export class SearchUsersComponent implements OnInit {
     this.messageService.add({ severity: 'success', summary: 'Cambio de estado', detail: message });
     this.search(this.formCriteria.value);
   }
-
-  getSociedadLabel(value: string): string {
-    const sociedadesCopy = [...this.sociedades];
-    sociedadesCopy.push({
-      label: 'Todas las sociedades',
-      value: 'ANY'
-    });
-
-    const sociedad = sociedadesCopy.find((s:any) => s.value === value);
-    return sociedad ? sociedad.label : value;
-  }
 }
