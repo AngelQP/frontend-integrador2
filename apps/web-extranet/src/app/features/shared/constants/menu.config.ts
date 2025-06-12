@@ -32,7 +32,7 @@ export const APP_MENU_ITEMS = [
   {
     label: 'Notificacion',
     icon: 'pi pi-briefcase',
-    routerLink: '/notificacion ',
+    routerLink: '/notificacion',
     roles: ['ADMIN_GENERAL', 'ADMIN_TIENDA']
   }
 ];

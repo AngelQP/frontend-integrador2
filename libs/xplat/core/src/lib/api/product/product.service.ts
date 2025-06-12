@@ -51,5 +51,8 @@ export class ProductService extends ApiBaseService {
       public createLote(request: any, progress=false, handlerEnable: boolean|ServerErrorAction=false){
       return this.httpClientService.post(this.buildUrl("Productos/lote"), request, {}, progress, handlerEnable)
   }
-    
+  public getUsuariosLite(progress = false, handlerEnable: boolean | ServerErrorAction = false): Observable<any> {
+    const url = this.buildUrl(`Productos/UsuariosLite`);
+    return this.httpClientService.get(url, new HttpParams(), progress, handlerEnable);
+  }
 }
