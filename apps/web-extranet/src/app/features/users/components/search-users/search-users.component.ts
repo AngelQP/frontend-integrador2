@@ -53,7 +53,8 @@ export class SearchUsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.sociedad = this.authenticationService.sociedad();
-    this.sociedades = APP_SOCIEDAD_ITEMS;
+    this.sociedades = [...APP_SOCIEDAD_ITEMS];
+
     console.log("pantalla listado de usuarios");
   }
 
@@ -167,5 +168,16 @@ export class SearchUsersComponent implements OnInit {
   showSuccessMessage(message:any) {
     this.messageService.add({ severity: 'success', summary: 'Cambio de estado', detail: message });
     this.search(this.formCriteria.value);
+  }
+
+  getSociedadLabel(value: string): string {
+    const sociedadesCopy = [...this.sociedades];
+    sociedadesCopy.push({
+      label: 'Todas las sociedades',
+      value: 'ANY'
+    });
+
+    const sociedad = sociedadesCopy.find((s:any) => s.value === value);
+    return sociedad ? sociedad.label : value;
   }
 }

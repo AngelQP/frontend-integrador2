@@ -71,8 +71,8 @@ export class UserNewComponent implements OnInit {
     if (this.authService.isAdminGeneral()) {
       this.roles = this.allRoles;
     } else if (this.authService.isAdminTienda()) {
-      this.roles = this.allRoles.filter(r => r.value === 'CAJERO');
-      this.formNewUser.get('rol')?.setValue(this.roles[0]);
+      this.roles = this.allRoles.filter(r => r.value !== 'ADMIN_GENERAL');
+      // this.formNewUser.get('rol')?.setValue(this.roles[0]);
     }
   }
 
@@ -84,7 +84,7 @@ export class UserNewComponent implements OnInit {
       if (this.authService.isAdminGeneral()) {
         this.roles = this.allRoles.filter(r => r.value !== 'ADMIN_GENERAL');
       } else if (this.authService.isAdminTienda()) {
-        this.roles = this.allRoles.filter(r => r.value === 'CAJERO');
+        this.roles = this.allRoles.filter(r => r.value !== 'ADMIN_GENERAL');
       }
       this.formNewUser.get('rol')?.setValue(null);
     }
